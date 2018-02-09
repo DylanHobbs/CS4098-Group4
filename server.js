@@ -1,3 +1,8 @@
+// ****************************************************************************
+// *                                 Server.js                                *
+// *      Contains all server logic to get server up and atom, connect DB     *
+// ****************************************************************************
+
 var express    = require('express');
 var app        = express();
 var port       = process.env.PORT || 8080;
