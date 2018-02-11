@@ -36,7 +36,7 @@ angular.module('mainController', ['authServices'])
 		app.linkFail = false;
 		app.loading = true;
 		app.failMsg = false;
-		app.disabled = true;
+		app.disabled = false;
 		//http://localhost:8080/api/authenticate
 		Auth.login(app.loginData)
 		.then(function(data){
@@ -51,10 +51,10 @@ angular.module('mainController', ['authServices'])
 			} else if(data.data.linkFail){
 				app.loading = false;
 				app.linkFail = true;
+				app.disabled = true;
 				app.failMsg = data.data.message;
 			} else {
 				app.loading = false;
-				app.disabled = true;
 				app.failMsg = data.data.message;
 			}
 		});

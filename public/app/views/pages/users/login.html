@@ -4,11 +4,11 @@
   	<br>
     <div class="field">
       <label class="ui black label">Username</label>
-      <input placeholder="Username" type="text" name="username" ng-model="main.loginData.username">
+      <input ng-disabled="main.disabled" placeholder="Username" type="text" name="username" ng-model="main.loginData.username">
     </div>
     <div class="field">
       <label class="ui black label">Password</label>
-      <input placeholder="Password" type="password" name="password" ng-model="main.loginData.password">
+      <input ng-disabled="main.disabled" placeholder="Password" type="password" name="password" ng-model="main.loginData.password">
     </div>
   </div>
 
@@ -31,7 +31,7 @@
     </p>
   </div>
 
-  <button class="ui huge primary button" type="submit">Login</button>
+  <button ng-disabled="main.disabled" class="ui huge primary button" type="submit">Login</button>
 </form>
 
 
