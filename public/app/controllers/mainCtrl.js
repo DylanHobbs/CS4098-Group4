@@ -18,6 +18,8 @@ angular.module('mainController', ['authServices'])
 				// Allow it to be accessed from front end
 				app.username = data.data.username;
 				app.useremail = data.data.email;
+				app.fullname = data.data.name;
+				console.log(data.data);
 				// Load shtuff now
 				app.loadme = true;
 			});
@@ -31,8 +33,10 @@ angular.module('mainController', ['authServices'])
 	});
 
 	this.doLogin = function(loginData){
+		app.linkFail = false;
 		app.loading = true;
 		app.failMsg = false;
+		app.disabled = true;
 		//http://localhost:8080/api/authenticate
 		Auth.login(app.loginData)
 		.then(function(data){
@@ -44,8 +48,13 @@ angular.module('mainController', ['authServices'])
 					app.loginData = '';
 					$location.path('/about');
 				}, 2000);
+			} else if(data.data.linkFail){
+				app.loading = false;
+				app.linkFail = true;
+				app.failMsg = data.data.message;
 			} else {
 				app.loading = false;
+				app.disabled = true;
 				app.failMsg = data.data.message;
 			}
 		});

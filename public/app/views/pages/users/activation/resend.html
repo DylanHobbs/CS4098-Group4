@@ -1,0 +1,32 @@
+<h1>Resend Activation Link</h1>
+<p>Please enter the username and password you used to sign up</p>
+<div class="ui inverted segment">
+<form class="ui form success error" ng-submit="resend.checkCredentials(loginData);">
+  <div class="two fields">
+    <br>
+    <div class="field">
+      <label class="ui black label">Username</label>
+      <input placeholder="Username" type="text" name="username" ng-model="resend.loginData.username">
+    </div>
+    <div class="field">
+      <label class="ui black label">Password</label>
+      <input placeholder="Password" type="password" name="password" ng-model="resend.loginData.password">
+    </div>
+  </div>
+
+  <div class="ui active dimmer" ng-show="resend.loading">
+    <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+  </div>
+
+  <div class="ui success message" ng-show="resend.successMsg">
+    <div class="header">All Set</div>
+    <p>{{ resend.successMsg }}</p>
+  </div>
+
+  <div class="ui error message" ng-show="resend.failMsg">
+    <div class="header">Uh Oh</div>
+    <p>{{ resend.failMsg }}</p>
+  </div>
+
+  <button class="ui huge primary button" type="submit">Resend</button>
+</form>

@@ -1,2 +1,13 @@
-<h1>Activation</h1>	
-<p>test</p>
+<h1>Activation</h1>
+<div class="ui success message" ng-show="email.successMsg">
+	<div class="header">All Set</div>
+	<p>{{ email.successMsg }}</p>
+	<p>You can now login with your Username and Password</p>
+</div>
+
+<div class="ui error message" ng-show="email.failMsg">
+	<div class="header">Uh Oh</div>
+	<p>{{ email.failMsg }}</p>
+</div>
+
+

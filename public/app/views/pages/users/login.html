@@ -24,6 +24,11 @@
   <div class="ui error message" ng-show="main.failMsg">
     <div class="header">Uh Oh</div>
     <p>{{ main.failMsg }}</p>
+    <p ng-show="main.linkFail">
+      <a href="/resend">
+        <button class="ui medium primary button"><i class="mail outline icon"></i>Resend Activation Email</button>
+      </a>
+    </p>
   </div>
 
   <button class="ui huge primary button" type="submit">Login</button>
