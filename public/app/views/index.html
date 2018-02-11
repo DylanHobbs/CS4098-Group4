@@ -195,7 +195,6 @@
 <!--   <script src="assets/library/jquery.min.js"></script> -->
   <script src="assets/js/jquery-3.3.1.min.js"></script>
   <script src="semantic/dist/components/visibility.js"></script>
-  <script src="assets/js/validate-from.js"></script>
   <script src="semantic/dist/components/form.js"></script>
   <script src="semantic/dist/components/dropdown.js"></script>
   <script src="semantic/dist/components/dimmer.js"></script>
@@ -226,6 +225,50 @@
     })
   ;
   </script>
+
+  <script>
+  (function ($) {
+    $('.ui.form').form({        
+      name: {
+        identifier: 'name',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your given name'
+        }]
+      },           
+      username: {
+        identifier: 'username',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter a username'
+        }]
+      },       
+      email: {
+        identifier: 'email',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter your email'
+        },{
+          type: 'email',
+          prompt: 'Please enter a valid email'
+        }]
+      },       
+      password: {
+        identifier: 'password',
+        rules: [{
+          type: 'empty',
+          prompt: 'Please enter a password'
+        },{
+          type: 'length[8]',
+          prompt: 'Password needs to be atleast 6 characters long'
+        }]
+      }
+    }, {
+      on: 'blur',
+      inline: 'true'
+    });
+  }(jQuery));
+</script> 
 
 </body>
 </html>
