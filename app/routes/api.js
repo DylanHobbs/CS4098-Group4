@@ -3,9 +3,23 @@
 // ****************************************************************************
 var User    = require('../models/user')
 var jwt     = require('jsonwebtoken');
-var secret  = 'sabaton';
+var secret  = process.env.SECRET || 'sabaton';
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(router){
+
+	// SEND MAIL OPTIONS
+	var options = {
+	  auth: {
+	    api_user: 'MrUnderscore',
+	    api_key: 'password1'
+	  }
+	}
+
+	var client = nodemailer.createTransport(sgTransport(options));
+
+
 	// http://localhost:8080/api/users
 	// USER REGISTRATION ROUTE
 	router.post('/users', function(req, res){
@@ -14,12 +28,15 @@ module.exports = function(router){
 		user.password = req.body.password;
 		user.email    = req.body.email;
 		user.name     = req.body.name;
+		// Used for email validation
+		user.tmpToken = jwt.sign({username: user.username, email: user.email }, secret, {expiresIn: '24h'});
 
 		if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' || req.body.name == null || req.body.name == ''){
 			res.json({success: false, message: 'Ensure username, email, name and password are provided'});
 		} else {
 			user.save(function(err){
 				if(err){
+					console.log(err);
 					// Handles all validation errors
 					if(err.errors != null){ 
 						if(err.errors.name){
@@ -50,7 +67,26 @@ module.exports = function(router){
 					} 
 				} else {
 					// Success
-					res.json({success: true, message: 'User created. Nice!'});
+					// Send email
+					var email = {
+						from: 'Staff, staff@localhost.com',
+						to: user.email,
+						subject: 'Activation Link',
+						text: 'Hello ' + user.name + '! Thank you for registering. Please click on the link to below to complete activation of your account. http://localhost:8080/activate/' + user.tmpToken,
+						html: 'Hello <strong>' + user.name + '</strong>!<br><br>Thank you for registering. Please click on the link to below to complete activation of your account.<br><br> <a href="http://localhost:8080/activate/' + user.tmpToken + '">http://localhost:8080/activate/</a>'
+					};
+
+					client.sendMail(email, function(err, info){
+						if (err){
+						  console.log(err);
+						}
+						else {
+						  console.log('Message sent: ' + info.response);
+						}
+					});
+
+					// Send response
+					res.json({success: true, message: 'Account Registered! Please check email for activation link'});
 				}
 			});
 		}
@@ -93,23 +129,67 @@ module.exports = function(router){
 
 	});
 
+	router.put('/activate/:token', function(req, res){
+		// Search DB for user
+		User.findOne({ tmpToken: req.params.token }, function(err, user){
+			if(err) throw err
+			var token = req.params.token;
+			jwt.verify(token, secret, function(err, decoded){
+				if(err) {
+					res.json({success: false, message: 'Token invalid'});
+				} else {
+					// All good
+					user.tmpToken = false;
+					user.active = true;
+					user.save(function(err){
+						if(err){
+							// Failed to commit user
+							console.log(err);
+						} else {
+							// All good
+							// Send them an emailing saying they've registered
+							var email = {
+								from: 'Staff, staff@localhost.com',
+								to: user.email,
+								subject: 'Account Activated',
+								text: 'Hello ' + user.name + '! Thank you for activating your account. You can now log in!',
+								html: 'Hello <strong>' + user.name + '</strong>!<br><br>Thank you for activating your account. You can now log in!'
+							};
+
+							client.sendMail(email, function(err, info){
+								if (err){
+								  console.log(err);
+								}
+								else {
+								  console.log('Message sent: ' + info.response);
+								}
+							});
+							res.json({success: true, message: 'Account activated!'});
+						}
+					});
+				}
+
+			});
+		});
+	});
 
 	// GET CURRENT USER
 	// https://localhost:8080/api/me
 
-	// Middleware for getting and 
+	// Middleware for getting an user
 	router.use(function(req, res, next) {
 		var token = req.body.token || req.body.query || req.headers['x-access-token'];
 		if(token){
 			jwt.verify(token, secret, function(err, decoded){
 				if(err) {
+					// Token has expired or been invalidated
 					res.json({success: false, message: 'Token invalid'});
 				} else {
 					req.decoded = decoded;
 					next();
 				}
 
-			})
+			});
 		} else {
 			res.json({success: false, message: 'No token provided'});
 		}

@@ -65,10 +65,12 @@ var passwordValidator = [
 // *                             Start User Schema                            *
 // ****************************************************************************
 var UserSchema = new Schema({
-	name:     {type: String, required: true, validate: nameValidator},
-	username: {type: String, lowercase: true, required: true, unique: true, validate: usernameValidator},
-	password: {type: String, required: true, validate: passwordValidator},
-	email:    {type: String, lowercase: true, required: true, unique: true, validate: emailValidator}
+	name:      {type: String, required: true, validate: nameValidator},
+	username:  {type: String, lowercase: true, required: true, unique: true, validate: usernameValidator},
+	password:  {type: String, required: true, validate: passwordValidator},
+	email:     {type: String, lowercase: true, required: true, unique: true, validate: emailValidator},
+	acive:     {type: Boolean, required: true, default: false},
+	tmpToken: {type: String, required: true}
 });
 
 // Middleware for hashing passwords
