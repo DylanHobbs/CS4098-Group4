@@ -1,0 +1,33 @@
+<div class="ui inverted segment">
+<form class="ui form success error" ng-submit="main.doLogin(loginData);">
+  <div class="two fields">
+  	<br>
+    <div class="field">
+      <label class="ui black label">Username</label>
+      <input placeholder="Username" type="text" name="username" ng-model="main.loginData.username">
+    </div>
+    <div class="field">
+      <label class="ui black label">Password</label>
+      <input placeholder="Password" type="password" name="password" ng-model="main.loginData.password">
+    </div>
+  </div>
+
+  <div class="ui active dimmer" ng-show="main.loading">
+    <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+  </div>
+
+  <div class="ui success message" ng-show="main.successMsg">
+    <div class="header">All Set</div>
+    <p>{{ main.successMsg }}</p>
+  </div>
+
+  <div class="ui error message" ng-show="main.failMsg">
+    <div class="header">Uh Oh</div>
+    <p>{{ main.failMsg }}</p>
+  </div>
+
+  <button class="ui huge primary button" type="submit">Login</button>
+</form>
+
+
+

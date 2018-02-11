@@ -18,7 +18,7 @@ npm-debug.log
 
 # Minified/concatenated/optimised assets
 bundle.result.json
-public
+#public
 
 # Config file (may contain API credentials)
 config.js
