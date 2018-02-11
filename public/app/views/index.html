@@ -11,25 +11,39 @@
   <!-- Site Properties -->
   <title>OM Party Planner</title>
 
+  <!--   Early Load JS -->
+  <!--   Angular -->
   <script src="assets/js/angular.js"></script>
   <script src="assets/js/angular-route.js"></script>
+  <script src="assets/js/angular-animate.js"></script>
+
+  <!-- Angular Config and Routes -->
   <script src="app/app.js"></script>
   <script src="app/routes.js"></script>
-  <script src="app/controllers/userCtrl.js"></script>
 
+  <!-- Angular Controllers -->
+  <script src="app/controllers/userCtrl.js"></script>
+  <script src="app/controllers/mainCtrl.js"></script>
+
+  <!-- Angular Services -->
+  <script src="app/services/userServices.js"></script>
+  <script src="app/services/authServices.js"></script>
+
+  <!--   CSS for days - Move me or organise it into master -->
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/reset.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/site.css">
-
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/container.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/grid.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/form.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/segment.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/label.css">
-  <link rel="stylesheet" type="text/css" href="semantic/dist/components/field.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/message.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/dimmer.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/loader.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/table.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/header.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/image.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/menu.css">
-
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/divider.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/dropdown.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/segment.css">
@@ -39,97 +53,13 @@
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/sidebar.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/transition.css">
 
-  <style type="text/css">
-
-    .hidden.menu {
-      display: none;
-    }
-
-    .masthead.segment {
-      min-height: 700px;
-      padding: 1em 0em;
-    }
-    .masthead .logo.item img {
-      margin-right: 1em;
-    }
-    .masthead .ui.menu .ui.button {
-      margin-left: 0.5em;
-    }
-    .masthead h1.ui.header {
-      margin-top: 3em;
-      margin-bottom: 0em;
-      font-size: 4em;
-      font-weight: normal;
-    }
-    .masthead h2 {
-      font-size: 1.7em;
-      font-weight: normal;
-    }
-
-    .ui.vertical.stripe {
-      padding: 8em 0em;
-    }
-    .ui.vertical.stripe h3 {
-      font-size: 2em;
-    }
-    .ui.vertical.stripe .button + h3,
-    .ui.vertical.stripe p + h3 {
-      margin-top: 3em;
-    }
-    .ui.vertical.stripe .floated.image {
-      clear: both;
-    }
-    .ui.vertical.stripe p {
-      font-size: 1.33em;
-    }
-    .ui.vertical.stripe .horizontal.divider {
-      margin: 3em 0em;
-    }
-
-    .quote.stripe.segment {
-      padding: 0em;
-    }
-    .quote.stripe.segment .grid .column {
-      padding-top: 5em;
-      padding-bottom: 5em;
-    }
-
-    .footer.segment {
-      padding: 5em 0em;
-    }
-
-    .secondary.pointing.menu .toc.item {
-      display: none;
-    }
-
-    @media only screen and (max-width: 700px) {
-      .ui.fixed.menu {
-        display: none !important;
-      }
-      .secondary.pointing.menu .item,
-      .secondary.pointing.menu .menu {
-        display: none;
-      }
-      .secondary.pointing.menu .toc.item {
-        display: block;
-      }
-      .masthead.segment {
-        min-height: 350px;
-      }
-      .masthead h1.ui.header {
-        font-size: 2em;
-        margin-top: 1.5em;
-      }
-      .masthead h2 {
-        margin-top: 0.5em;
-        font-size: 1.5em;
-      }
-    }
+  <!--   Misc CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 
-  </style>
 </head>
-<body ng-app="userApp">
+<body ng-app="userApp" ng-controller="mainCtrl as main" ng-show="main.loadme" ng-cloak>
 <!-- Following Menu -->
 <div class="ui large top fixed hidden menu">
   <div class="ui container">
@@ -137,10 +67,13 @@
     <a href="/about" class="item">About</a>
     <div class="right menu">
       <div class="item">
-        <a class="ui button">Log in</a>
+        <a href="/login" class="ui button">Log in</a>
       </div>
       <div class="item">
         <a href="/register" class="ui primary button">Register</a>
+      </div>
+      <div class="item">
+        <a href="/logout" class="ui primary button"">Logout</a>
       </div>
     </div>
   </div>
@@ -165,15 +98,17 @@
         <a href="/" class="active item">Home</a>
         <a href="/about" class="item">About</a>
         <div class="right item">
-        <a class="ui inverted button">Log in</a>
-        <a href="/register" class="ui inverted button">Register</a>
+        <a ng-show="!main.isLoggedIn" href="/login" class="ui inverted button">Log in</a>
+        <a ng-show="!main.isLoggedIn" href="/register" class="ui inverted button">Register</a>
+        <a ng-show="main.isLoggedIn" href="#" class="ui inverted button" ng-click="main.logout();">Logout</a>
+        <a ng-show="main.isLoggedIn" href="/profile" class="ui primary inverted button large">Hello, {{ main.username }}</a>
         </div>
       </div>
     </div>
 
     <div class="ui text container">
       <h1 class="ui inverted header">
-        Outreach Moldova
+        Outreach Moldova Events
       </h1>
       <div ng-view></div>
       <br>
@@ -258,8 +193,12 @@
 </div>
 
 <!--   <script src="assets/library/jquery.min.js"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="assets/js/jquery-3.3.1.min.js"></script>
   <script src="semantic/dist/components/visibility.js"></script>
+  <script src="assets/js/validate-from.js"></script>
+  <script src="semantic/dist/components/form.js"></script>
+  <script src="semantic/dist/components/dropdown.js"></script>
+  <script src="semantic/dist/components/dimmer.js"></script>
   <script src="semantic/dist/components/sidebar.js"></script>
   <script src="semantic/dist/components/transition.js"></script>
   <script>
