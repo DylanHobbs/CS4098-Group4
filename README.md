@@ -21,9 +21,9 @@ sudo apt-get install -y git
 MongoDB
 ```bash
 # Add signing keys
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 # Create a list for Mongo repos to live in
-echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 # Update repo listings
 sudo apt-get update
 # Install mongo 
@@ -37,7 +37,20 @@ mongod start/running, process <PID>
 
 **Installing the App**
 ```
+# Ensure outgoing connections are enabled or switch to hotspot
 
+# Download zip file
+curl https://github.com/DylanHobbs/CS4098-Group4/archive/dev.zip
+unzip CS4098-Group4.zip
+cd CS4098-Group4
+# Set enviroment vars
+
+# Run install script
+npm install
+# Start the server
+cd
+nodemon server
+# Navigate to homepage
 ```
 
 
