@@ -39,11 +39,14 @@ sudo systemctl status mongodb
 # Ensure outgoing connections are enabled or switch to hotspot
 
 # Download zip file
-curl https://github.com/DylanHobbs/CS4098-Group4/archive/dev.zip
-unzip CS4098-Group4.zip
-cd CS4098-Group4
+curl -O https://codeload.github.com/DylanHobbs/CS4098-Group4/zip/dev
+unzip dev
+cd CS4098-Group4-dev
 # Set enviroment vars
-
+# Replace underscore below with password provided
+export API_KEY="_"
+# Check that password was set correctly
+echo $API_KEY
 # Run install script
 npm install
 # Start the server
