@@ -28,11 +28,10 @@ echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" 
 sudo apt-get update
 # Install mongo 
 sudo apt-get install -y mongodb-org
-# Mongo will have started automatically. Verify this with:
-service mongod status
-# Output:
-mongod start/running, process <PID>
-
+# Start Mongo
+sudo systemctl start mongod
+# Verify it is running with:
+sudo systemctl status mongodb
 ```
 
 **Installing the App**
