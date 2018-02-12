@@ -3,6 +3,7 @@ angular.module('userControllers', ['userServices'])
 .controller('regCtrl', function($http, $location, $timeout, User){
 	var app = this;
 	this.regUser = function(regData){
+		app.disabled = true;
 		app.loading = true;
 		app.failMsg = false;
 		//http://localhost:8080/api/users
@@ -17,6 +18,7 @@ angular.module('userControllers', ['userServices'])
 				}, 2000);
 			} else {
 				app.loading = false;
+				app.disabled = false;
 				app.failMsg = data.data.message;
 			}
 		});

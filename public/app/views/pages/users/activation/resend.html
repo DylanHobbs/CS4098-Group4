@@ -6,11 +6,11 @@
     <br>
     <div class="field">
       <label class="ui black label">Username</label>
-      <input placeholder="Username" type="text" name="username" ng-model="resend.loginData.username">
+      <input ng-disabled="resend.disabled" placeholder="Username" type="text" name="username" ng-model="resend.loginData.username">
     </div>
     <div class="field">
       <label class="ui black label">Password</label>
-      <input placeholder="Password" type="password" name="password" ng-model="resend.loginData.password">
+      <input ng-disabled="resend.disabled" placeholder="Password" type="password" name="password" ng-model="resend.loginData.password">
     </div>
   </div>
 
@@ -28,5 +28,5 @@
     <p>{{ resend.failMsg }}</p>
   </div>
 
-  <button class="ui huge primary button" type="submit">Resend</button>
+  <button ng-disabled="resend.disabled" class="ui huge primary button" type="submit">Resend</button>
 </form>

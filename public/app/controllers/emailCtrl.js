@@ -27,6 +27,8 @@ angular.module('emailController', ['userServices'])
 	app.successMsg = false;
 
 	app.checkCredentials = function(loginData){
+		app.disabled = true;
+		app.successMsg = false;
 		app.failMsg = false;
 		User.checkCredentials(app.loginData).then(function(data){
 			if(data.data.success){
@@ -37,6 +39,7 @@ angular.module('emailController', ['userServices'])
 					}
 				})
 			} else {
+				app.disabled = false;
 				app.failMsg = data.data.message;
 			}
 		});

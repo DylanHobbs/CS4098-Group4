@@ -5,22 +5,22 @@
     <br>
     <div class="field">
       <label class="ui black label">Full Name</label>
-      <input placeholder="Full Name" type="text" name="name" ng-model="register.regData.name" id="name" required>
+      <input ng-disabled="register.disabled" placeholder="Full Name" type="text" name="name" ng-model="register.regData.name" id="name" required>
     </div>
 
     <div class="field">
       <label class="ui black label">Username</label>
-      <input placeholder="Username" type="text" name="username" ng-model="register.regData.username" id="username">
+      <input ng-disabled="register.disabled" placeholder="Username" type="text" name="username" ng-model="register.regData.username" id="username">
     </div>
 
     <div class="field">
       <label class="ui black label">Email</label>
-      <input placeholder="Email" type="text" name="email" ng-model="register.regData.email" id="email">
+      <input ng-disabled="register.disabled" placeholder="Email" type="text" name="email" ng-model="register.regData.email" id="email">
     </div>
 
     <div class="field">
       <label class="ui black label">Password</label>
-      <input placeholder="Password" type="password" name="password" ng-model="register.regData.password" id="password">
+      <input ng-disabled="register.disabled" placeholder="Password" type="password" name="password" ng-model="register.regData.password" id="password">
     </div>
   </div>
 
@@ -38,7 +38,7 @@
     <p>{{ register.failMsg }}</p>
   </div>
 
-  <button class="ui huge primary button" type="submit">Register</button>
+  <button ng-disabled="register.disabled" class="ui huge primary button" type="submit">Register</button>
 </form>
 
 <script>
