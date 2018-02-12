@@ -44,8 +44,8 @@ curl -O https://codeload.github.com/DylanHobbs/CS4098-Group4/zip/dev
 unzip dev
 cd CS4098-Group4-dev
 # Set enviroment vars
-# Replace underscore below with password provided
-export API_KEY="_"
+# Replace hash below with password provided
+export API_KEY="#"
 # Check that password was set correctly
 echo $API_KEY
 # Run install script
