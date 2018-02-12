@@ -25,5 +25,10 @@ angular.module('userServices', [])
 		return $http.put('/api/resend', username);
 	}
 
+	// User.sendUsername(userData)
+	userFactory.sendUsername = function(userData){
+		return $http.get('/api/resetUsername/', userData);
+	}
+
 	return userFactory;
 });

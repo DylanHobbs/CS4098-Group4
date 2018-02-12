@@ -1,0 +1,31 @@
+<div class="ui inverted segment">
+<h1>Forgot Username</h1>
+<form class="ui form success error" ng-submit="username.sendUsername(userData);">
+  <div class="one field">
+  	<br>
+    <div class="field">
+      <label class="ui black label">E-Mail</label>
+      <input ng-disabled="username.disabled" placeholder="E-Mail" type="text" name="email" ng-model="username.userData.email">
+    </div>
+  </div>
+
+  <div class="ui active dimmer" ng-show="ussername.loading">
+    <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+  </div>
+
+  <div class="ui success message" ng-show="username.successMsg">
+    <div class="header">All Set</div>
+    <p>{{ username.successMsg }}</p>
+  </div>
+
+  <div class="ui error message" ng-show="username.failMsg">
+    <div class="header">Uh Oh</div>
+    <p>{{ username.failMsg }}</p>
+  </div>
+  <br>
+  <button ng-disabled="username.disabled" class="ui huge primary button" type="submit">Submit</button>
+</form>
+</div>
+
+
+

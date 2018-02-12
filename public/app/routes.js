@@ -56,6 +56,19 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controllerAs: 'resend'
 	})
 
+	.when('/resetUsername', {
+		templateUrl: 'app/views/pages/users/reset/username.html',
+		controller: 'usernameCtrl',
+		controllerAs: 'username',
+		authenticated: 'false'
+	})
+
+	// .when('/resetPassword', {
+	// 	templateUrl: 'app/views/pages/users/reset/password.html',
+	// 	controller: 'passwordCtrl',
+	// 	controllerAs: 'password',
+	// })
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls
@@ -67,22 +80,26 @@ var app = angular.module('appRoutes', ['ngRoute'])
 });
 
 // Meat and potatos of route restriction
-app.run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location){
-	$rootScope.$on('$routeChangeStart', function(event, next, current){
-		// Grabs next route and checks if it requires auth
-		if(next.$$route.authenticated == true){
-			if(!Auth.isLoggedIn()){
-				// They're not logged in, don't let em come here
-				event.preventDefault();
-				// Bring them back whence they came! (or home works)
-				$location.path('/')
-			}
-		} else if(next.$$route.authenticated == false){
-			if(Auth.isLoggedIn()){
-				// They ARE logged in. BEGONE! Man these double negs confuse me
-				event.preventDefault();
-				$location.path('/profile')
-			}
-		} 
-	});
+// Run a check on each route to see if user is logged in or not (depending on if it is specified in the individual route)
+app.run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location) {
+
+    // Check each time route changes    
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+
+        // Check if authentication is required on route
+        if (next.$$route.authenticated == true) {
+            // If authentication is required, make sure user is logged in
+            if (!Auth.isLoggedIn()) {
+                event.preventDefault(); // If not logged in, prevent accessing route
+                $location.path('/'); // Redirect to home instead
+            }
+
+        } else if (next.$$route.authenticated == false) {
+            // If authentication is not required, make sure is not logged in
+            if (Auth.isLoggedIn()) {
+                event.preventDefault(); // If user is logged in, prevent accessing route
+                $location.path('/profile'); // Redirect to profile instead
+            }
+        }
+    });
 }]);

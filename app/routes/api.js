@@ -247,6 +247,35 @@ module.exports = function(router){
 	});
 
 
+	// Route to send user's username to e-mail
+	router.get('/resetusername/:email', function(req, res) {
+		User.findOne({ email: req.params.email }).select('email name username').exec(function(err, user) {
+			if (err) {
+				res.json({ success: false, message: err }); // Error if cannot connect
+			} else {
+				if (!user) {
+					res.json({ success: false, message: 'E-mail was not found' }); // Return error if e-mail cannot be found in database
+				} else {
+					// If e-mail found in database, create e-mail object
+					var email = {
+						from: 'Staff, staff@localhost.com',
+						to: user.email,
+						subject: 'Username Request',
+						text: 'Hello ' + user.name + '! Yes, you, ' + user.username + '! I heard that <strong>' + user.username + '</strong> could use a reminding on what ' + user.username + '\'s username is. Well ' + user.username + ', let me spell it out for you:' + user.username + '.',
+						html: 'Hello <strong>' + user.name + '</strong>!<br><br> Yes, you, <strong>' + user.username + '</strong>! I heard that <strong>' + user.username + '</strong> could use a reminding on what <strong>' + user.username + '\'s</strong> username is. Well <strong>' + user.username + '</strong>, let me spell it out for you:<br> <strong>' + user.username + '</strong>.' 
+					};
+
+					// Function to send e-mail to user
+					client.sendMail(email, function(err, info) {
+						if (err) console.log(err); // If error in sending e-mail, log to console/terminal
+					});
+					res.json({ success: true, message: 'Username has been sent to e-mail! ' }); // Return success message once e-mail has been sent
+				}
+			}
+		});
+	});
+			
+
 	// GET CURRENT USER
 	// https://localhost:8080/api/me
 	// Middleware for Routes that checks for token - Place all routes after this route that require the user to already be logged in
