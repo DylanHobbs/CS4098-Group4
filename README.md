@@ -35,7 +35,7 @@ sudo service mongod status
 ```
 
 **Installing the App**
-```
+```bash
 # Ensure outgoing connections are enabled or switch to hotspot
 
 # Download zip file
@@ -54,37 +54,5 @@ sudo npm install -g nodemon
 # Start the server
 nodemon server.js
 # Navigate to homepage
+http://localhost:8080
 ```
-
-
-
-```bash
-git clone https://github.com/DylanHobbs/Rejects.git
-cd Rejects
-git checkout dev
-npm install
-```
-
-Navigate the semantic UI interpreter as follows:
-```bash
-It Looks like you have a semantic.json file already -> select Skip Install 
-We dected you are using NPM. Is this your project folder? /home/$USER/Rejects -> select Yes
-Where should we put Semantic UI inside your project (semantic/) -> press enter
-```
-
-Rename "config.js.example" to "config.js"
-```bash
-cp config.js.example config.js
-nano config.js
-```
-Add in the database uri to config.js given to you by one of the members
-
-```bash
-node app.js 
-// allow incomming connections if necessary
-```
-
-Divert your browser to http://localhost:5000/
-
-
-** Testing ** 
