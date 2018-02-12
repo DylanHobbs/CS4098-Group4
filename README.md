@@ -29,9 +29,9 @@ sudo apt-get update
 # Install mongo 
 sudo apt-get install -y mongodb-org
 # Start Mongo
-sudo systemctl start mongod
+sudo service mongod start
 # Verify it is running with:
-sudo systemctl status mongodb
+sudo service mongod status
 ```
 
 **Installing the App**
