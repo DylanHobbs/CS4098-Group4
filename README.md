@@ -49,9 +49,10 @@ export API_KEY="_"
 echo $API_KEY
 # Run install script
 npm install
+# Install nodemon to run server
+sudo npm install -g nodemon
 # Start the server
-cd
-nodemon server
+nodemon server.js
 # Navigate to homepage
 ```
 
