@@ -32,6 +32,7 @@ sudo apt-get install -y mongodb-org
 sudo service mongod start
 # Verify it is running with:
 sudo service mongod status
+# Press "q" to exit this prompt
 ```
 
 **Installing the App**
