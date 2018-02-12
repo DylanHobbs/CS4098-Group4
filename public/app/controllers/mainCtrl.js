@@ -19,7 +19,6 @@ angular.module('mainController', ['authServices'])
 				app.username = data.data.username;
 				app.useremail = data.data.email;
 				app.fullname = data.data.name;
-				console.log(data.data);
 				// Load shtuff now
 				app.loadme = true;
 			});

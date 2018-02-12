@@ -98,7 +98,7 @@ module.exports = function(router){
 	router.post('/authenticate', function(req, res){
 		// Grab user from DB
 		User.findOne({ username: req.body.username })
-		.select('email username password active')
+		.select('email username name password active')
 		.exec(function(err, user){
 			//DB error check
 			if(err) throw err;
@@ -119,6 +119,7 @@ module.exports = function(router){
 					// check if they've validated email
 					res.json({success: false, linkFail: true, message: 'Account is not yet activated. Check your email' });
 				} else {
+					console.log(user.name);
 					// Password is valid, create the web token and send everything back
 					var token = jwt.sign({
 						username: user.username, 
@@ -248,31 +249,30 @@ module.exports = function(router){
 
 	// GET CURRENT USER
 	// https://localhost:8080/api/me
-
-	// Middleware for getting an user
+	// Middleware for Routes that checks for token - Place all routes after this route that require the user to already be logged in
 	router.use(function(req, res, next) {
-		var token = req.body.token || req.body.query || req.headers['x-access-token'];
-		if(token){
-			jwt.verify(token, secret, function(err, decoded){
-				if(err) {
-					// Token has expired or been invalidated
-					res.json({success: false, message: 'Token invalid'});
-					next();
-				} else {
-					req.decoded = decoded;
-					next();
-				}
+		var token = req.body.token || req.body.query || req.headers['x-access-token']; // Check for token in body, URL, or headers
 
+		// Check if token is valid and not expired	
+		if (token) {
+			// Function to verify token
+			jwt.verify(token, secret, function(err, decoded) {
+				if (err) {
+					res.json({ success: false, message: 'Token invalid' }); // Token has expired or is invalid
+				} else {
+					req.decoded = decoded; // Assign to req. variable to be able to use it in next() route ('/me' route)
+					next(); // Required to leave middleware
+				}
 			});
 		} else {
-			res.json({success: false, message: 'No token provided'});
+			res.json({ success: false, message: 'No token provided' }); // Return error if no token was provided in the request
 		}
 	});
 
-	// Current user route
-	router.post('/me', function(req, res){
-		res.send(req.decoded);
+	// Route to get the currently logged in user	
+	router.post('/me', function(req, res) {
+		res.send(req.decoded); // Return the token acquired from middleware
 	});
 
-	return router;
+	return router; // Return the router object to server
 }
