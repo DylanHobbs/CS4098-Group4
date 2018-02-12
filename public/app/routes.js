@@ -71,8 +71,15 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/editPassword', {
 		templateUrl: 'app/views/pages/users/editDetails/editPassword.html',
-		controller: 'editCtrl',
-		controllerAs: 'edit',
+		controller: 'editPwdCtrl',
+		controllerAs: 'editPwd',
+		authenticated: 'true'
+	})
+
+	.when('/editUsername', {
+		templateUrl: 'app/views/pages/users/editDetails/editUsername.html',
+		controller: 'editUsrCtrl',
+		controllerAs: 'editUsr',
 		authenticated: 'true'
 	})
 

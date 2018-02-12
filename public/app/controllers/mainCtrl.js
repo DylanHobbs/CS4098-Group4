@@ -17,6 +17,7 @@ angular.module('mainController', ['authServices'])
 			Auth.getUser().then(function(data){
 				// Allow it to be accessed from front end
 				app.username = data.data.username;
+				console.log(app.username);
 				app.useremail = data.data.email;
 				app.fullname = data.data.name;
 				// Load shtuff now

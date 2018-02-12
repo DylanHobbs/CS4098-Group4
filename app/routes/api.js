@@ -4,6 +4,7 @@
 var User    = require('../models/user')
 var jwt     = require('jsonwebtoken');
 var secret  = process.env.SECRET || 'sabaton';
+var mail_key = process.env.API_KEY
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 
@@ -13,7 +14,7 @@ module.exports = function(router){
 	var options = {
 	  auth: {
 	    api_user: 'MrUnderscore',
-	    api_key: 'password1'
+	    api_key: mail_key
 	  }
 	}
 
@@ -194,10 +195,10 @@ module.exports = function(router){
 				res.json({ success: false, message: 'Could not authenticate user. Make sure you typed your name in correctly' });
 			} else {
 				// password present?
-				if(req.body.password){
-					var validPassword = user.comparePasswords(req.body.password);
-				} else {
+				if(!req.body.password){
 					res.json({success: false, message: 'No password provided'});
+				} else {
+					var validPassword = user.comparePasswords(req.body.password);
 				}
 				// password valid?
 				if(!validPassword){
@@ -247,7 +248,7 @@ module.exports = function(router){
 	});
 
 
-	// Checking credentials for resending of activation link
+	// Changeing password
 	router.post('/changePassword', function(req, res){
 		// Grab user from DB
 		User.findOne({ username: req.body.username })
@@ -269,7 +270,7 @@ module.exports = function(router){
 				if(!validPassword){
 					res.json({success: false, message: 'Incorrect old password' });
 				} else if(!user.active){
-					// account is already activated
+					// aaccount is not activated
 					res.json({success: false, linkFail: true, message: 'Account is not activated' });
 				} else {
 					// Password is valid
@@ -291,7 +292,63 @@ module.exports = function(router){
 		});
 	});
 
+// router.post('/', 
+// function(req, res, next) 
+// {Geoloc.findOneAndUpdate(
+// 	{id: req.body.id}, req.body, {runValidators: true, upsert: true, context: 'query'}, function(err, post) {
+// 	// if (err) return next(err);
+// 	if (err) console.log(err);
+// 	res.status(201).json(post);
+// 	});
+// });
 
+	router.post('/changeUsername', function(req, res){
+		// Grab user from DB
+		var newName = req.body.newUsername;
+		if(!newName){
+			res.json({ success: false, message: 'No new username provided' });
+		}
+		User.findOneAndUpdate(newName, {username: req.body.username}, {runValidators: true, upsert: true, context: 'query'})
+		.select('username password active')
+		.exec(function(err, user){
+			//DB error check
+			if(err) throw err;
+			//auth -> compare to DB and see if they exit
+			if(!user){
+				res.json({ success: false, message: 'Change Username Error: No user found', user: req.body });
+			} else {
+				// password present?
+				if(req.body.password){
+					var validPassword = user.comparePasswords(req.body.password);
+				} else {
+					res.json({success: false, message: 'No password provided'});
+				}
+				// password valid?
+				if(!validPassword){
+					res.json({success: false, message: 'Incorrect password' });
+				} else if(!user.active){
+					// account is not activated
+					res.json({success: false, linkFail: true, message: 'Account is not activated' });
+				} else {
+					// Password is valid
+					if(!req.body.newUsername){
+						res.json({ success: false, message: 'No new username provided' });
+					} else {
+						// Set the new password
+						user.username = req.body.newUsername;
+						user.save(function(err){
+							if(err) {
+								console.log(err);
+								res.json({ success: false, message: 'DB ERROR' });
+							} else {
+								res.json({ success: true, message: 'Username has been changed' });
+							}
+						});
+					}
+				}
+			}
+		});
+	});
 
 	// Route to send user's username to e-mail
 	router.get('/resetusername/:email', function(req, res) {
@@ -344,9 +401,28 @@ module.exports = function(router){
 		}
 	});
 
-	// Route to get the currently logged in user	
+	// // Route to get the currently logged in user	
+	// router.post('/me', function(req, res) {
+	// 	res.send(req.decoded); // Return the token acquired from middleware
+	// });
+
+	// This is here because usernames for the app are got from the token
+	// If a user changes their username the one in the token will be wrong
+	// Grabing up to date info from DB. Above method will work if their token is 
+	// Changed on update. TODO:!!
 	router.post('/me', function(req, res) {
-		res.send(req.decoded); // Return the token acquired from middleware
+
+		User.findOne({ email: req.decoded.email }).select('email name username').exec(function(err, user) {
+			if (err) {
+				res.json({ success: false, message: err }); // Error if cannot connect
+			} else {
+				if (!user) {
+					res.json({ success: false, message: 'E-mail was not found' }); // Return error if e-mail cannot be found in database
+				} else {
+					res.send(user);
+				}
+			}
+		});
 	});
 
 	return router; // Return the router object to server

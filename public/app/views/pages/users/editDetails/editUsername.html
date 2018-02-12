@@ -1,0 +1,37 @@
+<h1>Change Username</h1>
+<p></p>
+<div class="ui inverted segment">
+<form class="ui form success error" ng-submit="editUsr.changeUsername(usrData);">
+  <div class="three fields">
+    <br>
+    <div class="field">
+      <label class="ui black label">Old Username</label>
+      <input ng-disabled="editUsr.disabled" placeholder="Username" type="text" name="oldUsername" ng-model="editUsr.usrData.username" value="{{editUser.curUsername}}">
+    </div>
+    <div class="field">
+      <label class="ui black label">New Username</label>
+      <input ng-disabled="editUsr.disabled" placeholder="Username" type="text" name="newUsername" ng-model="editUsr.usrData.newUsername">
+    </div>
+    <div class="field">
+      <label class="ui black label">Current Password</label>
+      <input ng-disabled="editUsr.disabled" placeholder="Password" type="password" name="password" ng-model="editUsr.usrData.password">
+    </div>
+
+  </div>
+
+  <div class="ui active dimmer" ng-show="editUsr.loading">
+    <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+  </div>
+
+  <div class="ui success message" ng-show="editUsr.successMsg">
+    <div class="header">All Set</div>
+    <p>{{ editUsr.successMsg }}</p>
+  </div>
+
+  <div class="ui error message" ng-show="editUsr.failMsg">
+    <div class="header">Uh Oh</div>
+    <p>{{ editUsr.failMsg }}</p>
+  </div>
+
+  <button ng-disabled="editUsr.disabled" class="ui huge primary button" type="submit">Edit</button>
+</form>

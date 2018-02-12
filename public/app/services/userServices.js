@@ -36,5 +36,9 @@ angular.module('userServices', [])
 		return $http.post('/api/changePassword', pwdData);
 	}
 
+	userFactory.changeUsername = function(usrData){
+		return $http.post('/api/changeUsername', usrData);
+	}
+
 	return userFactory;
 });
