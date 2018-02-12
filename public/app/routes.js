@@ -69,6 +69,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	// 	controllerAs: 'password',
 	// })
 
+	.when('/editPassword', {
+		templateUrl: 'app/views/pages/users/editDetails/editPassword.html',
+		controller: 'editCtrl',
+		controllerAs: 'edit',
+		authenticated: 'true'
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls

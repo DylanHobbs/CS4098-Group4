@@ -247,6 +247,52 @@ module.exports = function(router){
 	});
 
 
+	// Checking credentials for resending of activation link
+	router.post('/changePassword', function(req, res){
+		// Grab user from DB
+		User.findOne({ username: req.body.username })
+		.select('username password active')
+		.exec(function(err, user){
+			//DB error check
+			if(err) throw err;
+			//auth -> compare to DB and see if they exit
+			if(!user){
+				res.json({ success: false, message: 'Change Password Error: No user found', user: req.body });
+			} else {
+				// password present?
+				if(req.body.oldPassword){
+					var validPassword = user.comparePasswords(req.body.oldPassword);
+				} else {
+					res.json({success: false, message: 'No old password provided'});
+				}
+				// password valid?
+				if(!validPassword){
+					res.json({success: false, message: 'Incorrect old password' });
+				} else if(!user.active){
+					// account is already activated
+					res.json({success: false, linkFail: true, message: 'Account is not activated' });
+				} else {
+					// Password is valid
+					if(!req.body.newPassword){
+						res.json({ success: false, message: 'No new password provided' });
+					} else {
+						// Set the new password
+						user.password = req.body.newPassword;
+						user.save(function(err){
+							if(err) {
+								throw err
+							} else {
+								res.json({ success: true, message: 'Password has been changed' });
+							}
+						});
+					}
+				}
+			}
+		});
+	});
+
+
+
 	// Route to send user's username to e-mail
 	router.get('/resetusername/:email', function(req, res) {
 		User.findOne({ email: req.params.email }).select('email name username').exec(function(err, user) {

@@ -30,5 +30,11 @@ angular.module('userServices', [])
 		return $http.get('/api/resetUsername/', userData);
 	}
 
+	// User.changePassword(userData)
+	// Resue check credentials
+	userFactory.changePassword = function(pwdData){
+		return $http.post('/api/changePassword', pwdData);
+	}
+
 	return userFactory;
 });

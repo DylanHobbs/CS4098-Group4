@@ -23,8 +23,8 @@ angular.module('mainController', ['authServices'])
 				app.loadme = true;
 			});
 		} else {
-			app.username = '';
 			app.isLoggedIn = false;
+			app.username = '';
 
 			// Load shtuff now anyway
 			app.loadme = true;

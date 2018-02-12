@@ -77,7 +77,7 @@ var UserSchema = new Schema({
 UserSchema.pre('save', function(next){
 	var user = this;
 
-	// If password hasn't been changed, no need o do the passowrd check
+	// If password hasn't been changed, no need to do the passowrd check
 	if(!user.isModified('password')) return next();
 
 	bcrypt.hash(user.password, null, null, function(err, hash){
@@ -97,5 +97,12 @@ UserSchema.plugin(titlize, {
 UserSchema.methods.comparePasswords = function(password){
 	return bcrypt.compareSync(password, this.password);
 };
+
+// // Custom function for setting new password
+// UserSchema.method.setPassword = function(password){
+// 	bcrypt.hash("bacon", null, null, function(err, hash) {
+//     	// Store hash in your password DB.
+// 	});
+// }
 
 module.exports = mongoose.model('User', UserSchema);

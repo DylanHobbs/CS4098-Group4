@@ -3,7 +3,7 @@
 // *                Import controllers and everything in here.                *
 // *                       Main config file for angular                       *
 // ****************************************************************************
-angular.module('userApp', ['appRoutes', 'userControllers', 'userServices', 'mainController', 'authServices', 'emailController'])
+angular.module('userApp', ['appRoutes', 'userControllers', 'userServices', 'mainController', 'authServices', 'emailController', 'editController'])
 
 
 // Configuration. Used to assist in injecting tokens in headers
