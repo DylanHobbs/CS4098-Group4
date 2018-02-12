@@ -57,3 +57,9 @@ nodemon server.js
 # Navigate to homepage
 http://localhost:8080
 ```
+
+**Running Tests**
+```bash
+npm test
+# ctrl-C to exit
+```
