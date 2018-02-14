@@ -1,5 +1,5 @@
 .idea
-
+.vscode
 node_modules
 logs/*.log
 pids/*.pid
@@ -22,5 +22,3 @@ bundle.result.json
 
 # Config file (may contain API credentials)
 config.js
-
-semantic/
