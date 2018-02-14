@@ -1,0 +1,49 @@
+<div class="ui inverted segment">
+    <h1>Admin Corner</h1>
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th> Username</th>
+            <th>Email</th> 
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="person in manage.users" repeat-done="manage.initDataTable">
+                <td>{{ person.name }}</td>
+                <td>{{ person.username }}</td>
+                <td>{{ person.email }}</td>
+                <td>
+                    <button class="ui primary basic button">Edit</button> 
+                    <button class="ui negative basic button right">Delete</button>
+                </td>
+            </tr>
+        </tbody>   
+    </table>
+
+
+    <div class="ui active dimmer" ng-show="manage.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div>
+
+    <div class="ui success message" ng-show="manage.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ manage.successMsg }}</p>
+    </div>
+
+    <div class="ui error message" ng-show="manage.failMsg">
+        <div class="header">Uh Oh</div>
+        <p>{{ manage.failMsg }}</p>
+        <p ng-show="manage.linkFail">
+            <a href="/resend">
+                <button class="ui medium primary button">
+                    <i class="mail outline icon"></i>Resend Activation Email</button>
+            </a>
+        </p>
+    </div>
+</div>
+
+
+

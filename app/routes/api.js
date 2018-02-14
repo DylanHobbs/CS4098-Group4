@@ -424,5 +424,42 @@ module.exports = function(router){
 		});
 	});
 
+	// Gets user permissions to see if they can be on a page
+	router.get('/permission', function(req, res){
+		User.findOne({ username: req.decoded.username }, function(err, user){
+			if(err) throw err
+			if(!user){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				res.json({ success: true, permission: user.permission });
+			}
+		});
+	});
+
+	// Used to populate data tables
+	router.get('/management', function(req, res){
+		User.find({}, function(err, users){
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+					if(mainUser.permission === 'admin'){
+						// Exitst and has permission
+						if(!users){
+							res.json({ success: false, message: 'User[s] not found' });
+						} else {
+							res.json({ success: true, users: users, permission: mainUser.permission });
+						}
+					} else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
+			});
+ 		});
+	});
+
 	return router; // Return the router object to server
 }

@@ -40,5 +40,14 @@ angular.module('userServices', [])
 		return $http.post('/api/changeUsername', usrData);
 	}
 
+
+	userFactory.getPermission = function(){
+		return $http.get('/api/permission/');
+	}
+
+	userFactory.getUsers = function(){
+		return $http.get('/api/management/');
+	}
+
 	return userFactory;
 });
