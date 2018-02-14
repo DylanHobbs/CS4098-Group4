@@ -461,5 +461,29 @@ module.exports = function(router){
  		});
 	});
 
+	router.delete('/management/:username', function(req, res){
+		var deletedUser = req.params.username;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			if(!mainUser){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				if(mainUser.permission === 'admin'){
+					// Exitst and has permission
+					if(!deletedUser){
+						res.json({ success: false, message: 'No username provided' });
+					} else {
+						User.findOneAndRemove({username: deletedUser}, function(err, user){
+							if(err) throw err;
+							res.json({ success: true, message: 'User deleted' });
+						});
+					}
+				} else {
+					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				}
+			}
+		});
+	});
+
 	return router; // Return the router object to server
 }

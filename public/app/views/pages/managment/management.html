@@ -34,7 +34,7 @@
                 <td>{{ person.email }}</td>
                 <td>
                     <button class="ui yellow basic button">Edit</button> 
-                    <button class="ui negative basic button right floated">Delete</button>
+                    <button ng-click="manage.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button>
                 </td>
             </tr>
         </tbody>   
