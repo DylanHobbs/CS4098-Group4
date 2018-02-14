@@ -1,5 +1,5 @@
 angular.module('managementController', [])
-.controller('managmentCtrl', function(User){
+.controller('managmentCtrl', function(User, $scope){
     var app = this;
 
     app.loading = true;
@@ -22,4 +22,18 @@ angular.module('managementController', [])
             app.loading = false;
         }
     });
+
+    app.showMore = function(number){
+        if(number > 0){
+            app.limit = number;
+        } else {
+            app.failMsg = "Please enter a valid number"
+        }
+    };
+
+    app.showAll = function(){
+        app.limit = undefined;
+        app.failMsg = false;
+        $scope.number = undefined;
+    };
 });

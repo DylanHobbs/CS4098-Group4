@@ -1,6 +1,23 @@
 <div class="ui inverted segment">
     <h1>Admin Corner</h1>
 
+    <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <button ng-click="manage.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                <button ng-click="manage.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+        </div>  
+    </div>
+
+    <div class="ui tiny error message" ng-show="manage.failMsg">
+            <div class="header">Uh Oh</div>
+            <p>{{ manage.failMsg }}</p>
+        </p>
+    </div>
+
+
     <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -16,12 +33,22 @@
                 <td>{{ person.username }}</td>
                 <td>{{ person.email }}</td>
                 <td>
-                    <button class="ui primary basic button">Edit</button> 
-                    <button class="ui negative basic button right">Delete</button>
+                    <button class="ui yellow basic button">Edit</button> 
+                    <button class="ui negative basic button right floated">Delete</button>
                 </td>
             </tr>
         </tbody>   
     </table>
+
+    <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                 <button ng-click="manage.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                 <button ng-click="manage.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+         </div>  
+    </div>
 
 
     <div class="ui active dimmer" ng-show="manage.loading">
@@ -33,16 +60,6 @@
         <p>{{ manage.successMsg }}</p>
     </div>
 
-    <div class="ui error message" ng-show="manage.failMsg">
-        <div class="header">Uh Oh</div>
-        <p>{{ manage.failMsg }}</p>
-        <p ng-show="manage.linkFail">
-            <a href="/resend">
-                <button class="ui medium primary button">
-                    <i class="mail outline icon"></i>Resend Activation Email</button>
-            </a>
-        </p>
-    </div>
 </div>
 
 
