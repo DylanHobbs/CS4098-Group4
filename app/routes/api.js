@@ -143,7 +143,7 @@ module.exports = function(router){
 			var token = req.params.token;
 			jwt.verify(token, secret, function(err, decoded){
 				if(err) {
-					res.json({success: false, message: 'Activation has expired'});
+					res.json({success: false, message: err});
 				} else if(!user){
 					res.json({success: false, message: 'Activation has expired'});
 				} else {
@@ -308,7 +308,7 @@ module.exports = function(router){
 		if(!newName){
 			res.json({ success: false, message: 'No new username provided' });
 		}
-		User.findOneAndUpdate(newName, {username: req.body.username}, {runValidators: true, upsert: true, context: 'query'})
+		User.findOneAndUpdate({username: req.body.username}, {username: newName}, {runValidators: true, upsert: true, context: 'query'})
 		.select('username password active')
 		.exec(function(err, user){
 			//DB error check
@@ -341,7 +341,7 @@ module.exports = function(router){
 								console.log(err);
 								res.json({ success: false, message: 'DB ERROR' });
 							} else {
-								res.json({ success: true, message: 'Username has been changed' });
+								res.json({ success: true, message: 'Username has been changed', name: user.username });
 							}
 						});
 					}

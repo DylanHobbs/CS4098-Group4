@@ -10,6 +10,15 @@
     "tmpToken": false
   },
   {
+    "name": "Dylan Hobbs",
+    "username": "dhobbs",
+    "active": true,
+    "permission": "admin",
+    "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
+    "email": "dhobbs@tcd.ie",
+    "tmpToken": false
+  },
+  {
     "_id": "5a857478728cd4c6a1e5d18a",
     "name": "Hope Mcknight",
     "username": "Travis37",
