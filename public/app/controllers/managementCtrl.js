@@ -60,6 +60,8 @@ angular.module('managementController', [])
     User.getUser($routeParams.id).then(function(data){
         if(data.data.success){
             $scope.newName = data.data.user.name;
+            $scope.newEmail = data.data.user.email;
+            $scope.newUsername = data.data.user.username;
             app.currentUserID = data.data.user._id;
         } else {
             app.failMsg = data.data.message;
@@ -95,6 +97,50 @@ angular.module('managementController', [])
                 app.successMsg = data.data.message;
                 $timeout(function(){
                     $scope.newName = newName;
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                app.disabled = false;
+            }
+        });
+    };
+
+    app.updateUsername = function(newUsername){
+        var userObject = {};
+        app.disabled = true;
+        app.failMsg = false;
+
+        userObject.username = $scope.newUsername;
+        userObject._id = app.currentUserID;
+        User.editUser(userObject).then(function(data){
+            if(data.data.success){
+                app.successMsg = data.data.message;
+                $timeout(function(){
+                    $scope.newUsername = newUsername;
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                app.disabled = false;
+            }
+        });
+    };
+
+    app.updateEmail = function(newEmail){
+        var userObject = {};
+        app.disabled = true;
+        app.failMsg = false;
+
+        userObject.email = $scope.newEmail;
+        userObject._id = app.currentUserID;
+        User.editUser(userObject).then(function(data){
+            if(data.data.success){
+                app.successMsg = data.data.message;
+                $timeout(function(){
+                    $scope.newEmail = newEmail;
                     app.successMsg = false;
                     app.disabled = false;
                 }, 2000)

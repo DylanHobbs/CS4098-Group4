@@ -17,10 +17,22 @@
             </form>
         </div>
         <div class="ui bottom attached tab segment" data-tab="second">
-                Second
+            <form class="ui form success error" ng-submit="edit.updateUsername(newUsername);" name="usernameForm" novalidate id="usernameForm">
+                <div class="field">
+                    <label class="ui label">Edit Username</label>
+                    <input ng-disabled="edit.disabled" placeholder="Username" type="text" name="name" ng-model="newUsername" id="username" required>
+                </div>
+                <button ng-disabled="edit.disabled" class="ui small primary button" type="submit">Update</button>
+            </form>
         </div>
         <div class="ui bottom attached tab segment" data-tab="third">
-                Third
+            <form class="ui form success error" ng-submit="edit.updateEmail(newEmail);" name="emailForm" novalidate id="emailForm">
+                <div class="field">
+                    <label class="ui label">Edit Username</label>
+                    <input ng-disabled="edit.disabled" placeholder="Email" type="text" name="email" ng-model="newEmail" id="email" required>
+                </div>
+                <button ng-disabled="edit.disabled" class="ui small primary button" type="submit">Update</button>
+            </form>
         </div>
         <div class="ui bottom attached tab segment" data-tab="fourth">
                 Third
@@ -65,6 +77,64 @@
             type: 'regExp',
             value: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z-]{2,20})*)+$/,
             prompt: 'Enter your full name in form "John Doe" or "Mary Lee-Smith'
+          }]
+        }
+      }, {
+        on: 'blur',
+        inline: 'true'
+      });
+    }(jQuery));
+  });
+</script> 
+
+<script>
+  // TODO: Move this dragon somewhere not so visable
+  $(document)
+    .ready(function() {
+    (function ($) {
+      $('#emailForm').form({
+        email: {
+          identifier: 'email',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter your email'
+          },{
+            type: 'email',
+            prompt: 'Please enter a valid email'
+          },{
+            type: 'minLength[3]',
+            prompt: 'Name must be more than 3 charecters'
+          },{
+            type: 'maxLength[25]',
+            prompt: 'Name must be less than 25 charecters'
+          }]
+        }
+      }, {
+        on: 'blur',
+        inline: 'true'
+      });
+    }(jQuery));
+  });
+</script> 
+
+
+<script>
+  // TODO: Move this dragon somewhere not so visable
+  $(document)
+    .ready(function() {
+    (function ($) {
+      $('#usernameForm').form({
+        username: {
+          identifier: 'username',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter a username'
+          },{
+            type: 'minLength[3]',
+            prompt: 'Name must be more than 3 charecters'
+          },{
+            type: 'maxLength[40]',
+            prompt: 'Name must be less than 40 charecters'
           }]
         }
       }, {
