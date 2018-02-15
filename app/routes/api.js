@@ -143,7 +143,7 @@ module.exports = function(router){
 			var token = req.params.token;
 			jwt.verify(token, secret, function(err, decoded){
 				if(err) {
-					res.json({success: false, message: 'Activation has expired'});
+					res.json({success: false, message: err});
 				} else if(!user){
 					res.json({success: false, message: 'Activation has expired'});
 				} else {
@@ -308,7 +308,7 @@ module.exports = function(router){
 		if(!newName){
 			res.json({ success: false, message: 'No new username provided' });
 		}
-		User.findOneAndUpdate(newName, {username: req.body.username}, {runValidators: true, upsert: true, context: 'query'})
+		User.findOneAndUpdate({username: req.body.username}, {username: newName}, {runValidators: true, upsert: true, context: 'query'})
 		.select('username password active')
 		.exec(function(err, user){
 			//DB error check
@@ -341,7 +341,7 @@ module.exports = function(router){
 								console.log(err);
 								res.json({ success: false, message: 'DB ERROR' });
 							} else {
-								res.json({ success: true, message: 'Username has been changed' });
+								res.json({ success: true, message: 'Username has been changed', name: user.username });
 							}
 						});
 					}
@@ -424,5 +424,192 @@ module.exports = function(router){
 		});
 	});
 
+	// Gets user permissions to see if they can be on a page
+	router.get('/permission', function(req, res){
+		User.findOne({ username: req.decoded.username }, function(err, user){
+			if(err) throw err
+			if(!user){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				res.json({ success: true, permission: user.permission });
+			}
+		});
+	});
+
+	// Used to populate data tables
+	router.get('/management', function(req, res){
+		User.find({}, function(err, users){
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+					if(mainUser.permission === 'admin'){
+						// Exitst and has permission
+						if(!users){
+							res.json({ success: false, message: 'User[s] not found' });
+						} else {
+							res.json({ success: true, users: users, permission: mainUser.permission });
+						}
+					} else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
+			});
+ 		});
+	});
+
+	router.delete('/management/:username', function(req, res){
+		var deletedUser = req.params.username;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			if(!mainUser){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				if(mainUser.permission === 'admin'){
+					// Exitst and has permission
+					if(!deletedUser){
+						res.json({ success: false, message: 'No username provided' });
+					} else {
+						User.findOneAndRemove({username: deletedUser}, function(err, user){
+							if(err) throw err;
+							res.json({ success: true, message: 'User deleted' });
+						});
+					}
+				} else {
+					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				}
+			}
+		});
+	});
+
+	router.get('/edit/:id', function(req, res){
+		var editUser = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			if(!mainUser){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				if(mainUser.permission === 'admin'){
+					User.findOne({_id: editUser}, function(err, user){
+						if(err) throw err;
+						if(!user){
+							res.json({ success: false, message: 'User to edit was not found' });
+						} else {
+							res.json({ success: true, user: user});
+						}
+					});
+				} else {
+					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				}
+			}
+		});
+	});
+
+	// Used for all kinds of edits
+	router.put('/edit', function(req, res){
+		var editUser = req.body._id;
+		if(!editUser){
+			res.json({ success: false, message: 'No username provided' });
+		}
+		if(req.body.name) 		var newName 		= req.body.name;
+		if(req.body.username) 	var newUsername 	= req.body.username;
+		if(req.body.email)		var newEmail 		= req.body.email;
+		if(req.body.permission) var newPermission 	= req.body.permission;
+		
+		// Check if current user has access to this
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			if(!mainUser){
+				res.json({ success: false, message: 'User was not found' });
+			} else {
+				if(mainUser.permission === 'admin'){
+					// NAME CHANGE
+					if(newName){
+						User.findOne({_id: editUser}, function(err, user){
+							if(err) throw err;
+							if(!user){
+								res.json({ success: false, message: 'No user by this name was found' });
+							} else {
+								user.name = newName;
+								user.save(function(err){
+									if(err){
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Name has been changed' });
+									}	
+								});
+							}
+						});
+					}
+					// USERNAME CHANGE
+					if(newUsername){
+						User.findOne({_id: editUser}, function(err, user){
+							if(err) throw err;
+							if(!user){
+								res.json({ success: false, message: 'No user by this name was found' });
+							} else {
+								user.username = newUsername;
+								user.save(function(err){
+									if(err){
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Username has been changed' });
+									}	
+								});
+							}
+						});
+					}
+
+					// EMAIL CHANGE
+					if(newEmail){
+						User.findOne({_id: editUser}, function(err, user){
+							if(err) throw err;
+							if(!user){
+								res.json({ success: false, message: 'No user by this name was found' });
+							} else {
+								user.email = newEmail;
+								user.save(function(err){
+									if(err){
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Email has been changed' });
+									}	
+								});
+							}
+						});
+					}
+
+					if(newPermission){
+						User.findOne({_id: editUser}, function(err, user){
+							if(err) throw err;
+							if(!user){
+								res.json({ success: false, message: 'No user by this name was found' });
+							} else {
+								// see line 944
+								if(newPermission === 'user' || newPermission === 'host' || newPermission === 'admin'){
+									user.permission = newPermission;
+									user.save(function(err){
+										if(err){
+											console.log(err);
+										} else {
+											res.json({ success: true, message: 'Permissions have been changed' });
+										}	
+									});
+								} else {
+									res.json({ success: false, message: 'Not a valid permission to change to' });
+								}
+							}
+						});
+					}
+				} else {
+					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				}
+			}
+		});
+	})
+	
 	return router; // Return the router object to server
 }

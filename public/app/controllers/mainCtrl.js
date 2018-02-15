@@ -1,6 +1,6 @@
-angular.module('mainController', ['authServices'])
+angular.module('mainController', ['authServices', 'userServices'])
 
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope){
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, User){
 	var app = this;
 
 	// To prevent angular shtuff showing up after html loads
@@ -20,8 +20,17 @@ angular.module('mainController', ['authServices'])
 				console.log(app.username);
 				app.useremail = data.data.email;
 				app.fullname = data.data.name;
-				// Load shtuff now
-				app.loadme = true;
+				User.getPermission().then(function(data){
+					if(data.data.permission == 'admin'){
+						app.admin = true;
+						app.loadme = true;
+					} else if(data.data.permission == 'host'){
+						app.host = true;
+						app.loadme = true;
+					} else {
+						app.loadme = true;
+					}
+				});
 			});
 		} else {
 			app.isLoggedIn = false;

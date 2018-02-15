@@ -40,5 +40,27 @@ angular.module('userServices', [])
 		return $http.post('/api/changeUsername', usrData);
 	}
 
+
+	userFactory.getPermission = function(){
+		return $http.get('/api/permission/');
+	}
+
+	userFactory.getUsers = function(){
+		return $http.get('/api/management/');
+	}
+
+	userFactory.getUser = function(id){
+		return $http.get('/api/edit/' + id);
+	}
+
+	userFactory.deleteUser = function(username){
+		return $http.delete('/api/management/' + username);
+	}
+
+	// Edit a user
+    userFactory.editUser = function(id) {
+        return $http.put('/api/edit', id);
+    };
+
 	return userFactory;
 });
