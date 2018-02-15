@@ -90,6 +90,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: ['admin']
 	})
 
+	.when('/edit/:id', {
+		templateUrl: 'app/views/pages/managment/edit.html',
+		controller: 'editCtrl',
+		controllerAs: 'edit',
+		authenticated: true,
+		permission: ['admin']
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls

@@ -50,4 +50,58 @@ angular.module('managementController', [])
             }
         });
     }
+})
+
+.controller('editCtrl', function($scope, User, $routeParams, $timeout){
+    var app = this;
+
+    app.failMsg = false;
+
+    User.getUser($routeParams.id).then(function(data){
+        if(data.data.success){
+            $scope.newName = data.data.user.name;
+            app.currentUserID = data.data.user._id;
+        } else {
+            app.failMsg = data.data.message;
+        }
+    });
+
+    app.namePhase = function(){
+
+    };
+
+    app.usernamePhase = function(){
+        
+    };
+
+    app.emailPhase = function(){
+        
+    };
+
+    app.PermissionPhase = function(){
+        
+    };
+
+
+    app.updateName = function(newName){
+        var userObject = {};
+        app.disabled = true;
+        app.failMsg = false;
+
+        userObject.name = $scope.newName;
+        userObject._id = app.currentUserID;
+        User.editUser(userObject).then(function(data){
+            if(data.data.success){
+                app.successMsg = data.data.message;
+                $timeout(function(){
+                    $scope.newName = newName;
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                app.disabled = false;
+            }
+        });
+    };
 });

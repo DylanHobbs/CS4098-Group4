@@ -1,6 +1,6 @@
 <div class="ui inverted segment">
     <h1>Admin Corner</h1>
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class="ui form">
         <div class="required nine wide field">
             <div class="ui action input">
@@ -33,7 +33,9 @@
                 <td>{{ person.username }}</td>
                 <td>{{ person.email }}</td>
                 <td>
-                    <button class="ui yellow basic button">Edit</button> 
+                    <a href="/edit/{{person._id}}">
+                        <button class="ui yellow basic button">Edit</button> 
+                    </a>
                     <button ng-click="manage.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button>
                 </td>
             </tr>
@@ -59,7 +61,6 @@
         <div class="header">All Set</div>
         <p>{{ manage.successMsg }}</p>
     </div>
-
 </div>
 
 

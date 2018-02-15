@@ -1,0 +1,76 @@
+<div class="ui inverted segment">
+        <h1>Edit User</h1>
+        
+        <div class="ui top attached tabular menu inverted">
+            <a ng-click="edit.namePhase();" ng-class="nameTab" class="active item" data-tab="first">Name</a>
+            <a ng-click="edit.usernamePhase();" ng-class="usernameTab" class="item" data-tab="second">Username</a>
+            <a ng-click="edit.emailPhase();" ng-class="emailTab" class="item" data-tab="third">E-Mail</a>
+            <a ng-click="edit.PermissionPhase();" ng-class="permissionTab" class="item" data-tab="fourth">Permissions</a>
+        </div>
+        <div class="ui bottom attached active tab segment" data-tab="first">
+            <form class="ui form success error" ng-submit="edit.updateName(newName);" name="nameForm" novalidate id="nameForm">
+                <div class="field">
+                    <label class="ui label">Edit Full Name</label>
+                    <input ng-disabled="edit.disabled" placeholder="Full Name" type="text" name="name" ng-model="newName" id="name" required>
+                </div>
+                <button ng-disabled="edit.disabled" class="ui small primary button" type="submit">Update</button>
+            </form>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="second">
+                Second
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="third">
+                Third
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="fourth">
+                Third
+        </div>
+
+        <div class="ui success message" ng-show="edit.successMsg">
+            <div class="header">All Set</div>
+            <p>{{ edit.successMsg }}</p>
+        </div>
+
+        <div class="ui error message" ng-show="edit.failMsg">
+            <div class="header">Uh Oh</div>
+            <p>{{ edit.failMsg }}</p>
+        </div>
+
+</div>
+
+
+
+<script>
+    $('.menu .item').tab();
+</script>
+
+<script>
+  // TODO: Move this dragon somewhere not so visable
+  $(document)
+    .ready(function() {
+    (function ($) {
+      $('#nameForm').form({
+        name: {
+          identifier: 'name',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter your First and Last names'
+          },{
+            type: 'minLength[4]',
+            prompt: 'Name must be more than 4 charecters'
+          },{
+            type: 'maxLength[40]',
+            prompt: 'Name must be less than 40 charecters'
+          },{
+            type: 'regExp',
+            value: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z-]{2,20})*)+$/,
+            prompt: 'Enter your full name in form "John Doe" or "Mary Lee-Smith'
+          }]
+        }
+      }, {
+        on: 'blur',
+        inline: 'true'
+      });
+    }(jQuery));
+  });
+</script> 
