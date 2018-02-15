@@ -75,7 +75,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 		$location.path('/logout');
 		$timeout(function() {
 			$location.path('/');
-		}, 2000);
+		}, 300);
 	};
 });
 

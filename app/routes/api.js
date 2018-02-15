@@ -426,7 +426,8 @@ module.exports = function(router){
 
 	// Gets user permissions to see if they can be on a page
 	router.get('/permission', function(req, res){
-		User.findOne({ username: req.decoded.username }, function(err, user){
+		console.log(req.decoded);
+		User.findOne({ email: req.decoded.email }, function(err, user){
 			if(err) throw err
 			if(!user){
 				res.json({ success: false, message: 'User was not found' });

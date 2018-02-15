@@ -87,7 +87,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'managmentCtrl',
 		controllerAs: 'manage',
 		authenticated: true,
-		permission: ['admin']
+		permission: 'admin'
 	})
 
 	.when('/edit/:id', {
@@ -95,7 +95,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'editCtrl',
 		controllerAs: 'edit',
 		authenticated: true,
-		permission: ['admin']
+		permission: 'admin'
 	})
 
 	.otherwise({redirectTo: '/'});
@@ -123,8 +123,9 @@ app.run(['$rootScope', 'Auth', '$location', 'User', function($rootScope, Auth, $
             } else if (next.$$route.permission) {
 				// Function: Get current user's permission to see if authorized on route
 				User.getPermission().then(function(data) {
+					console.log(data.data);
 					// Check if user's permission matches at least one in the array
-					if (next.$$route.permission[0] !== data.data.permission) {
+					if (next.$$route.permission !== data.data.permission) {
 						event.preventDefault(); // If at least one role does not match, prevent accessing route
 						$location.path('/'); // Redirect to home instead
 					}
