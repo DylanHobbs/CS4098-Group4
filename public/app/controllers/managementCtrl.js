@@ -62,7 +62,9 @@ angular.module('managementController', [])
             $scope.newName = data.data.user.name;
             $scope.newEmail = data.data.user.email;
             $scope.newUsername = data.data.user.username;
+            $scope.newPermission = data.data.user.permission;
             app.currentUserID = data.data.user._id;
+            app.currentPermission = data.data.user.permission;
         } else {
             app.failMsg = data.data.message;
         }
@@ -141,6 +143,28 @@ angular.module('managementController', [])
                 app.successMsg = data.data.message;
                 $timeout(function(){
                     $scope.newEmail = newEmail;
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                app.disabled = false;
+            }
+        });
+    };
+
+    app.updatePermission = function(newPermission){
+        var userObject = {};
+        app.disabled = true;
+        app.failMsg = false;
+
+        userObject.permission = newPermission;
+        userObject._id = app.currentUserID;
+        User.editUser(userObject).then(function(data){
+            if(data.data.success){
+                app.successMsg = data.data.message;
+                $timeout(function(){
+                    $scope.newPermission = newPermission;
                     app.successMsg = false;
                     app.disabled = false;
                 }, 2000)

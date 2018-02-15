@@ -35,7 +35,19 @@
             </form>
         </div>
         <div class="ui bottom attached tab segment" data-tab="fourth">
-                Third
+                <div class="ui primary image medium label">
+                        Current Permission:
+                    <div class="detail"><strong>{{newPermission}}</strong></div>
+                </div>
+                <br>
+                <br>
+                <div class="ui three column grid">
+                    <div class="row">
+                        <div class="column"><button ng-click="edit.updatePermission('user');" class="ui green large button">User</button> </div>
+                        <div class="column"><button ng-click="edit.updatePermission('host');" class="ui blue large button">Host</button></div>
+                        <div class="column"><button ng-click="edit.updatePermission('admin');" class="ui red large button">Admin</button></div>
+                    </div>
+                </div>
         </div>
 
         <div class="ui success message" ng-show="edit.successMsg">
