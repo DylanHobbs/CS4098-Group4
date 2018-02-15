@@ -1,7 +1,8 @@
 // ****************************************************************************
 // *                              Backend Routes                              *
 // ****************************************************************************
-var User    = require('../models/user')
+var User    = require('../models/user');
+var Event   = require('../models/event');
 var jwt     = require('jsonwebtoken');
 var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
@@ -20,7 +21,16 @@ module.exports = function(router){
 
 	var client = nodemailer.createTransport(sgTransport(options));
 
+	/*
+ #     #  #####  ####### ######     ######  ####### #     # ####### #######  #####
+ #     # #     # #       #     #    #     # #     # #     #    #    #       #     #
+ #     # #       #       #     #    #     # #     # #     #    #    #       #
+ #     #  #####  #####   ######     ######  #     # #     #    #    #####    #####
+ #     #       # #       #   #      #   #   #     # #     #    #    #             #
+ #     # #     # #       #    #     #    #  #     # #     #    #    #       #     #
+  #####   #####  ####### #     #    #     # #######  #####     #    #######  #####
 
+*/
 	// http://localhost:8080/api/users
 	// USER REGISTRATION ROUTE
 	router.post('/users', function(req, res){
@@ -609,7 +619,36 @@ module.exports = function(router){
 				}
 			}
 		});
-	})
+	});
+
+	/*
+ ####### #     # ####### #     # #######    ######  ####### #     # ####### #######  #####
+ #       #     # #       ##    #    #       #     # #     # #     #    #    #       #     #
+ #       #     # #       # #   #    #       #     # #     # #     #    #    #       #
+ #####   #     # #####   #  #  #    #       ######  #     # #     #    #    #####    #####
+ #        #   #  #       #   # #    #       #   #   #     # #     #    #    #             #
+ #         # #   #       #    ##    #       #    #  #     # #     #    #    #       #     #
+ #######    #    ####### #     #    #       #     # #######  #####     #    #######  #####
+
+*/
+
+router.post('/users', function(req, res){
+	var event = new Event();
+	event.name = req.body.name;
+	event.eventId = req.body.eventId;
+	event.time = req.body.time;
+	event.venue = req.body.vanue;
+
+	if(req.body.name == null || req.body.name == '' || req.body.eventId == null || req.body.eventId == '' || req.body.time == null || req.body.time == '' || req.body.venue == null || req.body.venue == ''){
+		res.json({success: false, message: 'Ensure event name, eventID, time and venue are provided'});
+	} else {
+		event.save(function(err){
+			if(err) throw err;
+			res.json({success: true, message: 'Event Created'});
+		});
+	}
+});
+
 	
 	return router; // Return the router object to server
 }

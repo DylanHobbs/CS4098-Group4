@@ -1,0 +1,47 @@
+<div class="ui inverted segment">
+    <h1>Register</h1>
+    <form class="ui form success error" ng-submit="event.createEvent(eventData);" name="eventForm" novalidate id="eventForm">
+      <div class="four fields">
+        <br>
+        <div class="field">
+          <label class="ui black label">Event Name</label>
+          <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="event.eventData.name" id="name" required>
+        </div>
+    
+        <div class="field">
+          <label class="ui black label">Venue</label>
+          <input ng-disabled="event.disabled" placeholder="Username" type="text" name="username" ng-model="event.eventData.username" id="username">
+        </div>
+    
+        <div class="field">
+          <label class="ui black label">Date</label>
+          <input ng-disabled="event.disabled" placeholder="Email" type="text" name="email" ng-model="event.eventData.email" id="email">
+        </div>
+    
+        <div class="field">
+          <label class="ui black label">EventID</label>
+          <input ng-disabled="event.disabled" placeholder="Password" type="password" name="password" ng-model="event.eventData.password" id="password">
+        </div>
+      </div>
+    
+      <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+      </div>
+    
+      <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+      </div>
+    
+      <div class="ui error message" ng-show="event.failMsg">
+        <div class="header">Uh Oh</div>
+        <p>{{ event.failMsg }}</p>
+      </div>
+    
+      <button ng-disabled="event.disabled" class="ui huge primary button" type="submit">event</button>
+    </form>
+    
+    
+    
+    
+    

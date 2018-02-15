@@ -34,10 +34,12 @@
   <script src="app/controllers/emailCtrl.js"></script>
   <script src="app/controllers/editCtrl.js"></script>
   <script src="app/controllers/managementCtrl.js"></script>
+  <script src="app/controllers/eventCtrl.js"></script>
 
   <!-- Angular Services -->
   <script src="app/services/userServices.js"></script>
   <script src="app/services/authServices.js"></script>
+  <script src="app/services/eventServices.js"></script>
 
   <!--   CSS for days - Move me or organise it into master -->
   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
@@ -45,8 +47,6 @@
   <!--   Misc CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css"> -->
 
 
 </head>
@@ -91,6 +91,7 @@
         <a href="/" class="active item">Home</a>
         <a href="/about" class="item">About</a>
         <a ng-show="main.isLoggedIn && main.admin" href="/management" class="item">Management</a>
+        <a ng-show="main.isLoggedIn && main.admin" href="/events" class="item">Events</a>
         <div class="right item">
         <a ng-show="!main.isLoggedIn" href="/login" class="ui inverted button">Log in</a>
         <a ng-show="!main.isLoggedIn" href="/register" class="ui inverted button">Register</a>
