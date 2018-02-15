@@ -20,7 +20,9 @@
     <div class="header">All Set</div>
     <p>{{ main.successMsg }}</p>
   </div>
-
+  
+  <button ng-disabled="main.disabled" class="ui huge primary button" type="submit">Login</button>
+  
   <div class="ui error message" ng-show="main.failMsg">
     <div class="header">Uh Oh</div>
     <p>{{ main.failMsg }}</p>
@@ -31,12 +33,12 @@
     </p>
   </div>
 
-  <button ng-disabled="main.disabled" class="ui huge primary button" type="submit">Login</button>
   <br>
   <br>
   <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Username?</button></a>
   <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Password?</button></a>
 </form>
+</div>
 
 
 

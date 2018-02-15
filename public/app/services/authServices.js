@@ -8,8 +8,12 @@ angular.module('authServices', [])
 	authFactory.login = function(loginData){
 		return $http.post('/api/authenticate', loginData)
 		.then(function(data){
-			AuthToken.setToken(data.data.token);
-			return data;
+			if(data.data.success){
+				AuthToken.setToken(data.data.token);
+				return data;
+			} else {
+				return data;
+			}
 		});
 	};
 
