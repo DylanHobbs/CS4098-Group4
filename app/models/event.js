@@ -11,5 +11,8 @@ var UserSchema = new Schema({
 	eventId:    {type: Number, required: true, unique: true},
 	invided:    {type: [String], default: []},
 	rsvp:       {type: [String], default: []},
-	attended:   {type: [String], default: []} // user -> host -> admin
+	attended:   {type: [String], default: []},
+	tables:     {type: Number},
+	seatsPer:   {type: Number},
+	description: {type: String}
 });
