@@ -3,7 +3,7 @@
     <div class="ui form">
         <div class="required nine wide field">
             <div class="ui action input">
-                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <input ng-model="number" type="text" placeholder="Entries to display...">
                 <button ng-click="manage.showMore(number);" class="ui primary  small button">Apply Filter</button>
                 <button ng-click="manage.showAll();" class="ui primary  small button">Show All</button>
             </div>  
@@ -52,13 +52,20 @@
     <div class="ui form">
         <div class="required nine wide field">
             <div class="ui action input">
-                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <input ng-model="number" type="text" placeholder="Entries to display...">
                  <button ng-click="manage.showMore(number);" class="ui primary  small button">Apply Filter</button>
                  <button ng-click="manage.showAll();" class="ui primary  small button">Show All</button>
             </div>      
          </div>  
     </div>
 
+    <div class="ui form">
+        <p>
+            <a href="/guestreg">
+                <button class="ui huge primary button">Register a Guest for an Event</button> 
+            </a>
+        </p>
+    </div>
 
     <div class="ui active dimmer" ng-show="manage.loading">
         <div class="ui text loader">Looking for Seán FitzPatrick...</div>

@@ -186,6 +186,54 @@ describe('User', () => {
             });
       });
     });
+
+    describe('POST /users', () => {
+        var token = 'l';
+        it('should register a guest for an event', (done) => {
+          let user = {
+              name: "Rob Cooney",
+              username: "rtc12345",
+              email: 'cooneyro@tcd.ie',
+              password: "Password*1",
+              permission: "admin",
+              active: "true"
+          }
+          chai.request(address)
+              .post('/api/users')
+              .send(user);
+
+          let login = {
+                username: "rtc12345",
+                password: "Password*1"
+            }
+          chai.request(address)
+            .post('/api/authenticate')
+            .send(login);
+
+            let guest = {
+                name: "Bob Cooney",
+                username: "rtc123456",
+                email: 'xddddddd@gmail.com',
+                password: "Password*1",
+                number: "1111111",
+                event: "Dinner",
+                vegetarian: true,
+                vegan: false,
+                coeliac: false
+            }
+            //TODO: Test event info submission
+            chai.request(address)
+            .post('/api/users')
+            .send(guest)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('Account Registered! Please check email for activation link');
+                token = res.body.token;
+              done();
+            });
+        });
+        });
 });
 
 

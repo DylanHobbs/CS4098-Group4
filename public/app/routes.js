@@ -98,6 +98,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
+	.when('/guestreg', {
+		templateUrl: 'app/views/pages/managment/guestreg.html',
+		controller: 'guestRegCtrl',
+		controllerAs: 'register',
+		authenticated: true,
+		permission: 'admin'
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls
