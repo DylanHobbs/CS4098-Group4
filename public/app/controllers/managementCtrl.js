@@ -185,7 +185,7 @@ angular.module('managementController', [])
 		app.loading = true;
         app.failMsg = false;
         //TODO: Select event and add dietary requirements
-        //Events.add(app.guestData)
+        //Events.add(app.regData)
         User.create(app.regData)
         .then(function(data){
 			if(data.data.success){
