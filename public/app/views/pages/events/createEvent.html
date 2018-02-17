@@ -11,20 +11,20 @@
 
         <div class="six wide field">
           <label class="ui primary label">EventID</label>
-          <input ng-disabled="event.disabled" placeholder="Password" type="password" name="password" ng-model="event.eventData.password" id="password">
+          <input ng-disabled="event.disabled" placeholder="Password" type="password" name="id" ng-model="event.eventData.id" id="id">
         </div>
       </div>
 
       <h4 class="ui dividing header">Event Details</h4>
       <div class="two fields">
-        <div class="eight wide field">
-          <label class="ui primary label">Date</label>
-          <input ng-disabled="event.disabled" placeholder="Email" type="text" name="email" ng-model="event.eventData.email" id="email">
-        </div>
-    
-        <div class="eight wide field">
+        <div class="ten wide field">
           <label class="ui primary label">Venue</label>
-          <input ng-disabled="event.disabled" placeholder="Username" type="text" name="username" ng-model="event.eventData.username" id="username">
+          <input ng-disabled="event.disabled" placeholder="Venue" type="text" name="venue" ng-model="event.eventData.venue" id="venue">
+        </div>
+
+        <div class="six wide field">
+          <label class="ui primary label">Date</label>
+          <input ng-disabled="event.disabled" placeholder="Date" type="date" name="date" ng-model="event.eventData.date" id="date">
         </div>
       </div>
 
@@ -32,12 +32,12 @@
       <div class="two fields">
         <div class="four wide field">
           <label class="ui primary label">Number of tables</label>
-          <input ng-disabled="event.disabled" placeholder="Email" type="text" name="email" ng-model="event.eventData.email" id="email">
+          <input ng-disabled="event.disabled" placeholder="Tables" type="number" name="tables" ng-model="event.eventData.tables" id="tables">
         </div>
     
         <div class="four wide field">
           <label class="ui primary label">Number of seats</label>
-          <input ng-disabled="event.disabled" placeholder="Username" type="text" name="username" ng-model="event.eventData.username" id="username">
+          <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="event.eventData.seats" id="seats">
         </div>
       </div>
     

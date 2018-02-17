@@ -14,5 +14,5 @@ var UserSchema = new Schema({
 	attended:   {type: [String], default: []},
 	tables:     {type: Number},
 	seatsPer:   {type: Number},
-	description: {type: String}
+	description: {type: String, default: ''}
 });
