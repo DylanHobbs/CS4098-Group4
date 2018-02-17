@@ -1,0 +1,118 @@
+<div class="ui inverted segment">
+    <h1>Guest/Invite List</h1>
+    <!-- <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>  
+            <br>
+            <br>
+            <div class="ui icon input">
+                <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
+                <i class="search icon"></i>
+            </div>
+        </div> 
+    
+    </div> -->
+
+
+ <!--    <div class="ui tiny error message" ng-show="event.failMsg">
+            <div class="header">Uh Oh</div>
+            <p>{{ event.failMsg }}</p>
+        </p>
+    </div> -->
+
+    <div class="ui stackable two column grid">
+        <div class="column">
+            <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Micky Mouse</td>
+                        <td>Micky@disney.com</td>
+                        <td>
+                            <a>
+                                <button class="ui yellow basic button">Edit</button> 
+                            </a>
+                            <button class="ui negative basic button floated">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Goofy</td>
+                        <td>Goofy@disney.com</td>
+                        <td>
+                            <a>
+                                <button class="ui yellow basic button">Edit</button> 
+                            </a>
+                            <button class="ui negative basic button floated">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>   
+            </table>
+            
+        </div>
+        <div class="column">
+            <table id="example1" class="ui celled inverted primary table" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Minnie Mouse</td>
+                        <td>Minnie@disney.com</td>
+                        <td>
+                            <a>
+                                <button class="ui yellow basic button">Edit</button> 
+                            </a>
+                            <button class="ui negative basic button floated">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Donald Duck</td>
+                        <td>Donald@disney.com</td>
+                        <td>
+                            <a>
+                                <button class="ui yellow basic button">Edit</button> 
+                            </a>
+                            <button class="ui negative basic button floated">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>   
+            </table>
+        </div>
+    </div>
+    
+     
+
+  <!--   <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+         </div>  
+    </div> -->
+
+
+    <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div>
+
+    <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+    </div>
+</div>

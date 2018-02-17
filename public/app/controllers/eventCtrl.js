@@ -16,6 +16,11 @@ angular.module('eventController', ['eventServices'])
             app.successMsg = eventData.message;
         });
     };
+})
+
+.controller('viewEventCtrl', function(){
+    app = this;
+    console.log('hello from event controller');
 });
 
 
