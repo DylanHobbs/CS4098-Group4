@@ -20,7 +20,26 @@ angular.module('eventController', ['eventServices'])
 
 .controller('viewEventCtrl', function(){
     app = this;
-    console.log('hello from event controller');
+    // need to pass event id in here replacing the placeholder
+    // from where though  
+
+    // Event.viewEvent(placeholderID)
+    // .then(function(data){
+    //         // app.successMsg = placeholderID.message;
+    //         if(data.data.success){
+    //             if(data.data.permission === 'admin'){
+    //                 console.log(data.data.email)
+    //             } else {
+    //                 app.failMsg = "No permissions to access this feature";
+    //                 app.loading = false;
+    //             }
+    //         } else {
+    //             app.failMsg = data.data.message;
+    //             app.loading = false;
+    //         }
+            
+    //     });
+    console.log('hello from micky mouse');
 });
 
 

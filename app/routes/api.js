@@ -632,26 +632,56 @@ module.exports = function(router){
 
 */
 
-router.post('/users', function(req, res){
-	var event = new Event();
-	event.name = req.body.name;
-	event.eventId = req.body.id;
-	//event.time = req.body.time;
-	event.venue = req.body.venue;
-	event.date = req.body.date;
-	event.tables = req.body.tables;
-	event.seatsPer = req.body.seats;
+	router.post('/users', function(req, res){
+		var event = new Event();
+		event.name = req.body.name;
+		event.eventId = req.body.id;
+		//event.time = req.body.time;
+		event.venue = req.body.venue;
+		event.date = req.body.date;
+		event.tables = req.body.tables;
+		event.seatsPer = req.body.seats;
 
-	if(req.body.name == null || req.body.name == '' || req.body.eventId == null || req.body.eventId == '' || req.body.time == null || req.body.time == '' || req.body.venue == null || req.body.venue == ''){
-		res.json({success: false, message: 'Ensure event name, eventID, time and venue are provided'});
-	} else {
-		event.save(function(err){
-			if(err) throw err;
-			res.json({success: true, message: 'Event Created'});
-		});
-	}
-});
+		if(req.body.name == null || req.body.name == '' || req.body.eventId == null || req.body.eventId == '' || req.body.time == null || req.body.time == '' || req.body.venue == null || req.body.venue == ''){
+			res.json({success: false, message: 'Ensure event name, eventID, time and venue are provided'});
+		} else {
+			event.save(function(err){
+				if(err) throw err;
+				res.json({success: true, message: 'Event Created'});
+			});
+		}
+	});
+
+	// need to handle empty shit/ failures also need events for this to work
+
+
+
+// router.get('/viewEvent/:id', function(req, res){
+// 		var eventID = req.params.id;
+// 		Event.findOne({ eventId: eventID }, function(err, event){
+
+// 			if(err) throw err;
+
+// 			if(!event){
+// 				res.json({ success: false, message: 'Event was not found' });
+// 			} else {
+// 				var invited = event.invited; 
+// 				var invitedUsers = [];
+// 				for (var i in invited){
+// 					User.findOne({email: i}, function(err, user){
+// 						if(err) throw err;
+// 						// add this user to array below I think push should work
+// 						invitedUsers.push(user);
+// 					}
+// 				}
+// 				res.json({ success: true, invitedUsers: invitedUsers});
+
+// 		});
+
+
+	
 
 	
 	return router; // Return the router object to server
 }
+

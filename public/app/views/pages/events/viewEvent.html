@@ -24,10 +24,10 @@
         </p>
     </div> -->
 
-    <div class="ui stackable two column grid">
-        <div class="column">
+    <div class="ui two column middle aligned very relaxed stackable grid">
+        <div class="nine wide column">
             Attending
-            <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <table id="attending" class="ui celled compact inverted green table">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -36,13 +36,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Micky Mouse</td>
-                        <td>Micky@disney.com</td>
+                    <tr ng-repeat="person in manage.users | limitTo: manage.limit">
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.email }}</td>
                         <td>
-                            <a>
+                            <a href="/edit/{{person._id}}">
                                 <button class="ui yellow basic button">Edit</button> 
                             </a>
+
+                            <!-- <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button> 
+
+                                not sure if we want to delete user
+
+                            -->
+
+                            <button class="ui negative basic button right floated">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Micky Mouse</td>
+                        <td>Micky@disney.com</td>
+                        <td>   
+                            <a href="/edit/{{person._id}}">  this should replace the next
+                                line or something similar for when the table is properly populated
+                           
+                            <a>
+                                This edit button just used to edit user
+                                <button class="ui yellow basic button">Edit</button> 
+                            </a>
+                            delete button to remove person from guest list or delete them entirely????
                             <button class="ui negative basic button floated">Delete</button>
                         </td>
                     </tr>
@@ -55,14 +77,19 @@
                             </a>
                             <button class="ui negative basic button floated">Delete</button>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>   
-            </table>
-            
+            </table>   
         </div>
-        <div class="column">
+
+        <!-- <div class="column"></div> -->
+   
+
+
+
+        <div class="seven wide column">
             Invited
-            <table id="example1" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <table id="invited" class="ui celled compact inverted grey table">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -71,26 +98,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Minnie Mouse</td>
-                        <td>Minnie@disney.com</td>
+                    <tr ng-repeat="person in manage.users | limitTo: manage.limit">
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.email }}</td>
                         <td>
-                            <a>
+                            <a href="/edit/{{person._id}}">
                                 <button class="ui yellow basic button">Edit</button> 
                             </a>
-                            <button class="ui negative basic button floated">Delete</button>
+
+                            <!-- <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button> 
+
+                                not sure if we want to delete user
+
+                            -->
+
+                            <button class="ui negative basic button right floated">Delete</button>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Donald Duck</td>
-                        <td>Donald@disney.com</td>
-                        <td>
-                            <a>
-                                <button class="ui yellow basic button">Edit</button> 
-                            </a>
-                            <button class="ui negative basic button floated">Delete</button>
-                        </td>
-                    </tr>
+                    </tr>  
                 </tbody>   
             </table>
         </div>
@@ -98,7 +122,7 @@
     
      
 
-  <!--   <div class="ui form">
+    <!-- <div class="ui form">
         <div class="required nine wide field">
             <div class="ui action input">
                 <input ng-model="number" type="text" placeholder="Enteries to display...">
@@ -106,7 +130,7 @@
                  <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
             </div>      
          </div>  
-    </div> -->
+    </div>
 
 
     <div class="ui active dimmer" ng-show="event.loading">
@@ -116,5 +140,5 @@
     <div class="ui success message" ng-show="event.successMsg">
         <div class="header">All Set</div>
         <p>{{ event.successMsg }}</p>
-    </div>
+    </div> -->
 </div>

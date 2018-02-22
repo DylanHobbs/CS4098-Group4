@@ -116,8 +116,10 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/viewEvent', {
 		templateUrl: 'app/views/pages/events/viewEvent.html',
-		controller: 'viewEventCtrl',
-		controllerAs: 'viewEvent',
+		// controller: 'viewEventCtrl', just testing something
+		controller: 'managmentCtrl', 
+		// controllerAs: 'viewEvent',
+		controllerAs: 'manage',
 		authenticated: true,
 		permission: 'admin'
 	})

@@ -1,0 +1,14 @@
+[
+  {
+    "date": "01/01/2018",
+    "venue": "Trinity College",
+    "eventId": 1,
+    "invited": ["dhobbs@tcd.ie","jackson51@test.io"],
+    "rsvp": ["dhobbs@tcd.ie"],
+    "attended": [],
+    "tables": 1,
+    "seatsPer": 10,
+    "description": "This is just a test event"
+
+  }
+]
