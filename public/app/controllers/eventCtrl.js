@@ -1,7 +1,27 @@
 angular.module('eventController', ['eventServices'])
-.controller('eventCtrl', function(){
+.controller('eventCtrl', function(Event){
 	app = this;
     console.log('hello from event controller');
+
+    // function getEvents(){
+    //     Event.getEvents().then(function(data){
+    //         if(data.data.success){
+    //             if(data.data.permission === 'admin'){
+    //                 app.users = data.data.users;
+    //                 app.loading = false;
+    //                 app.accessDenied = false;
+    //             } else {
+    //                 app.failMsg = "No permissions to access this feature";
+    //                 app.loading = false;
+    //             }
+    //         } else {
+    //             app.failMsg = data.data.message;
+    //             app.loading = false;
+    //         }
+    //     });
+    // }
+
+    // getEvents();
 })
 
 .controller('createEventCtrl', function(Event){

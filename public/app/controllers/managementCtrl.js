@@ -1,5 +1,5 @@
 angular.module('managementController', [])
-.controller('managmentCtrl', function(User, $scope){
+.controller('managementCtrl', function(User, $scope){
     var app = this;
 
     app.loading = true;
