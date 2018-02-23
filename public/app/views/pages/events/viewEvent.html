@@ -24,10 +24,15 @@
         </p>
     </div> -->
 
+
     <div class="ui two column middle aligned very relaxed stackable grid">
         <div class="nine wide column">
-            Attending
-            <table id="attending" class="ui celled compact inverted green table">
+            <div class="ui icon input">
+                <input ng-model="search1" class="prompt" type="text" placeholder="Search...">
+                <i class="search icon"></i>
+            </div>
+            <h2 ng-model="searchWord">Attending</h2>
+            <table id="attending" class="ui celled inverted green table">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -36,7 +41,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="person in manage.users | limitTo: manage.limit">
+                    <tr ng-repeat="person in viewEvent.invitedUsers | filter: searchWord | filter: search1 | limitTo: manage.limit">
                         <td>{{ person.name }}</td>
                         <td>{{ person.email }}</td>
                         <td>
@@ -63,8 +68,12 @@
 
 
         <div class="seven wide column">
-            Invited
-            <table id="invited" class="ui celled compact inverted grey table">
+            <div class="ui icon input">
+                <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
+                <i class="search icon"></i> 
+            </div>
+            <h2 ng-model="searchKey">Invited</h2>        
+            <table id="invited" class="ui celled inverted grey table">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -73,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="person in manage.users | limitTo: manage.limit">
+                    <tr ng-repeat="person in manage.users | filter: searchKey | filter: search2 | limitTo: manage.limit">
                         <td>{{ person.name }}</td>
                         <td>{{ person.email }}</td>
                         <td>

@@ -114,12 +114,10 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
-	.when('/viewEvent', {
+	.when('/viewEvent/:id', {
 		templateUrl: 'app/views/pages/events/viewEvent.html',
-		// controller: 'viewEventCtrl', just testing something
-		controller: 'managementCtrl', 
-		// controllerAs: 'viewEvent',
-		controllerAs: 'manage',
+		controller: 'viewEventCtrl', 
+		controllerAs: 'viewEvent',
 		authenticated: true,
 		permission: 'admin'
 	})

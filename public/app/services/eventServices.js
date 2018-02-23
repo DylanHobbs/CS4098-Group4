@@ -10,7 +10,7 @@ angular.module('eventServices', [])
         return $http.post('/api/createEvent', eventData);
     }
 
-    eventFactory.viewEvent = function(id){
+    eventFactory.getEvent = function(id){
         return $http.get('/api/viewEvent/'+ id);
     }
 

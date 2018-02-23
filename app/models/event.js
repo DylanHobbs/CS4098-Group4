@@ -16,3 +16,5 @@ var EventSchema = new Schema({
 	seatsPer:   {type: Number},
 	description: {type: String, default: ''}
 });
+
+module.exports = mongoose.model('Event', EventSchema);

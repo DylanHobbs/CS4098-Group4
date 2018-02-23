@@ -653,34 +653,91 @@ module.exports = function(router){
 	});
 
 	// need to handle empty shit/ failures also need events for this to work
+	// Used to populate data tables
+	// router.get('/viewEvent', function(req, res){
+	// 	User.find({}, function(err, users){
+	// 		if(err) throw err;
+	// 		//Check if they're allowed use this route
+	// 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+	// 			if(err) throw err;
+	// 			if(!mainUser){
+	// 				res.json({ success: false, message: 'User was not found' });
+	// 			} else {
+	// 				if(mainUser.permission === 'admin'){
+	// 					// Exitst and has permission
+	// 					if(!users){
+	// 						res.json({ success: false, message: 'User[s] not found' });
+	// 					} else {
+	// 						res.json({ success: true, users: users, permission: mainUser.permission });
+	// 					}
+	// 				} else {
+	// 					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+	// 				}
+	// 			}
+	// 		});
+ // 		});
+	// });
+
+	// router.delete('/viewEvent/:id', function(req, res){
+	// 	var deletedUser = req.params.username;
+	// 	User.findOne({ username: req.decoded.username }, function(err, mainUser){
+	// 		if(err) throw err;
+	// 		if(!mainUser){
+	// 			res.json({ success: false, message: 'User was not found' });
+	// 		} else {
+	// 			if(mainUser.permission === 'admin'){
+	// 				// Exitst and has permission
+	// 				if(!deletedUser){
+	// 					res.json({ success: false, message: 'No username provided' });
+	// 				} else {
+	// 					User.findOneAndRemove({username: deletedUser}, function(err, user){
+	// 						if(err) throw err;
+	// 						res.json({ success: true, message: 'User deleted' });
+	// 					});
+	// 				}
+	// 			} else {
+	// 				res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+	// 			}
+	// 		}
+	// 	});
+	// });
 
 
+	router.get('/viewEvent/:id', function(req, res){
+			var eventID = req.params.id;
+			Event.findOne({ eventId: eventID }, function(err, event){
 
-// router.get('/viewEvent/:id', function(req, res){
-// 		var eventID = req.params.id;
-// 		Event.findOne({ eventId: eventID }, function(err, event){
+				if(err) throw err;
 
-// 			if(err) throw err;
+				if(!event){
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					var invited = event.invited; 
+					var invitedUsers = [];
+					// do same thing for rsvp as invited users
+					// make sure to send back in res
+					invited.forEach(function(element){
 
-// 			if(!event){
-// 				res.json({ success: false, message: 'Event was not found' });
-// 			} else {
-// 				var invited = event.invited; 
-// 				var invitedUsers = [];
-// 				for (var i in invited){
-// 					User.findOne({email: i}, function(err, user){
-// 						if(err) throw err;
-// 						// add this user to array below I think push should work
-// 						invitedUsers.push(user);
-// 					}
-// 				}
-// 				res.json({ success: true, invitedUsers: invitedUsers});
+						User.findOne({email: element}, function(err, user){
 
-// 		});
+							if(err) throw err;
+							console.log(invitedUsers);
+							// add this user to array below I think push should work
+							invitedUsers.push(user);
+							console.log(invitedUsers);
+						});
+					} )
+					// need to make a callback function for this
+					setTimeout(function() {
+						res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
+						}, 100);
+					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
-	
+				}
 
+			});
+	});
 	
 	return router; // Return the router object to server
 }
