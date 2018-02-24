@@ -52,7 +52,7 @@
                 <td>Test Venue</td>
                 <td>12-07-2018</td>
                 <td>
-                    <a>
+                    <a ng-show="event.isLoggedIn && event.admin" href="AlsoNowhere">
                         <button class="ui yellow basic button">Edit</button> 
                     </a>
                     <!-- I added this button - Conor 
@@ -65,10 +65,18 @@
                             View
                         </button>
                     </a>
-                    <button class="ui negative basic button right floated">
-                        Delete
-                    </button>
-                </td>
+					<!--Update this later !TODO --!>
+					<a ng-show="event.isLoggedIn && event.admin" href="Nowhere">
+                    	<button class="ui negative basic button right floated">
+                       		Delete
+                    	</button>
+					</a>
+                	<a ng-show="event.isLoggedIn && event.user" href="/purchaseTicket">
+						<button class="ui negative basic button right floated">
+							Purchase
+						</button>
+					</a>
+				</td>
             </tr>
         </tbody>   
     </table>
