@@ -127,7 +127,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'ticketCtrl',
 		controllerAs: 'ticket',
 		authenticated: true
-	}
+	})
 
 	.otherwise({redirectTo: '/'});
 

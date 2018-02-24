@@ -51,10 +51,10 @@
                 <td>Test Event</td>
                 <td>Test Venue</td>
                 <td>12-07-2018</td>
-                <td>
-                    <a ng-show="event.isLoggedIn && event.admin" href="AlsoNowhere">
+                <td >
+                     <a ng-show="main.isLoggedIn && main.admin" href="AlsoNowhere">
                         <button class="ui yellow basic button">Edit</button> 
-                    </a>
+                    </a> 
                     <!-- I added this button - Conor 
                         Should probably look like whats below
                         commented out. Will depend on the code above thats commented out
@@ -65,14 +65,15 @@
                             View
                         </button>
                     </a>
-					<!--Update this later TODO -->
-					<a ng-show="event.isLoggedIn && event.admin" href="Nowhere">
-                    	<button class="ui negative basic button right floated">
+					
+					<a ng-show="main.isLoggedIn && main.admin" href="Nowhere">
+                    	<button class="ui negative basic button">
                        		Delete
                     	</button>
 					</a>
-                	<a ng-show="event.isLoggedIn && event.user" href="/purchaseTicket">
-						<button class="ui negative basic button right floated">
+                    <!-- Should be only user accesible really.. -->
+                	<a ng-show="main.isLoggedIn" href="/purchaseTicket">
+						<button class="ui negative basic button">
 							Purchase
 						</button>
 					</a>
