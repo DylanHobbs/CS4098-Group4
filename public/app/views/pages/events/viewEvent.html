@@ -1,14 +1,6 @@
 <div class="ui inverted segment">
     <h1>Guest/Invite List</h1>
-    <!-- <div class="ui form">
-        <div class="required nine wide field">
-            <div class="ui action input">
-                <input ng-model="number" type="text" placeholder="Enteries to display...">
-                <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
-                <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
-            </div>  
-            <br>
-            <br>
+    <!--
             <div class="ui icon input">
                 <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
                 <i class="search icon"></i>
@@ -25,13 +17,19 @@
     </div> -->
 
 
-    <div class="ui two column middle aligned very relaxed stackable grid">
-        <div class="nine wide column">
+    <div class="ui two column middle stackable grid">
+        <div class="eight wide column">
+
             <div class="ui icon input">
                 <input ng-model="search1" class="prompt" type="text" placeholder="Search...">
                 <i class="search icon"></i>
             </div>
-            <h2 ng-model="searchWord">Attending</h2>
+            <h2 ng-model="checkAttending" >Attending </h2>
+
+            <div class="ui action input">
+                <input ng-model="email" type="text" placeholder="Email of user to add...">
+                    <button ng-click="viewEvent.addUser(email,checkAttending);" class="ui blue button">Add</button>
+            </div> 
             <table id="attending" class="ui celled inverted green table">
                 <thead>
                 <tr>
@@ -41,38 +39,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="person in viewEvent.invitedUsers | filter: searchWord | filter: search1 | limitTo: manage.limit">
+                    <tr ng-repeat="person in viewEvent.rsvpUsers | filter: searchWord | filter: search1 | limitTo: manage.limit">
                         <td>{{ person.name }}</td>
                         <td>{{ person.email }}</td>
                         <td>
-                            <a href="/edit/{{person._id}}">
-                                <button class="ui yellow basic button">Edit</button> 
-                            </a>
-
-                            <!-- <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button> 
-
-                                not sure if we want to delete user
-
-                            -->
-
-                            <button class="ui negative basic button right floated">Delete</button>
+                            <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
                         </td>
                     </tr>
                 </tbody>   
             </table>   
         </div>
 
-        <!-- <div class="column"></div> -->
-   
+        <div class="eight wide column">
 
-
-
-        <div class="seven wide column">
             <div class="ui icon input">
                 <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
                 <i class="search icon"></i> 
             </div>
-            <h2 ng-model="searchKey">Invited</h2>        
+            <h2 ng-model="checkInvited" >Invited</h2> 
+
+            <div class="ui action input">
+                <input ng-model="emailInvited" type="text" placeholder="Email of user to add...">
+                    <button ng-click="viewEvent.addUser(emailInvited,checkInvited);" class="ui blue button">Add</button>
+            </div> 
+
             <table id="invited" class="ui celled inverted grey table">
                 <thead>
                 <tr>
@@ -82,21 +72,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="person in manage.users | filter: searchKey | filter: search2 | limitTo: manage.limit">
+                    <tr ng-repeat="person in viewEvent.invitedUsers | filter: searchWord | filter: search2 | limitTo: manage.limit">
                         <td>{{ person.name }}</td>
                         <td>{{ person.email }}</td>
                         <td>
-                            <a href="/edit/{{person._id}}">
-                                <button class="ui yellow basic button">Edit</button> 
-                            </a>
-
-                            <!-- <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button> 
-
-                                not sure if we want to delete user -->
-
-                           
-
-                            <button class="ui negative basic button right floated">Delete</button>
+                            <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
                         </td>
                     </tr> 
                     

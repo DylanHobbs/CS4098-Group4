@@ -1,28 +1,31 @@
 angular.module('eventController', ['eventServices'])
-.controller('eventCtrl', function(Event, $scope){
+.controller('eventCtrl', function(Event, $scope, $routeParams){
 
+    // TODO: 
+    // these may or may not be needed
+    // $scope.searchWord = "admin";
+    // $scope.searchKey = "host";
+    // 
+    // 
 	var app = this;
-    console.log('hello from event controller');
+    // console.log('hello from event controller');
 
-//     function getEvent(){
-//         Event.getEvent().then(function(data){
-//             if(data.data.success){
-//                 if(data.data.permission === 'admin'){
-//                     app.users = data.data.users;
-//                     app.loading = false;
-//                     app.accessDenied = false;
-//                 } else {
-//                     app.failMsg = "No permissions to access this feature";
-//                     app.loading = false;
-//                 }
-//             } else {
-//                 app.failMsg = data.data.message;
-//                 app.loading = false;
-//             }
-//         });
-//     }
+    // Trying to display the test event from the database
 
-//     getEvent();
+    // Event.getEvent($routeParams.id)
+    // .then(function(data){
+    //     if(data.data.success){
+    //         app.venue = data.data.venue;
+    //         app.date = data.data.date;
+    //         app.name = data.data.description;
+    //     } else {
+    //         app.failMsg = data.data.message;
+    //         app.loading = false;
+    //     }
+            
+    // });
+
+
 })
 
 .controller('createEventCtrl', function(Event){
@@ -39,22 +42,48 @@ angular.module('eventController', ['eventServices'])
     };
 })
 
-.controller('viewEventCtrl', function(Event, $routeParams){
+.controller('viewEventCtrl', function(Event, $scope, $routeParams){
     var app = this;
-    // next line is broken maybe
+
+    $scope.checkInvited = 1;
+    $scope.checkAttending = 0;
 
     Event.getEvent($routeParams.id)
     .then(function(data){
-        // app.successMsg = placeholderID.message;
+        
         if(data.data.success){
             app.invitedUsers = data.data.invitedUsers;
+            app.rsvpUsers = data.data.rsvpUsers;
         } else {
             app.failMsg = data.data.message;
             app.loading = false;
         }
             
     });
-    console.log('hello from micky mouse');
+
+    app.removeUser = function(email){
+        Event.removeUser($routeParams.id,email).then(function(data){
+            if(data.data.success){
+                // ask dylan
+                //  might want to slap the getEvent($routeParams,id) here to refresh list ???????
+            } else {
+                app.failMsg = data.data.message;
+                // console.log(data.data.message);
+            }
+        });
+    }
+
+    app.addUser = function(email, check){
+        Event.addUser($routeParams.id,email,check).then(function(data){
+            if(data.data.success){
+                // ask dylan
+                //  might want to slap the getEvent($routeParams,id) here to refresh list ???????
+            } else {
+                app.failMsg = data.data.message;
+                // console.log(data.data.message);
+            }
+        });
+    }
 });
 
 

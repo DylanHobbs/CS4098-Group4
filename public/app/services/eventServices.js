@@ -14,6 +14,14 @@ angular.module('eventServices', [])
         return $http.get('/api/viewEvent/'+ id);
     }
 
+    eventFactory.removeUser = function(id, email){
+        return $http.delete('/api/viewEvent/' + id +'/'+ email);
+    }
+
+    eventFactory.addUser = function(id, email, check){
+        return $http.put('/api/viewEvent/' + id +'/'+ email + '/' + check);
+    }
+
 
 	return eventFactory;
 });

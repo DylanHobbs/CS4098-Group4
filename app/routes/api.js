@@ -652,92 +652,147 @@ module.exports = function(router){
 		}
 	});
 
-	// need to handle empty shit/ failures also need events for this to work
-	// Used to populate data tables
-	// router.get('/viewEvent', function(req, res){
-	// 	User.find({}, function(err, users){
-	// 		if(err) throw err;
-	// 		//Check if they're allowed use this route
-	// 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
-	// 			if(err) throw err;
-	// 			if(!mainUser){
-	// 				res.json({ success: false, message: 'User was not found' });
-	// 			} else {
-	// 				if(mainUser.permission === 'admin'){
-	// 					// Exitst and has permission
-	// 					if(!users){
-	// 						res.json({ success: false, message: 'User[s] not found' });
-	// 					} else {
-	// 						res.json({ success: true, users: users, permission: mainUser.permission });
-	// 					}
-	// 				} else {
-	// 					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-	// 				}
-	// 			}
-	// 		});
- // 		});
-	// });
-
-	// router.delete('/viewEvent/:id', function(req, res){
-	// 	var deletedUser = req.params.username;
-	// 	User.findOne({ username: req.decoded.username }, function(err, mainUser){
-	// 		if(err) throw err;
-	// 		if(!mainUser){
-	// 			res.json({ success: false, message: 'User was not found' });
-	// 		} else {
-	// 			if(mainUser.permission === 'admin'){
-	// 				// Exitst and has permission
-	// 				if(!deletedUser){
-	// 					res.json({ success: false, message: 'No username provided' });
-	// 				} else {
-	// 					User.findOneAndRemove({username: deletedUser}, function(err, user){
-	// 						if(err) throw err;
-	// 						res.json({ success: true, message: 'User deleted' });
-	// 					});
-	// 				}
-	// 			} else {
-	// 				res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-	// 			}
-	// 		}
-	// 	});
-	// });
-
-
 	router.get('/viewEvent/:id', function(req, res){
-			var eventID = req.params.id;
-			Event.findOne({ eventId: eventID }, function(err, event){
+		var eventID = req.params.id;
+		
+		Event.findOne({ eventId: eventID }, function(err, event){
 
-				if(err) throw err;
+			if(err) throw err;
 
-				if(!event){
-					res.json({ success: false, message: 'Event was not found' });
-				} else {
+			if(!event){
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+
 					var invited = event.invited; 
 					var invitedUsers = [];
-					// do same thing for rsvp as invited users
-					// make sure to send back in res
+					var rsvp = event.rsvp;
+					var rsvpUsers= []
+		
+					// if invited is already a list why iterate through it ????
 					invited.forEach(function(element){
+
+						User.findOne({email: element}, function(err, user){
+							if(err) throw err;
+							invitedUsers.push(user);
+						});
+					} )
+					rsvp.forEach(function(element){
 
 						User.findOne({email: element}, function(err, user){
 
 							if(err) throw err;
-							console.log(invitedUsers);
-							// add this user to array below I think push should work
-							invitedUsers.push(user);
-							console.log(invitedUsers);
+							rsvpUsers.push(user);
 						});
 					} )
 					// need to make a callback function for this
 					setTimeout(function() {
-						res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
+						res.json({ success: true, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, message: 'heres a message'});
 
 						}, 100);
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
-				}
-
-			});
+			}
+		});
 	});
+
+	// trying to remove user from rsvp/guest list
+
+	router.delete('/viewEvent/:id/:email', function(req, res){
+		var eventID = req.params.id;
+		var email = req.params.email;
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+
+			var invite = event.invited; 
+			var invitedUsers = [];
+			var rsvpd = event.rsvp;
+			var rsvpUsers= []
+			// console.log(event.invited)
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				if(email){
+
+					invite.forEach(function(element){
+						if(element===email){
+							var index = invite.indexOf(email)
+							invite.splice(index,1)
+							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									if(err) throw err;
+									res.json({ success: true, message: 'user removed from invited list' });
+								});
+						}
+					} )
+
+					rsvpd.forEach(function(element){
+						if(element===email){
+							var index = rsvpd.indexOf(email)
+							rsvpd.splice(index,1)
+							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+									if(err) throw err;
+									res.json({ success: true, message: 'user removed from rsvp list' });
+								});
+						}
+					} )	
+
+				} else {
+					res.json({ success: false, message: 'no email' });
+				}
+			}
+		});
+	});
+
+	router.put('/viewEvent/:id/:email/:check', function(req, res){
+		var eventID = req.params.id;
+		var email = req.params.email;
+		var check = req.params.check;
+		
+		Event.findOne({ eventId: eventID }, function(err, event){
+
+			var invite = event.invited; 
+			var invitedUsers = [];
+			var rsvpd = event.rsvp;
+			var rsvpUsers= []
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				if(email){
+
+					if (check){
+						console.log("invited")
+						invite.push(email)
+						console.log(invite)
+						Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user added to invited list' });
+							});
+					}else {
+						console.log("Attending")
+						rsvpd.push(email)
+						Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user added to rsvp list' });
+							});
+					}
+					
+
+				} else {
+					res.json({ success: false, message: 'no email' });
+				}
+			}
+		});
+	});
+
+
+
 	
 	return router; // Return the router object to server
 }

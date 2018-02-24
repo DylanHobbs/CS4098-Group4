@@ -7,14 +7,6 @@ angular.module('managementController', [])
     app.failMsg = false;
     app.limit = 10;
 
-    // TODO: 
-    // the next two lines should be put in the eventCtrl as soon as thats working and the 
-    // viewEvent.html doesn't have to use the management controller anymore
-    $scope.searchWord = "admin";
-    $scope.searchKey = "host";
-    // 
-    // 
-
 
     function getUsers(){
         User.getUsers().then(function(data){
