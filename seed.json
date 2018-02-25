@@ -1,12 +1,12 @@
 [
   {
     "_id": "5a857478abaca6954a7c9bdd",
-    "name": "Holman West",
-    "username": "Jackson51",
-    "active": false,
+    "name": "Conor Grogan",
+    "username": "groganco",
+    "active": true,
     "permission": "admin",
     "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
-    "email": "jackson51@test.io",
+    "email": "groganco@tcd.ie",
     "tmpToken": false
   },
   {

@@ -64,11 +64,10 @@ angular.module('eventController', ['eventServices'])
     app.removeUser = function(email){
         Event.removeUser($routeParams.id,email).then(function(data){
             if(data.data.success){
-                // ask dylan
-                //  might want to slap the getEvent($routeParams,id) here to refresh list ???????
+                window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
-                // console.log(data.data.message);
+                console.log(data.data.message);
             }
         });
     }
@@ -76,11 +75,10 @@ angular.module('eventController', ['eventServices'])
     app.addUser = function(email, check){
         Event.addUser($routeParams.id,email,check).then(function(data){
             if(data.data.success){
-                // ask dylan
-                //  might want to slap the getEvent($routeParams,id) here to refresh list ???????
+                window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
-                // console.log(data.data.message);
+                console.log(data.data.message);
             }
         });
     }

@@ -18,11 +18,11 @@ describe('User', () => {
         });     
     });
 
-    after(function() {
-        User.remove({}, (err) => { 
-            done();         
-         });  
-    });
+    // after(function() {
+    //     User.remove({}, (err) => { 
+    //         done();         
+    //      });  
+    // });
 
     // Register an admin user with active field set to false
     describe('POST /users', () => {
