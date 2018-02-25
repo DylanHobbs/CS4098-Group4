@@ -63,3 +63,20 @@ http://localhost:8080
 npm test
 # ctrl-C to exit
 ```
+
+
+**Testing the Guest List functionality**
+```
+To add a user to a list:
+1.Login with user who has admin access.
+2.Click on events tab at the top of the page.
+3.Enter the email address of a regestered user in the text bar below the word invited. (eg. groganco@tcd.ie)
+4.Click add to add that user to the list of invited people.
+5.This can be done with the attending list as well following steps 3 and 4 above but using the text bar below the word attending. 
+
+To remove a user from a list:
+1.Login with user who has admin access.
+2.Click on events tab at the top of the page.
+3.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are seaching.
+4.Once you have located the person that you wish to remove click the remove button beside there name and email address.
+```
