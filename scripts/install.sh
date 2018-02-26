@@ -25,6 +25,9 @@ echo "Installing run time enviroment"
 # Install nodemon to run server
 sudo npm install -g nodemon
 
+echo "Populating database"
+./popDB.sh
+
 echo "Running the server. Navigate to http://localhost:8080"
 # Start the server
 nodemon server.js
