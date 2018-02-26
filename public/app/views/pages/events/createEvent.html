@@ -11,7 +11,7 @@
 
         <div class="six wide field">
           <label class="ui primary label">EventID</label>
-          <input ng-disabled="event.disabled" placeholder="Password" type="password" name="id" ng-model="event.eventData.id" id="id">
+          <input ng-disabled="event.disabled" placeholder="UniqueID" type="text" name="id" ng-model="event.eventData.id" id="id">
         </div>
       </div>
 
@@ -38,6 +38,14 @@
         <div class="four wide field">
           <label class="ui primary label">Number of seats</label>
           <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="event.eventData.seats" id="seats">
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">Event Description</h4>
+      <div class="field">
+        <div class="sixteen wide field">
+          <label class="ui primary label">Description</label>
+          <textarea rows="4" ng-disabled="event.disabled" placeholder="Description" type="text" name="description" ng-model="event.eventData.description" id="description"></textarea>
         </div>
       </div>
     

@@ -38,16 +38,33 @@ angular.module('eventController', ['eventServices'])
 
 })
 
-.controller('createEventCtrl', function(Event){
+.controller('createEventCtrl', function($location, $timeout, $http, Event){
     app = this;
     app.loading = false;
-    console.log('hello from creat event controller');
+    app.disabled = false;
 
-    app.createEvent = function(eventUser){
-        console.log("I'm in the func")
-        Event.createEvent(eventData)
-        .then(function(){
-            app.successMsg = eventData.message;
+    this.createEvent = function(eventData){
+        // Disable inputs when submitted
+        app.disabled = true;
+        // show to loading spinner
+        app.loading = true;
+        // Set any existing errors to false
+        app.failMsg = false;
+        Event.create(app.eventData)
+        .then(function(data){
+            if(data.data.success){
+                console.log(data);
+                app.loading = false;
+                app.successMsg = data.data.message + '.. Redirecting you back to events';
+                $timeout(function(){
+					app.successMsg = false;
+					$location.path('/events');
+				}, 2000);
+            } else {
+                app.loading = false;
+                app.disabled = false;
+                app.failMsg = data.data.message;
+            }
         });
     };
 })

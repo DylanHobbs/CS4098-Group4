@@ -633,7 +633,7 @@ module.exports = function(router){
 
 */
 
-	router.post('/users', function(req, res){
+	router.post('/createEvent', function(req, res){
 		var event = new Event();
 		event.name = req.body.name;
 		event.eventId = req.body.id;
@@ -642,8 +642,10 @@ module.exports = function(router){
 		event.date = req.body.date;
 		event.tables = req.body.tables;
 		event.seatsPer = req.body.seats;
+		event.description = req.body.description;
+		console.log(req.body);
 
-		if(req.body.name == null || req.body.name == '' || req.body.eventId == null || req.body.eventId == '' || req.body.time == null || req.body.time == '' || req.body.venue == null || req.body.venue == ''){
+		if(req.body.description == null || req.body.description == '' || req.body.name == null || req.body.name == '' || req.body.id == null || req.body.id == '' || req.body.tables == null || req.body.tables == '' || req.body.venue == null || req.body.venue == '' || req.body.seats == null || req.body.seats == '' || req.body.date == null || req.body.date == ''){
 			res.json({success: false, message: 'Ensure event name, eventID, time and venue are provided'});
 		} else {
 			event.save(function(err){
@@ -827,15 +829,12 @@ module.exports = function(router){
 			if(!event){
 				res.json({ success: false, message: 'Event was not found' });
 			} else {
-
 					if(!event){
 						res.json({ success: false, message: 'Event to edit was not found' });
 					} else {
 						res.json({ success: true, event: event});
-					}	
-				
+					}		
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
-
 			}
 		});
 

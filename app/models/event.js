@@ -8,7 +8,7 @@ var EventSchema = new Schema({
 	name:       {type: String, required: true},
 	date:       {type: Date, required: true},
 	venue:      {type: String, required: true},
-	eventId:    {type: Number, required: true, unique: true},
+	eventId:    {type: String, required: true, unique: true},
 	invited:    {type: [String], default: []},
 	rsvp:       {type: [String], default: []},
 	attended:   {type: [String], default: []},
