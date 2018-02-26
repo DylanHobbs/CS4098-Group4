@@ -10,6 +10,10 @@ angular.module('userServices', [])
 		return $http.post('/api/users', regData);
 	}
 
+	userFactory.createAuthd = function(regData){
+		return $http.post('/api/authReg', regData);
+	}
+
 	//User.activateAccount(token)
 	userFactory.activateAccount = function(token){
 		return $http.put('/api/activate/' + token);

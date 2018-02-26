@@ -103,6 +103,76 @@ module.exports = function(router){
 		}
 	});
 
+	router.post('/authReg', function(req, res){
+		var user = new User();
+		user.username = req.body.username;
+		user.password = req.body.password;
+		user.email    = req.body.email;
+		user.name     = req.body.name;
+		// Used for email validation
+		user.active = true;
+		user.tmpToken = jwt.sign({username: user.username, email: user.email, name: user.name }, secret, {expiresIn: '24h'});
+		if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' || req.body.name == null || req.body.name == ''){
+			res.json({success: false, message: 'Ensure username, email, name and password are provided'});
+		} else {
+			user.save(function(err){
+				if(err){
+					console.log(err);
+					// Handles all validation errors
+					if(err.errors != null){ 
+						if(err.errors.name){
+							res.json({success: false, message: err.errors.name.message});
+						} else if(err.errors.email){
+							res.json({success: false, message: err.errors.email.message});
+						} else if(err.errors.username){
+							res.json({success: false, message: err.errors.username.message});
+						} else if(err.errors.password){
+							res.json({success: false, message: err.errors.password.message});
+						} else {
+							res.json({success: false, message: err});
+						}
+					} else if(err){
+						// Duplicate username or email
+						if(err.code = 11000){
+							// Dup username
+							if(err.errmsg[57] == 'u'){
+								res.json({success: false, message: 'Username already exists'});
+							} else if(err.errmsg[57] == 'e'){
+								res.json({success: false, message: 'Email already exists'});
+							} else {
+								res.json({success: false, message: err.errmsg + ' You should not see this. Check the indexing with table name'});
+							}		
+						} else {
+							res.json({success: false, message: err});
+						}
+					} 
+				} else {
+					// Success
+					// Send email
+					/*var email = {
+						from: 'Staff, staff@localhost.com',
+						to: user.email,
+						subject: 'Activation Link',
+						text: 'Hello ' + user.name + '! Thank you for registering. Please click on the link to below to complete activation of your account. http://localhost:8080/activate/' + user.tmpToken,
+						html: 'Hello <strong>' + user.name + '</strong>!<br><br>Thank you for registering. Please click on the link to below to complete activation of your account.<br><br> <a href="http://localhost:8080/activate/' + user.tmpToken + '">http://localhost:8080/activate/</a>'
+					};
+
+					client.sendMail(email, function(err, info){
+						if (err){
+						  console.log(err);
+						}
+						else {
+						  console.log('Message sent: ' + info.response);
+						}
+					});*/
+
+					// Send response
+					res.json({success: true, message: 'Account Registered!'});
+				}
+			});
+		}
+	});
+
 	// USER LOGIN ROUTE
 	// Provides JSON webtoken
 	// http://localhost:8080/api/authenticate

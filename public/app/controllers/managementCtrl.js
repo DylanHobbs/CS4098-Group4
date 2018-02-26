@@ -216,11 +216,11 @@ angular.module('managementController', [])
         app.failMsg = false;
         
         
-        User.create(app.regData)
+        User.createAuthd(app.regData)
         .then(function(data){
 			if(data.data.success){
 				app.loading = false;
-				app.successMsg = data.data.message + '... Redirecting you back to management';
+				//app.successMsg = data.data.message + '... Redirecting you back to management';
 			} else {
 				app.loading = false;
 				app.disabled = false;
@@ -229,7 +229,8 @@ angular.module('managementController', [])
         });
         
         console.log(app.regData);
-        Event.addInfo(app.regData);
+        Event.addInfo(app.regData).then(
+
         Event.addUser(app.regData.eventId, app.regData.email, '1').then(function(data){
             if(data.data.success){
 				app.loading = false;
@@ -246,7 +247,7 @@ angular.module('managementController', [])
 			}
         })
 
-        
+    );
 
         
         
