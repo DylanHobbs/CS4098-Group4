@@ -43,7 +43,6 @@ angular.module('eventController', ['eventServices'])
     app.loading = false;
     app.disabled = false;
 
-<<<<<<< HEAD
     this.createEvent = function(eventData){
         // Disable inputs when submitted
         app.disabled = true;
@@ -66,14 +65,6 @@ angular.module('eventController', ['eventServices'])
                 app.disabled = false;
                 app.failMsg = data.data.message;
             }
-=======
-    app.createEvent = function(eventUser){
-        console.log("I'm in the func")
-        Event.createEvent(eventData)
-        .then(function(){
-            app.successMsg = eventData.message;
-            // window.location.reload(true);
->>>>>>> 455b4c7b91843929375d36281e73ca62618d8e51
         });
     };
 })
