@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
 let User = require('../app/models/user');
+let Event = require('../app/models/event');
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
@@ -23,7 +24,10 @@ describe('User', () => {
     after(function() {
         User.remove({}, (err) => { 
             done();         
-         });  
+         });
+        Event.remove({}, (err) =>{
+            done();
+        });
     });
 
     // Register an admin user with active field set to false
@@ -251,6 +255,54 @@ describe('User', () => {
               });
         });
         });
+
+    describe('PUT /viewEvent/:id/:email/:check', () => {
+
+      it('should add user to list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+        let check = 1;
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .put('/api/viewEvent/' + id + '/' + email + '/' + check)
+            .send(list)
+            .end((err, res) => {
+                console.log(res.body)
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('user added');
+              done();
+            });
+      });
+      });
+
+    describe('Delete /viewEvent/:id/:email', () => {
+
+      it('should remove user from list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .delete('/api/viewEvent/' + id + '/' + email)
+            .send(list)
+            .end((err, res) => {
+                console.log(res.body)
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('user removed');
+              done();
+            });
+      });
+      });
+
 });
 
 
