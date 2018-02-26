@@ -14,3 +14,4 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 # Start Mongo
 sudo service mongod start
+echo "All done"
