@@ -183,12 +183,44 @@ angular.module('managementController', [])
     var app = this;
     $('.ui.dropdown').dropdown();
     $scope.tests = ['Dinner','Lunch','Brunch'];
+    
+    function getEvents(){
+        Event.getEvents().then(function(data){
+            
+            if(data.data.success){
+                if(data.data.permission === 'admin'){
+                    //console.log(data.data.events);
+                    app.events = data.data.events;
+                    app.loading = false;
+                    app.accessDenied = false;
+                } else {
+                    app.failMsg = "No permissions to access this feature";
+                    app.loading = false;
+                }
+            } else {
+                app.failMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+    }
+
+    getEvents();
+
+    eventList = [];
+    
+    app.events.forEach(element => {
+        eventList.push(element.eventId);
+    });
+
+    $scope.tests = eventList;
+
+
 	this.guestReg = function(regData){
 		app.disabled = true;
 		app.loading = true;
         app.failMsg = false;
-        //TODO: Select event and add dietary requirements
-        //Events.add(app.regData)
+        
+        Event.addInfo(app.regData);
         User.create(app.regData)
         .then(function(data){
 			if(data.data.success){

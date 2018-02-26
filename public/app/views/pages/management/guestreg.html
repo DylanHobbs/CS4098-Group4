@@ -35,7 +35,7 @@
         <div class="field">
             <label class="ui black label">Event</label>
             <div class="ui selection dropdown">
-                <input name="event" id="event" ng-model="register.regData.event" type="hidden">
+                <input name="event" id="event" ng-model="register.regData.eventId" type="hidden">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select the event the guest will be attending</div>
                 <div class="menu">
@@ -49,15 +49,15 @@
         <div class="field">
             <label class="ui black label">Dietary Requirements</label>
             <div class="ui checkbox">
-                <input type="checkbox" id="vegetarian" ng-model="register.regData.vegetarian">
+                <input value='0' type="checkbox" id="vegetarian" ng-model="register.regData.vegetarian">
                 <label for="vegetarian" class="ui black label">Vegetarian</label>
             </div>
             <div class="ui checkbox">
-                <input type="checkbox" id="vegan" ng-model="register.regData.vegan">
+                <input value='0' type="checkbox" id="vegan" ng-model="register.regData.vegan">
                 <label for="vegan" class="ui black label">Vegan</label>
             </div>
             <div class="ui checkbox">
-                <input type="checkbox" id="coeliac" ng-model="register.regData.coeliac">
+                <input value='0' type="checkbox" id="coeliac" ng-model="register.regData.coeliac">
                 <label for="coeliac" class="ui black label">Coeliac</label>
 
             </div>
