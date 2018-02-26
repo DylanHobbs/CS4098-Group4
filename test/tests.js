@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
 let User = require('../app/models/user');
+let Event = require('../app/models/event');
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
@@ -9,6 +10,8 @@ let should = chai.should();
 var address = 'http://localhost:8080';
 
 var token = 'l';
+
+var global = {};
 chai.use(chaiHttp);
 
 describe('User', () => {
@@ -21,7 +24,10 @@ describe('User', () => {
     after(function() {
         User.remove({}, (err) => { 
             done();         
-         });  
+         });
+        Event.remove({}, (err) =>{
+            done();
+        });
     });
 
     // Register an admin user with active field set to false
@@ -93,6 +99,22 @@ describe('User', () => {
                 res.should.have.status(200);
                 res.body.success.should.be.eql(false);
                 res.body.message.should.be.eql('Incorrect password');
+              done();
+            });
+      });
+      it('should login', (done) => {
+        let login = {
+            username: "dhobbs",
+            password: "Password*1"
+        }
+        chai.request(address)
+            .post('/api/authenticate')
+            .send(login)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('User logged in successfully');
+                global.token = res.body.token;
               done();
             });
       });
@@ -177,7 +199,6 @@ describe('User', () => {
             .post('/api/changeUsername')
             .send(user)
             .end((err, res) => {
-                console.log(res.body);
                 res.should.have.status(200);
                 res.body.success.should.be.eql(true);
                 res.body.message.should.be.eql('Username has been changed');
@@ -186,6 +207,100 @@ describe('User', () => {
             });
       });
     });
+
+    // Creat an awesome event
+     describe('POST /users', () => {
+        it('should create an event', (done) => {
+          let event = {
+            "description" : "This is a description",
+            "name" : "Test Event",
+            "id" : "testEvent",
+            "venue" : "test venue",
+            "date" : "2018-03-06T00:00:00.000Z",
+            "tables" : 10,
+            "seats" : 10,
+            "token" : global.token
+          }
+          chai.request(address)
+              .post('/api/createEvent')
+              .send(event)
+              .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.success.should.be.eql(true);
+                  res.body.message.should.be.eql('Event Created');
+                  token = res.body.token;
+                done();
+              });
+        });
+        });
+
+    describe('PUT /viewEvent/:id/:email/:check', () => {
+
+      it('should add user to list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+        let check = 1;
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .put('/api/viewEvent/' + id + '/' + email + '/' + check)
+            .send(list)
+            .end((err, res) => {
+                console.log(res.body)
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('user added');
+              done();
+            });
+      });
+
+      it('should fail if user already in list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+        let check = 1;
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .put('/api/viewEvent/' + id + '/' + email + '/' + check)
+            .send(list)
+            .end((err, res) => {
+
+                res.should.have.status(200);
+                res.body.success.should.be.eql(false);
+                res.body.message.should.be.eql('user already added');
+              done();
+            });
+      });
+
+      });
+
+    describe('Delete /viewEvent/:id/:email', () => {
+
+      it('should remove user from list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .delete('/api/viewEvent/' + id + '/' + email)
+            .send(list)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('user removed');
+              done();
+            });
+      });
+      });
 
     describe('POST /users', () => {
         var token = 'l';

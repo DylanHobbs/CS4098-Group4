@@ -1,11 +1,12 @@
 angular.module('managementController', [])
-.controller('managmentCtrl', function(User, $scope){
+.controller('managementCtrl', function(User, $scope){
     var app = this;
 
     app.loading = true;
     app.accessDenied = true;
     app.failMsg = false;
     app.limit = 10;
+
 
     function getUsers(){
         User.getUsers().then(function(data){
@@ -50,6 +51,8 @@ angular.module('managementController', [])
             }
         });
     }
+
+
 })
 
 .controller('editCtrl', function($scope, User, $routeParams, $timeout){
