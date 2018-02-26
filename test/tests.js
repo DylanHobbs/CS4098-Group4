@@ -204,27 +204,53 @@ describe('User', () => {
       });
     });
 
-    describe('PUT /viewEvent/:id/:email/:check', () => {
+    // Creat an awesome event
+     describe('POST /users', () => {
+        it('should create an event', (done) => {
+          let event = {
+            "description" : "This is a description",
+            "name" : "Test Event",
+            "id" : "testEvent",
+            "venue" : "test venue",
+            "date" : "2018-03-06T00:00:00.000Z",
+            "tables" : 10,
+            "seats" : 10,
+            "token" : global.token
+          }
+          chai.request(address)
+              .post('/api/createEvent')
+              .send(event)
+              .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.success.should.be.eql(true);
+                  res.body.message.should.be.eql('Event Created');
+                  token = res.body.token;
+                done();
+              });
+        });
+        });
 
-      it('should add user to list', (done) => {
-        let list = {
-            // id: 23,
-            // email: "groganco@tcd.ie",
-            // check: "1",
-            token: global.token
-        }
-        chai.request(address)
-            .put('/api/viewEvent/23/groganco@tcd.ie/1')
-            .send(list)
-            .end((err, res) => {
-                console.log(res.body)
-                res.should.have.status(200);
-                res.body.success.should.be.eql(true);
-                res.body.message.should.be.eql('user added');
-              done();
-            });
-      });
-      });
+    describe('PUT /viewEvent/:id/:email/:check', () => {
+        it('should add user to list', (done) => {
+          let id = "testEvent";
+          let email = "dhobbs@tcd.ie";
+          let check = 1;
+
+          let list = {
+              token: global.token
+          }
+          chai.request(address)
+              .put('/api/viewEvent/' + id + '/' + email + '/' + check)
+              .send(list)
+              .end((err, res) => {
+                  console.log(res.body)
+                  res.should.have.status(200);
+                  res.body.success.should.be.eql(true);
+                  res.body.message.should.be.eql('user added');
+                done();
+              });
+        });
+        });
 });
 
 
