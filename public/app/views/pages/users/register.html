@@ -3,6 +3,7 @@
 <form class="ui form success error" ng-submit="register.regUser(regData);" name="regForm" novalidate id="regForm">
   <div class="three fields">
     <br>
+      
     <div class="field">
       <label class="ui black label">Full Name</label>
       <input ng-disabled="register.disabled" placeholder="Full Name" type="text" name="name" ng-model="register.regData.name" id="name" required>
@@ -42,7 +43,7 @@
 </form>
 
 <script>
-  // TODO: Move this dragon somewhere not so visable
+  // TODO: Move this dragon somewhere not so visible
   $(document)
     .ready(function() {
     (function ($) {

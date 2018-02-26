@@ -177,4 +177,33 @@ angular.module('managementController', [])
             }
         });
     };
+})
+
+.controller('guestRegCtrl', function($http, $location, $timeout, User, $scope){
+    var app = this;
+    $('.ui.dropdown').dropdown();
+    $scope.tests = ['Dinner','Lunch','Brunch'];
+	this.guestReg = function(regData){
+		app.disabled = true;
+		app.loading = true;
+        app.failMsg = false;
+        //TODO: Select event and add dietary requirements
+        //Events.add(app.regData)
+        User.create(app.regData)
+        .then(function(data){
+			if(data.data.success){
+				app.loading = false;
+				app.successMsg = data.data.message + '... Redirecting you back to management';
+				$timeout(function(){
+					app.successMsg = false;
+					$location.path('/management');
+				}, 2000);
+			} else {
+				app.loading = false;
+				app.disabled = false;
+				app.failMsg = data.data.message;
+			}
+		});
+    };
+    
 });

@@ -1,0 +1,185 @@
+<div class="ui inverted segment">
+    <h1>Guest Registration</h1>
+    <form class="ui form success error" ng-submit="register.guestReg(regData);" name="regForm" novalidate id="regForm">
+        <br>
+
+        <div class="field">
+            <label class="ui black label">Guest Name</label>
+            <input ng-disabled="register.disabled" placeholder="Name" type="text" name="name" ng-model="register.regData.name" id="name"
+                required>
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Guest Username</label>
+            <input ng-disabled="register.disabled" placeholder="Username" type="text" name="username" ng-model="register.regData.username"
+                id="username">
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Guest Email</label>
+            <input ng-disabled="register.disabled" placeholder="Email" type="text" name="email" ng-model="register.regData.email" id="email">
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Phone Number</label>
+            <input ng-disabled="register.disabled" placeholder="Number" type="text" name="number" ng-model="register.regData.number"
+                id="number">
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Password</label>
+            <input ng-disabled="register.disabled" placeholder="Password" type="password" name="password" ng-model="register.regData.password"
+                id="password">
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Event</label>
+            <div class="ui selection dropdown">
+                <input name="event" id="event" ng-model="register.regData.event" type="hidden">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select the event the guest will be attending</div>
+                <div class="menu">
+                    <div class="item" value="{{test}}" ng-repeat="test in tests">
+                        {{ test }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="ui black label">Dietary Requirements</label>
+            <div class="ui checkbox">
+                <input type="checkbox" id="vegetarian" ng-model="register.regData.vegetarian">
+                <label for="vegetarian" class="ui black label">Vegetarian</label>
+            </div>
+            <div class="ui checkbox">
+                <input type="checkbox" id="vegan" ng-model="register.regData.vegan">
+                <label for="vegan" class="ui black label">Vegan</label>
+            </div>
+            <div class="ui checkbox">
+                <input type="checkbox" id="coeliac" ng-model="register.regData.coeliac">
+                <label for="coeliac" class="ui black label">Coeliac</label>
+
+            </div>
+        </div>
+
+        <div class="field">
+                <label class="ui black label">Other Allergies/Information</label>
+                <input ng-disabled="register.disabled" placeholder="Peanuts, etc." type="text" name="otherinfo" 
+                ng-model="register.regData.otherinfo" id="otherinfo">
+        </div>
+
+
+
+
+        <div class="ui active dimmer" ng-show="register.loading">
+            <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+        </div>
+
+        <div class="ui success message" ng-show="register.successMsg">
+            <div class="header">All Set</div>
+            <p>{{ register.successMsg }}</p>
+        </div>
+
+        <div class="ui error message" ng-show="register.failMsg">
+            <div class="header">Uh Oh</div>
+            <p>{{ register.failMsg }}</p>
+        </div>
+
+        <button ng-disabled="register.disabled" class="ui huge primary button" type="submit">Register</button>
+    </form>
+
+
+    <script>
+
+        $(document)
+            .ready(function () {
+                (function ($) {
+                    $('.ui.form').form({
+
+                        name: {
+                            identifier: 'name',
+                            rules: [{
+                                type: 'empty',
+                                prompt: 'Please enter First and Last names'
+                            }, {
+                                type: 'minLength[4]',
+                                prompt: 'Name must be more than 4 charecters'
+                            }, {
+                                type: 'maxLength[40]',
+                                prompt: 'Name must be less than 40 charecters'
+                            }, {
+                                type: 'regExp',
+                                value: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z-]{2,20})*)+$/,
+                                prompt: 'Enter full name in form "John Doe" or "Mary Lee-Smith'
+                            }]
+                        },
+                        username: {
+                            identifier: 'username',
+                            rules: [{
+                                type: 'empty',
+                                prompt: 'Please enter a username'
+                            }, {
+                                type: 'minLength[3]',
+                                prompt: 'Name must be more than 3 charecters'
+                            }, {
+                                type: 'maxLength[40]',
+                                prompt: 'Name must be less than 40 charecters'
+                            }]
+                        },
+                        email: {
+                            identifier: 'email',
+                            rules: [{
+                                type: 'empty',
+                                prompt: 'Please enter an email'
+                            }, {
+                                type: 'email',
+                                prompt: 'Please enter a valid email'
+                            }, {
+                                type: 'minLength[3]',
+                                prompt: 'Name must be more than 3 charecters'
+                            }, {
+                                type: 'maxLength[25]',
+                                prompt: 'Name must be less than 25 charecters'
+                            }]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [{
+                                type: 'empty',
+                                prompt: 'Please enter a password'
+                            }, {
+                                type: 'length[8]',
+                                prompt: 'Password needs to be atleast 8 characters long'
+                            }, {
+                                type: 'regExp',
+                                value: /^(?=.*[A-Z]).+$/,
+                                prompt: 'Password must have at least 1 upper case letter'
+                            }, {
+                                type: 'regExp',
+                                value: /^(?=.*[\d]).+$/,
+                                prompt: 'Password must have at least 1 number'
+                            }, {
+                                type: 'regExp',
+                                value: /^(?=.*[-+_!@#$%^&*.,?]).+$/,
+                                prompt: 'Password must have at least 1 symbol'
+                            }, {
+                                type: 'regExp',
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[-+_!@#$%^&*.,?])).+$/,
+                                prompt: 'Please fulfill password requirements. Should never see this'
+                            }]
+                        },
+                        number: {
+                            identifier: 'number',
+                            rules: [{
+                                type: 'empty',
+                                prompt: 'Please enter a phone number'
+                            }]
+                        }
+                    }, {
+                            on: 'blur',
+                            inline: 'true'
+                        });
+                }(jQuery));
+            });
+    </script>

@@ -129,6 +129,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true,
 		permission: 'admin'
 	})
+	
+	.when('/guestreg', {
+		templateUrl: 'app/views/pages/managment/guestreg.html',
+		controller: 'guestRegCtrl',
+		controllerAs: 'register',
+		authenticated: true,
+		permission: 'admin'
+	})
 
 	.otherwise({redirectTo: '/'});
 

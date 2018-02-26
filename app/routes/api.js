@@ -458,7 +458,7 @@ module.exports = function(router){
 					res.json({ success: false, message: 'User was not found' });
 				} else {
 					if(mainUser.permission === 'admin'){
-						// Exitst and has permission
+						// Exists and has permission
 						if(!users){
 							res.json({ success: false, message: 'User[s] not found' });
 						} else {
@@ -480,7 +480,7 @@ module.exports = function(router){
 				res.json({ success: false, message: 'User was not found' });
 			} else {
 				if(mainUser.permission === 'admin'){
-					// Exitst and has permission
+					// Exists and has permission
 					if(!deletedUser){
 						res.json({ success: false, message: 'No username provided' });
 					} else {
