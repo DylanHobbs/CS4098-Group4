@@ -30,6 +30,10 @@ angular.module('eventServices', [])
         return $http.put('/api/editEvent', id);
     };
 
+    eventFactory.addInfo = function(data) {
+		return $http.put('/api/regGuest', data);
+	}
+
     eventFactory.changeName = function(nameData){
 		return $http.post('/api/changeEventName', nameData);
     }

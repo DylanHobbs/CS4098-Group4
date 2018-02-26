@@ -15,7 +15,10 @@ var EventSchema = new Schema({
 	tables:     {type: Number},
 	seatsPer:   {type: Number},
 	description: {type: String, default: ''},
-	menu:       {type: String, default: ''}
+	menu:       {type: String, default: ''},
+	dietary: {type: {}, default: {}},
+	otherInfo: {type: {}, default: {}},
+	updates: {type: {}, default: {}}
 });
 
 module.exports = mongoose.model('Event', EventSchema);
