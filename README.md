@@ -64,7 +64,7 @@ PREREQUISITES
 - Logged in
 - Activated account
 
-To login
+To change password details
 1. Click the "Hello [your username]" button in the top right hand menu
 2. Enter your original username and password
 3. Enter your new password
@@ -77,7 +77,7 @@ PREREQUISITES
 - Logged in
 - Activated account
 
-To login
+To change usernames
 1. Click the "Hello [your username]" button in the top right hand menu
 2. Enter your original username and password
 3. Enter your new username
@@ -111,7 +111,7 @@ PREREQUISITES
 - At least 1 event created
 - At least 1 user invited to the event
 
-To create an event
+To view a report of an event
 1. Click on the "Events" tab in the top left menu
 2. This screen will show all events, past and future
 3. Click on the "View" button in the event's row
@@ -120,6 +120,22 @@ To create an event
 6. This page can be printed by using your browsers print functions
         "ctrl-p" in windows
         "cmd-p" in mac
+```
+
+**Event Menus**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privileges
+- At least 1 event created
+
+To create an event
+1. Click on the "Events" tab in the top left menu
+2. This screen will show all events, past and future
+3. Click on the "View" button in the event's row
+4. Under the top section there will be a table containing the event information. 
+5. Click the menu link.
 ```
 
 **Grant Users Admin Access**
