@@ -48,6 +48,7 @@ angular.module('eventController', ['eventServices'])
         Event.createEvent(eventData)
         .then(function(){
             app.successMsg = eventData.message;
+            // window.location.reload(true);
         });
     };
 })
