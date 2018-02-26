@@ -9,6 +9,8 @@ let should = chai.should();
 var address = 'http://localhost:8080';
 
 var token = 'l';
+
+var global = {};
 chai.use(chaiHttp);
 
 describe('User', () => {
@@ -18,11 +20,11 @@ describe('User', () => {
         });     
     });
 
-    // after(function() {
-    //     User.remove({}, (err) => { 
-    //         done();         
-    //      });  
-    // });
+    after(function() {
+        User.remove({}, (err) => { 
+            done();         
+         });  
+    });
 
     // Register an admin user with active field set to false
     describe('POST /users', () => {
@@ -93,6 +95,22 @@ describe('User', () => {
                 res.should.have.status(200);
                 res.body.success.should.be.eql(false);
                 res.body.message.should.be.eql('Incorrect password');
+              done();
+            });
+      });
+      it('should login', (done) => {
+        let login = {
+            username: "dhobbs",
+            password: "Password*1"
+        }
+        chai.request(address)
+            .post('/api/authenticate')
+            .send(login)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('User logged in successfully');
+                global.token = res.body.token;
               done();
             });
       });
@@ -177,7 +195,6 @@ describe('User', () => {
             .post('/api/changeUsername')
             .send(user)
             .end((err, res) => {
-                console.log(res.body);
                 res.should.have.status(200);
                 res.body.success.should.be.eql(true);
                 res.body.message.should.be.eql('Username has been changed');
