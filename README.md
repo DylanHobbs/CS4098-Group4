@@ -64,6 +64,119 @@ npm test
 # ctrl-C to exit
 ```
 
+**Registering a User**
+```
+PREREQUISITES
+- None
+
+To register a user
+1. Click on the "Register" button in the top right hand menu
+2. Fill in your details
+3. On screen instructions will inform you of requirements for each field
+4. Click register to continue
+5. You will be brought to the home screen.
+6. An email will be sent to your email address containing a link to activate your account
+7. Open your email client and click our email.
+8. Click the link contained in the email which will bring you back to our page.
+9. Login with your username and password
+```
+
+**Logging in**
+```
+PREREQUISITES
+- Registered account
+- Activated account
+
+To login
+1. Click on the "Login" button in the top right hand menu
+2. Enter your username and password
+3. Click login to continue
+```
+
+**Change Password Details**
+```
+PREREQUISITES
+- Logged in
+- Activated account
+
+To login
+1. Click the "Hello [your username]" button in the top right hand menu
+2. Enter your original username and password
+3. Enter your new password
+4. Click the "Edit" button
+```
+
+**Change Username Details**
+```
+PREREQUISITES
+- Logged in
+- Activated account
+
+To login
+1. Click the "Hello [your username]" button in the top right hand menu
+2. Enter your original username and password
+3. Enter your new username
+4. Click the "Edit" button
+```
+
+**Creating an Event**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privlages
+
+To create an event
+1. Click on the "Events" tab in the top left menu
+2. This screen will show all events, past and future
+3. Click on the "Create Event" button
+4. Fill in all the fields for the event you wish to create
+5. On screen instructions will inform you of requirements for each field
+6. Hover over the "Question Mark" icon for help in a particular field
+7. Click the create button when done
+8. You will be brought back the event index screen
+```
+
+**View a Report of An Event**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privlages
+- At least 1 event created
+- At least 1 user invited to the event
+
+To create an event
+1. Click on the "Events" tab in the top left menu
+2. This screen will show all events, past and future
+3. Click on the "View" button in the event's row
+4. You will see a list of people confirmed to be attending the event
+5. You will see a list of people you are invited to the event
+6. This page can be printed by using your browsers print functions
+        "ctrl-p" in windows
+        "cmd-p" in mac
+```
+
+**Grant Users Admin Access**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privlages
+
+To create an event
+1. Click on the "Management" tab in the top left menu
+2. This screen will show all users
+3. Use the search box to search for the desired user
+3.a The search box is a white box with a magnifying glass in the right of it
+4. Click on the "Edit" button
+5. This screen can change any detail of the user
+6. Click on the "Permissions" tab in the edit box in the middle of the screen
+7. You can see the user's current permissions here
+8. Click on the red "Admin" button to change their permissions
+9. After a brief redirect, you can see that their permissions were updated
+```
+
 
 **Testing the Guest List functionality**
 ```
