@@ -799,7 +799,8 @@ module.exports = function(router){
 			} else {
 				User.findOne({ email: email }, function(err1, user){
 					if(user){
-						if (check){
+						console
+						if (check==="1"){
 							console.log("invited");
 							if(invite.includes(email)){
 								res.json({ success: false, message: 'user already added' });	
