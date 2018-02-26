@@ -1,4 +1,9 @@
 <div class="ui segment">
+    <script>
+        $( function() {
+          $( "#date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+        } );
+        </script>
     <h1>Edit Event</h1>
     <form class="ui form success error" name="eventForm" novalidate id="eventForm">
       <h4 class="ui dividing header">Basic Info</h4>
@@ -18,9 +23,9 @@
         </div>
 
         <div class="six wide field">
-          <label class="ui primary label">Date</label>
-          <input ng-disabled="event.disabled" placeholder="Date" type="text" name="date" ng-model="newDate" id="date">
-        </div>
+            <label class="ui primary label">Date</label>
+            <input ng-disabled="event.disabled"  type="text" name="date" ng-model="newDate" id="date">
+          </div>
       </div>
 
       <h4 class="ui dividing header">Seating Details</h4>
