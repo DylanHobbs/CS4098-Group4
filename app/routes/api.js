@@ -643,6 +643,9 @@ module.exports = function(router){
 		event.tables = req.body.tables;
 		event.seatsPer = req.body.seats;
 		event.description = req.body.description;
+		if(req.body.menu){
+			event.menu = req.body.menu;
+		}
 		console.log(req.body);
 
 		if(req.body.description == null || req.body.description == '' || req.body.name == null || req.body.name == '' || req.body.id == null || req.body.id == '' || req.body.tables == null || req.body.tables == '' || req.body.venue == null || req.body.venue == '' || req.body.seats == null || req.body.seats == '' || req.body.date == null || req.body.date == ''){
@@ -715,7 +718,7 @@ module.exports = function(router){
 					} )
 					// need to make a callback function for this
 					setTimeout(function() {
-						res.json({ success: true, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, message: 'heres a message'});
+						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, message: 'heres a message'});
 
 						}, 100);
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});

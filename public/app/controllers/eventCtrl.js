@@ -239,8 +239,16 @@ angular.module('eventController', ['eventServices'])
 
     Event.getEvent($routeParams.id)
     .then(function(data){
-        
         if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            app.menu = thisEvent.menu;
+
             app.invitedUsers = data.data.invitedUsers;
             app.rsvpUsers = data.data.rsvpUsers;
         } else {

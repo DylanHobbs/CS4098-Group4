@@ -19,7 +19,6 @@
         <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="event.eventData.name" id="name"
           required>
       </div>
-
       <div class="six wide field">
         <label class="ui primary label">
           EventID
@@ -30,6 +29,19 @@
         <input ng-disabled="event.disabled" placeholder="UniqueID" type="text" name="id" ng-model="event.eventData.id" id="id">
       </div>
     </div>
+
+    <div class="field">
+        <div class="sixteen wide field">
+            <label class="ui primary label">
+                Menu URL
+                  <div class="ui icon mini button" data-content="Enter the URL to the menu for the event. This can be added in later" data-variation="basic">
+                    <i class="help icon"></i>
+                  </div>
+            </label>
+            <input ng-disabled="event.disabled" placeholder="https://menu.com/menu" type="text" name="name" ng-model="event.eventData.menu" id="menu">
+        </div>
+    </div>
+
 
     <h4 class="ui dividing header">Event Details</h4>
     <div class="two fields">

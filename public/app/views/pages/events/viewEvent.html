@@ -1,22 +1,31 @@
 <div class="ui inverted segment">
-    <h1>Guest/Invite List</h1>
-    <!--
-            <div class="ui icon input">
-                <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
-                <i class="search icon"></i>
-            </div>
-        </div> 
+    <h2 class="ui header">General Information</h2>
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Tables</th>
+                    <th>Seats</th>
+                    <th>Menu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{viewEvent.name}}</th>
+                    <th>{{viewEvent.venue}}</th>
+                    <th>{{viewEvent.date}}</th>
+                    <th>{{viewEvent.tables}}</th>
+                    <th>{{viewEvent.seats}}</th>
+                    <th><a target="_blank" href={{viewEvent.menu}}>Menu</a></th>
+                </tr>
+            </tbody>
+        </table>
+        <br>
     
-    </div> -->
-
-
- <!--    <div class="ui tiny error message" ng-show="event.failMsg">
-            <div class="header">Uh Oh</div>
-            <p>{{ event.failMsg }}</p>
-        </p>
-    </div> -->
-
-
+    <h2 class="ui header">Guest/Invite List</h2>
     <div class="ui two column middle stackable grid">
         <div class="eight wide column">
 

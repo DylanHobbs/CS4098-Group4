@@ -6,7 +6,7 @@ var validate = require('mongoose-validator');
 
 var EventSchema = new Schema({
 	name:       {type: String, required: true},
-	date:       {type: Date, required: true},
+	date:       {type: String, required: true},
 	venue:      {type: String, required: true},
 	eventId:    {type: String, required: true, unique: true},
 	invited:    {type: [String], default: []},
@@ -14,7 +14,8 @@ var EventSchema = new Schema({
 	attended:   {type: [String], default: []},
 	tables:     {type: Number},
 	seatsPer:   {type: Number},
-	description: {type: String, default: ''}
+	description: {type: String, default: ''},
+	menu:       {type: String, default: ''}
 });
 
 module.exports = mongoose.model('Event', EventSchema);
