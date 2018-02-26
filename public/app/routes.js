@@ -83,7 +83,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	})
 
 	.when('/management', {
-		templateUrl: 'app/views/pages/managment/management.html',
+		templateUrl: 'app/views/pages/management/management.html',
 		controller: 'managementCtrl',
 		controllerAs: 'manage',
 		authenticated: true,
@@ -91,7 +91,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	})
 
 	.when('/edit/:id', {
-		templateUrl: 'app/views/pages/managment/edit.html',
+		templateUrl: 'app/views/pages/management/edit.html',
 		controller: 'editCtrl',
 		controllerAs: 'edit',
 		authenticated: true,
@@ -131,7 +131,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	})
 	
 	.when('/guestreg', {
-		templateUrl: 'app/views/pages/managment/guestreg.html',
+		templateUrl: 'app/views/pages/management/guestreg.html',
 		controller: 'guestRegCtrl',
 		controllerAs: 'register',
 		authenticated: true,
