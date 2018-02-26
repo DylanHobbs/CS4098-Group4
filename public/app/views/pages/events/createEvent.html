@@ -1,72 +1,203 @@
 <br>
 <div class="ui segment">
-    <h1>Create Event</h1>
-    <form class="ui form success error" ng-submit="event.createEvent(eventData);" name="eventForm" novalidate id="eventForm">
-      <h4 class="ui dividing header">Basic Info</h4>
-      <div class="two fields">
-        <div class="ten wide field">
-          <label class="ui primary label">Event Name</label>
-          <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="event.eventData.name" id="name" required>
-        </div>
-
-        <div class="six wide field">
-          <label class="ui primary label">EventID</label>
-          <input ng-disabled="event.disabled" placeholder="UniqueID" type="text" name="id" ng-model="event.eventData.id" id="id">
-        </div>
+  <h1>Create Event</h1>
+  <form class="ui form success error" ng-submit="event.createEvent(eventData);" name="eventForm" novalidate id="eventForm">
+    <h4 class="ui dividing header">Basic Info</h4>
+    <div class="two fields">
+      <div class="ten wide field">
+        <label class="ui primary label">
+          Event Name
+            <div class="ui icon mini button" data-content="The event name is the name guests will see when they are invited" data-variation="basic">
+              <i class="help icon"></i>
+            </div>
+        </label>
+        <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="event.eventData.name" id="name"
+          required>
       </div>
 
-      <h4 class="ui dividing header">Event Details</h4>
-      <div class="two fields">
-        <div class="ten wide field">
-          <label class="ui primary label">Venue</label>
-          <input ng-disabled="event.disabled" placeholder="Venue" type="text" name="venue" ng-model="event.eventData.venue" id="venue">
-        </div>
-
-        <div class="six wide field">
-          <label class="ui primary label">Date</label>
-          <input ng-disabled="event.disabled" placeholder="Date" type="date" name="date" ng-model="event.eventData.date" id="date">
-        </div>
+      <div class="six wide field">
+        <label class="ui primary label">
+          EventID
+          <div class="ui icon mini button" data-content="The EventID is some unique meaningful ID to refer to the event in your own records" data-variation="basic">
+              <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="event.disabled" placeholder="UniqueID" type="text" name="id" ng-model="event.eventData.id" id="id">
       </div>
+    </div>
 
-      <h4 class="ui dividing header">Seating Details</h4>
-      <div class="two fields">
-        <div class="four wide field">
-          <label class="ui primary label">Number of tables</label>
-          <input ng-disabled="event.disabled" placeholder="Tables" type="number" name="tables" ng-model="event.eventData.tables" id="tables">
-        </div>
-    
-        <div class="four wide field">
-          <label class="ui primary label">Number of seats</label>
-          <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="event.eventData.seats" id="seats">
-        </div>
+    <h4 class="ui dividing header">Event Details</h4>
+    <div class="two fields">
+      <div class="ten wide field">
+        <label class="ui primary label">Venue</label>
+        <input ng-disabled="event.disabled" placeholder="Venue" type="text" name="venue" ng-model="event.eventData.venue" id="venue">
       </div>
 
-      <h4 class="ui dividing header">Event Description</h4>
-      <div class="field">
-        <div class="sixteen wide field">
-          <label class="ui primary label">Description</label>
-          <textarea rows="4" ng-disabled="event.disabled" placeholder="Description" type="text" name="description" ng-model="event.eventData.description" id="description"></textarea>
-        </div>
+      <div class="six wide field">
+        <label class="ui primary label">Date</label>
+        <input ng-disabled="event.disabled" placeholder="Date" type="date" name="date" ng-model="event.eventData.date" id="date">
       </div>
-    
-      <div class="ui active dimmer" ng-show="event.loading">
-        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div>
+
+    <h4 class="ui dividing header">Seating Details</h4>
+    <div class="two fields">
+      <div class="five wide field">
+        <label class="ui primary label">
+          Number of tables
+          <div class="ui icon mini button" data-content="Tables refers to the number of tables at an event. It should be a number." data-variation="basic">
+              <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="event.disabled" placeholder="Tables" type="number" name="tables" ng-model="event.eventData.tables" id="tables">
       </div>
-    
-      <div class="ui success message" ng-show="event.successMsg">
-        <div class="header">All Set</div>
-        <p>{{ event.successMsg }}</p>
+
+      <div class="five wide field">
+        <label class="ui primary label">
+          Number of seats
+          <div class="ui icon mini button" data-content="Seats refers to the number of seats per table." data-variation="basic">
+              <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="event.eventData.seats" id="seats">
       </div>
-    
-      <div class="ui error message" ng-show="event.failMsg">
-        <div class="header">Uh Oh</div>
-        <p>{{ event.failMsg }}</p>
+    </div>
+
+    <h4 class="ui dividing header">Event Description</h4>
+    <div class="field">
+      <div class="sixteen wide field">
+        <label class="ui primary label">
+          Description
+          <div class="ui icon mini button" data-content="A short description of the event. Include any relevant details. This will be sent out as part of an invitation" data-variation="basic">
+              <i class="help icon"></i>
+          </div>
+        </label>
+        <textarea rows="4" ng-disabled="event.disabled" placeholder="Description" type="text" name="description" ng-model="event.eventData.description"
+          id="description"></textarea>
       </div>
-      <br>
-      <button ng-disabled="event.disabled" class="ui huge primary button" type="submit">Create Event</button>
-    </form>
+    </div>
+
+    <div class="ui active dimmer" ng-show="event.loading">
+      <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div>
+
+    <div class="ui success message" ng-show="event.successMsg">
+      <div class="header">All Set</div>
+      <p>{{ event.successMsg }}</p>
+    </div>
+
+    <div class="ui error message" ng-show="event.failMsg">
+      <div class="header">Uh Oh</div>
+      <p>{{ event.failMsg }}</p>
+    </div>
+    <br>
+    <button ng-disabled="event.disabled" class="ui huge primary button" type="submit">Create Event</button>
+  </form>
+</div>
+
+
+<script>
+    // TODO: Move this dragon somewhere not so visable
+    $(document)
+      .ready(function() {
+      (function ($) {
+        $('.icon')
+          .popup()
+        ;
+      }(jQuery));
+    });
+  </script> 
     
-    
-    
-    
-    
+              
+
+<script>
+  // TODO: Move this dragon somewhere not so visable
+  $(document)
+    .ready(function() {
+    (function ($) {
+      $('.ui.form').form({
+        name: {
+          identifier: 'name',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter the name of the event'
+          },{
+            type: 'minLength[2]',
+            prompt: 'Name must be more than 2 characters'
+          },{
+            type: 'maxLength[40]',
+            prompt: 'Name must be less than 40 characters'
+          }]
+        },
+        id: {
+          identifier: 'id',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter a unique ID for the event'
+          },{
+            type: 'minLength[2]',
+            prompt: 'ID must be more than 2 characters'
+          },{
+            type: 'maxLength[15]',
+            prompt: 'ID must be less than 15 characters'
+          }]
+        },           
+        venue: {
+          identifier: 'venue',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter a Venue name'
+          },{
+            type: 'minLength[3]',
+            prompt: 'Name must be more than 3 characters'
+          },{
+            type: 'maxLength[40]',
+            prompt: 'Name must be less than 40 characters'
+          }]
+        },       
+        date: {
+          identifier: 'date',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please select a date'
+          }]
+        },
+        seats: {
+          identifier: 'seats',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter the number of seats'
+          }, {
+            type: 'integer',
+            prompt: 'Number of seats must be a number'
+          }]
+        },       
+        tables: {
+          identifier: 'tables',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter the number of tables'
+          }, {
+            type: 'integer',
+            prompt: 'Number of tables must be a number'
+          }]
+        },
+        description: {
+          identifier: 'description',
+          rules: [{
+            type: 'empty',
+            prompt: 'Please enter a description of the event'
+          }, {
+            type: 'minLength[3]',
+            prompt: 'Description must be 3 or more characters'
+          }, {
+            type: 'maxLength[255]',
+            prompt: 'Description must be less than 255 characters'
+          }]
+        }
+      }, {
+        on: 'blur',
+        inline: 'true'
+      });
+    }(jQuery));
+  });
+</script> 

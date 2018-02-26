@@ -1,9 +1,5 @@
 angular.module('eventServices', [])
 .factory('Event', function($http){
-    // //User.create(regData) -> From DB
-	// userFactory.create = function(regData){
-	// 	return $http.post('/api/users', regData);
-    // }
     eventFactory = {};
    
     eventFactory.create = function(eventData){
@@ -25,7 +21,6 @@ angular.module('eventServices', [])
     eventFactory.addUser = function(id, email, check){
         return $http.put('/api/viewEvent/' + id +'/'+ email + '/' + check);
     }
-
 
     eventFactory.viewEvent = function(id) {
         return $http.get('/api/editEvent/'+ id);

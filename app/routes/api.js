@@ -646,7 +646,7 @@ module.exports = function(router){
 		console.log(req.body);
 
 		if(req.body.description == null || req.body.description == '' || req.body.name == null || req.body.name == '' || req.body.id == null || req.body.id == '' || req.body.tables == null || req.body.tables == '' || req.body.venue == null || req.body.venue == '' || req.body.seats == null || req.body.seats == '' || req.body.date == null || req.body.date == ''){
-			res.json({success: false, message: 'Ensure event name, eventID, time and venue are provided'});
+			res.json({success: false, message: 'Ensure all input fields are filled in'});
 		} else {
 			event.save(function(err){
 				if(err) throw err;

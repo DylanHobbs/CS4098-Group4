@@ -6,52 +6,35 @@
                 <input ng-model="number" type="text" placeholder="Enteries to display...">
                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
-            </div>  
+            </div>
             <br>
             <br>
             <div class="ui icon input">
                 <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
                 <i class="search icon"></i>
-            </div>
-            <a href="/createEvent" class="ui primary large button floated right">Create Event</a>
-        </div> 
-    
+            </div>        
+        </div>
+        <a href="/createEvent" class="ui primary large button">Create Event</a>
     </div>
 
 
     <div class="ui tiny error message" ng-show="event.failMsg">
-            <div class="header">Uh Oh</div>
-            <p>{{ event.failMsg }}</p>
+        <div class="header">Uh Oh</div>
+        <p>{{ event.failMsg }}</p>
         </p>
     </div>
 
 
     <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Venue</th>
-            <th>Date</th> 
-            <th></th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Venue</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-           <!--  <tr ng-repeat="event in event.users | filter: searchKeyword | limitTo: event.limit">
-                <td>{{ event.name }}</td>
-                <td>{{ event.venue }}</td>
-                <td>{{ person.date }}</td>
-                <td>
-                    <a href="/edit/{{person._id}}">
-                        <button class="ui yellow basic button">Edit</button> 
-                    </a>
-                    <a href="/viewEvent/1">
-                        <button class="ui blue basic button">
-                            View
-                        </button>
-                    </a>
-                    <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button>
-                </td>
-            </tr> -->
 
             <tr ng-repeat="event in manage.events | filter: searchKeyword | limitTo: manage.limit">
                 <td>{{ event.name }}</td>
@@ -59,7 +42,7 @@
                 <td>{{ event.date }}</td>
                 <td>
                     <a href="/editEvent/{{event._id}}">
-                        <button class="ui yellow basic button">Edit</button> 
+                        <button class="ui yellow basic button">Edit</button>
                     </a>
                     <a href="/viewEvent/{{event.eventId}}">
                         <button class="ui blue basic button">
@@ -71,37 +54,17 @@
                     </button>
                 </td>
             </tr>
-            <!--<tr>
-                <td>Test Event</td>
-                <td>Test Venue</td>
-                <td>12-07-2018</td>
-                <td>
-                    <a href="/editEvent/1">
-                        <button class="ui yellow basic button">Edit</button> 
-                    </a>
-                    <a href="/viewEvent/{{event.id}}"> 
-                       
-                    <a href="/viewEvent/1">
-                        <button class="ui blue basic button">
-                            View
-                        </button>
-                    </a>
-                    <button class="ui negative basic button right floated">
-                        Delete
-                    </button>
-                </td>
-            </tr>-->
-        </tbody>   
+        </tbody>
     </table>
 
     <div class="ui form">
         <div class="required nine wide field">
             <div class="ui action input">
                 <input ng-model="number" type="text" placeholder="Enteries to display...">
-                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
-                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
-            </div>      
-         </div>  
+                <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>
+        </div>
     </div>
 
 
@@ -114,6 +77,3 @@
         <p>{{ event.successMsg }}</p>
     </div>
 </div>
-
-
-
