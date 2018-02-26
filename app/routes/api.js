@@ -791,29 +791,27 @@ module.exports = function(router){
 				console.log("no event")
 				res.json({ success: false, message: 'Event was not found' });
 			} else {
-				if(email){
-
-					if (check){
-						console.log("invited")
-						invite.push(email)
-						console.log(invite)
-						Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
-								if(err) throw err;
-								res.json({ success: true, message: 'user added' });
-							});
-					}else {
-						console.log("Attending")
-						rsvpd.push(email)
-						Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
-								if(err) throw err;
-								res.json({ success: true, message: 'user added' });
-							});
-					}
-					
-
-				} else {
-					res.json({ success: false, message: 'no email' });
-				}
+				User.findOne({ email: email }, function(err1, user){
+					if(user){
+						if (check){
+							console.log("invited");
+							invite.push(email)
+							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									if(err) throw err;
+									res.json({ success: true, message: 'user added' });
+								});
+						}else {
+							console.log("Attending")
+							rsvpd.push(email)
+							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+									if(err) throw err;
+									res.json({ success: true, message: 'user added' });
+								});
+						}
+					} else {
+						console.log("No Users")
+						res.json({ success: false, message: 'Could\'t find user with that email in database' });					}
+				});	
 			}
 		});
 	});
