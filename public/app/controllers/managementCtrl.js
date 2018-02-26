@@ -179,14 +179,14 @@ angular.module('managementController', [])
     };
 })
 
-.controller('guestRegCtrl', function($http, $location, $timeout, User, $scope){
+.controller('guestRegCtrl', function($http, $location, $timeout, User, $scope, Event){
     var app = this;
     $('.ui.dropdown').dropdown();
     $scope.tests = ['Dinner','Lunch','Brunch'];
     
-    function getEvents(){
+    /*function getAllEvents(){
         Event.getEvents().then(function(data){
-            
+            console.log(data);
             if(data.data.success){
                 if(data.data.permission === 'admin'){
                     //console.log(data.data.events);
@@ -204,7 +204,7 @@ angular.module('managementController', [])
         });
     }
 
-    getEvents();
+    getAllEvents();
 
     eventList = [];
     
@@ -212,7 +212,7 @@ angular.module('managementController', [])
         eventList.push(element.eventId);
     });
 
-    $scope.tests = eventList;
+    $scope.tests = eventList;*/
 
 
 	this.guestReg = function(regData){
