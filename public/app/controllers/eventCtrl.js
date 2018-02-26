@@ -43,6 +43,7 @@ angular.module('eventController', ['eventServices'])
     app.loading = false;
     app.disabled = false;
 
+<<<<<<< HEAD
     this.createEvent = function(eventData){
         // Disable inputs when submitted
         app.disabled = true;
@@ -65,6 +66,14 @@ angular.module('eventController', ['eventServices'])
                 app.disabled = false;
                 app.failMsg = data.data.message;
             }
+=======
+    app.createEvent = function(eventUser){
+        console.log("I'm in the func")
+        Event.createEvent(eventData)
+        .then(function(){
+            app.successMsg = eventData.message;
+            // window.location.reload(true);
+>>>>>>> 455b4c7b91843929375d36281e73ca62618d8e51
         });
     };
 })
@@ -253,6 +262,7 @@ angular.module('eventController', ['eventServices'])
     app.removeUser = function(email){
         Event.removeUser($routeParams.id,email).then(function(data){
             if(data.data.success){
+                console.log(data.data.message);
                 window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
@@ -264,6 +274,7 @@ angular.module('eventController', ['eventServices'])
     app.addUser = function(email, check){
         Event.addUser($routeParams.id,email,check).then(function(data){
             if(data.data.success){
+                console.log(data.data.message);
                 window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
