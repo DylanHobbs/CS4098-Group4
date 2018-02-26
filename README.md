@@ -167,11 +167,13 @@ PREREQUISITES
 - Activated account
 - Admin privileges
 - At least 1 event created
+- Know guest's details, including ID of event they will be attending
 To register a guest:
 1.Click on management tab at the top of the page.
 2.Click register guest button
 3.Enter the guest's details, and give them a username and password which you send to the guest.
 4.Click the Register button to register the guest
+5.The guest's (anonymised) dietary requirements will be display upon viewing the event, as will their name in the guest list
 ```
 
 **Update Event information and submit Event updates**
@@ -185,4 +187,5 @@ PREREQUISITES
 2.Click on the edit button beside the event you wish to update.
 3.Enter the details of the event that you wish to update. 
 4.Click the update event button to confirm the update
+5.Be redirected to events page to view updated details
 ```

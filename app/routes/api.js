@@ -967,7 +967,7 @@ module.exports = function(router){
 			var editEvent = req.body.eventId;
 			if(req.body.vegetarian =='1') 		var newVegetarian		= req.body.vegetarian;
 			console.log(req.body);
-			if(req.body.vegan=='1') 		var newVegan		= req.body.venue;
+			if(req.body.vegan=='1') 		var newVegan		= req.body.vegan;
 			if(req.body.coeliac=='1')		var newCoeliac 		= req.body.coeliac;
 			if(req.body.otherInfo)	var newOtherInfo 	= req.body.otherInfo;
 			// Check if current user has access to this
@@ -979,17 +979,17 @@ module.exports = function(router){
 								if(!event){
 									res.json({ success: false, message: 'No event by this name was found' });
 								} else {
-									if(newVegetarian){
+									if((newVegetarian) && (event.dietary.indexOf("Vegetarian")== -1)){
 										event.dietary +='Vegetarian,';
 									}
-									if(newVegan){
+									if((newVegan) && (event.dietary.indexOf("Vegan")== -1)){
 										event.dietary +='Vegan, ';
 									}
-									if(newCoeliac){
+									if((newCoeliac) && (event.dietary.indexOf("Coeliac")== -1)){
 										event.dietary +='Coeliac, ';
 									}
 									if(newOtherInfo){
-										event.otherInfo += '' + newOtherInfo;
+										event.otherInfo += '' + newOtherInfo + ', ';
 									}
 									
 									event.save(function(err){
