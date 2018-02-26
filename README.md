@@ -124,7 +124,7 @@ To login
 PREREQUISITES
 - Logged in 
 - Activated account
-- Admin privlages
+- Admin privileges
 
 To create an event
 1. Click on the "Events" tab in the top left menu
@@ -142,7 +142,7 @@ To create an event
 PREREQUISITES
 - Logged in 
 - Activated account
-- Admin privlages
+- Admin privileges
 - At least 1 event created
 - At least 1 user invited to the event
 
@@ -162,7 +162,7 @@ To create an event
 PREREQUISITES
 - Logged in 
 - Activated account
-- Admin privlages
+- Admin privileges
 
 To create an event
 1. Click on the "Management" tab in the top left menu
@@ -190,6 +190,33 @@ To add a user to a list:
 To remove a user from a list:
 1.Login with user who has admin access.
 2.Click on events tab at the top of the page.
-3.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are seaching.
-4.Once you have located the person that you wish to remove click the remove button beside there name and email address.
+3.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
+4.Once you have located the person that you wish to remove click the remove button beside their name and email address.
+```
+
+**As a Staff member, registering guest for an event**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privileges
+- At least 1 event created
+To register a guest:
+1.Click on management tab at the top of the page.
+2.Click register guest button
+3.Enter the guest's details, and give them a username and password which you send to the guest.
+4.Click the Register button to register the guest
+```
+
+**Update Event information and submit Event updates**
+```
+PREREQUISITES
+- Logged in 
+- Activated account
+- Admin privileges
+- At least 1 event created
+1.Click on events tab at the top of the page.
+2.Click on the edit button beside the event you wish to update.
+3.Enter the details of the event that you wish to update. 
+4.Click the update event button to confirm the update
 ```
