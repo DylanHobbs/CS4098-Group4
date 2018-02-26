@@ -52,12 +52,31 @@
                     <button ng-click="event.deleteUser(person.username);" class="ui negative basic button right floated">Delete</button>
                 </td>
             </tr> -->
-            <tr>
+
+            <tr ng-repeat="event in manage.events | filter: searchKeyword | limitTo: manage.limit">
+                <td>{{ event.name }}</td>
+                <td>{{ event.venue }}</td>
+                <td>{{ event.date }}</td>
+                <td>
+                    <a href="/editEvent/{{event._id}}">
+                        <button class="ui yellow basic button">Edit</button> 
+                    </a>
+                    <a href="/viewEvent/{{event.eventId}}">
+                        <button class="ui blue basic button">
+                            View
+                        </button>
+                    </a>
+                    <button class="ui negative basic button right floated">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            <!--<tr>
                 <td>Test Event</td>
                 <td>Test Venue</td>
                 <td>12-07-2018</td>
                 <td>
-                    <a>
+                    <a href="/editEvent/1">
                         <button class="ui yellow basic button">Edit</button> 
                     </a>
                     <a href="/viewEvent/{{event.id}}"> 
@@ -71,7 +90,7 @@
                         Delete
                     </button>
                 </td>
-            </tr>
+            </tr>-->
         </tbody>   
     </table>
 

@@ -101,7 +101,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	.when('/events', {
 		templateUrl: 'app/views/pages/events/events.html',
 		controller: 'eventCtrl',
-		controllerAs: 'event',
+		controllerAs: 'manage',
 		authenticated: true,
 		permission: 'admin'
 	})
@@ -118,6 +118,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		templateUrl: 'app/views/pages/events/viewEvent.html',
 		controller: 'viewEventCtrl', 
 		controllerAs: 'viewEvent',
+		authenticated: true,
+		permission: 'admin'
+	})
+
+	.when('/editEvent/:id', {
+		templateUrl: 'app/views/pages/events/editEvent.html',
+		controller: 'editEventCtrl', 
+		controllerAs: 'event',
 		authenticated: true,
 		permission: 'admin'
 	})

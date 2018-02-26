@@ -449,6 +449,7 @@ module.exports = function(router){
 	// Used to populate data tables
 	router.get('/management', function(req, res){
 		User.find({}, function(err, users){
+			
 			if(err) throw err;
 			//Check if they're allowed use this route
 			User.findOne({ username: req.decoded.username }, function(err, mainUser){
@@ -652,17 +653,43 @@ module.exports = function(router){
 		}
 	});
 
+	router.get('/events', function(req, res){
+		Event.find({}, function(err, events){
+			
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+					if(mainUser.permission === 'admin'){
+						// Exitst and has permission
+						if(!events){
+							res.json({ success: false, message: 'Events[s] not found' });
+						} else {
+							res.json({ success: true, events: events, permission: mainUser.permission });
+						}
+					} else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
+			});
+ 		});
+	});
+
 	router.get('/viewEvent/:id', function(req, res){
+		
 		var eventID = req.params.id;
 		
 		Event.findOne({ eventId: eventID }, function(err, event){
-
+			
 			if(err) throw err;
 
 			if(!event){
 				res.json({ success: false, message: 'Event was not found' });
 			} else {
-
+				
 					var invited = event.invited; 
 					var invitedUsers = [];
 					var rsvp = event.rsvp;
@@ -790,6 +817,71 @@ module.exports = function(router){
 			}
 		});
 	});
+
+	router.get('/editEvent/:id', function(req, res){
+		let eventID = req.params.id;
+		Event.findOne({ _id: eventID }, function(err, event){
+				
+			if(err) throw err;
+
+			if(!event){
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+
+					if(!event){
+						res.json({ success: false, message: 'Event to edit was not found' });
+					} else {
+						res.json({ success: true, event: event});
+					}	
+				
+					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
+
+			}
+		});
+
+		
+	});
+
+	router.put('/editEvent', function(req, res){
+		
+		console.log(req.body);
+		console.log("REEEEEE");
+		var editEvent = req.body._id;
+		if(req.body.name) 		var newName 		= req.body.name;
+		if(req.body.venue) 		var newVenue		= req.body.venue;
+		if(req.body.date)		var newDate 		= req.body.date;
+		if(req.body.seatsPer)	var newSeats 	= req.body.seatsPer;
+		if(req.body.tables)		var newTables 		= req.body.tables;
+		// Check if current user has access to this
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+					// NAME CHANGE
+					if(newName){
+						Event.findOne({_id: editEvent}, function(err, event){
+							if(err) throw err;
+							if(!event){
+								res.json({ success: false, message: 'No event by this name was found' });
+							} else {
+								event.name = newName;
+								event.venue = newVenue;
+								event.date = newDate;
+								event.seatsPer = newSeats;
+								event.tables = newTables;
+								event.save(function(err){
+									if(err){
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Details have been changed' });
+									}	
+								});
+							}
+						});
+					}
+
+				});
+				
+			
+		});
 
 
 

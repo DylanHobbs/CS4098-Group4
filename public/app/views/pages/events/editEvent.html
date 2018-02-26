@@ -1,0 +1,59 @@
+<div class="ui segment">
+    <h1>Edit Event</h1>
+    <form class="ui form success error" name="eventForm" novalidate id="eventForm">
+      <h4 class="ui dividing header">Basic Info</h4>
+      <div class="one field">
+        
+          <label class="ui primary label">Event Name</label>
+          <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="newName" id="name" required>
+        
+
+      </div>
+
+      <h4 class="ui dividing header">Event Details</h4>
+      <div class="two fields">
+        <div class="ten wide field">
+          <label class="ui primary label">Venue</label>
+          <input ng-disabled="event.disabled" placeholder="Venue" type="text" name="venue" ng-model="newVenue" id="venue">
+        </div>
+
+        <div class="six wide field">
+          <label class="ui primary label">Date</label>
+          <input ng-disabled="event.disabled" placeholder="Date" type="text" name="date" ng-model="newDate" id="date">
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">Seating Details</h4>
+      <div class="two fields">
+        <div class="four wide field">
+          <label class="ui primary label">Number of tables</label>
+          <input ng-disabled="event.disabled" placeholder="Tables" type="number" name="tables" ng-model="newTables" id="tables">
+        </div>
+    
+        <div class="four wide field">
+          <label class="ui primary label">Number of seats</label>
+          <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="newSeats" id="seats">
+        </div>
+      </div>
+    
+      <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+      </div>
+    
+      <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+      </div>
+    
+      <div class="ui error message" ng-show="event.failMsg">
+        <div class="header">Uh Oh</div>
+        <p>{{ event.failMsg }}</p>
+      </div>
+      <br>
+      <button ng-disabled="event.disabled" class="ui huge primary button" ng-click="event.updateDetails(newName, newVenue, newDate, newTables, newSeats);">Update Details</button>
+    </form>
+    
+    
+    
+    
+    
