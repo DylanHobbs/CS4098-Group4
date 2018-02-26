@@ -844,8 +844,6 @@ module.exports = function(router){
 
 	router.put('/editEvent', function(req, res){
 		
-		console.log(req.body);
-		console.log("REEEEEE");
 		var editEvent = req.body._id;
 		if(req.body.name) 		var newName 		= req.body.name;
 		if(req.body.venue) 		var newVenue		= req.body.venue;

@@ -20,9 +20,6 @@ angular.module('eventController', ['eventServices'])
                 if(data.data.permission === 'admin'){
                     //console.log(data.data.events);
                     app.events = data.data.events;
-                    app.events.array.forEach(element => {
-                        element.date = element.toDateString();
-                    });
                     app.loading = false;
                     app.accessDenied = false;
                 } else {
@@ -60,7 +57,6 @@ angular.module('eventController', ['eventServices'])
     
     app.failMsg = false;
     Event.viewEvent($routeParams.id).then(function(data){
-        console.log($routeParams.id);
         if(data.data.success){
             
             $scope.newName = data.data.event.name;
@@ -113,7 +109,6 @@ angular.module('eventController', ['eventServices'])
         eventObject.name = $scope.newName;
         eventObject._id = app.currentEventID;
         Event.editEvent(eventObject).then(function(data){
-            console.log("HI@@@@@@@@@2");
             if(data.data.success){
                 app.successMsg = data.data.message;
                 $timeout(function(){
