@@ -798,22 +798,31 @@ module.exports = function(router){
 					if(user){
 						if (check){
 							console.log("invited");
-							invite.push(email)
-							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+							if(invite.includes(email)){
+								res.json({ success: false, message: 'user already added' });	
+							}else{
+								invite.push(email)
+								Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
 									if(err) throw err;
 									res.json({ success: true, message: 'user added' });
 								});
+							}
 						}else {
 							console.log("Attending")
-							rsvpd.push(email)
-							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+							if(rsvpd.includes(email)){
+								res.json({ success: false, message: 'user already added' });
+							} else {
+								rsvpd.push(email)
+								Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
 									if(err) throw err;
 									res.json({ success: true, message: 'user added' });
 								});
+							}
 						}
 					} else {
 						console.log("No Users")
-						res.json({ success: false, message: 'Could\'t find user with that email in database' });					}
+						res.json({ success: false, message: 'Could\'t find user with that email in database' });					
+					}
 				});	
 			}
 		});

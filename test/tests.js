@@ -235,28 +235,6 @@ describe('User', () => {
         });
 
     describe('PUT /viewEvent/:id/:email/:check', () => {
-        it('should add user to list', (done) => {
-          let id = "testEvent";
-          let email = "dhobbs@tcd.ie";
-          let check = 1;
-
-          let list = {
-              token: global.token
-          }
-          chai.request(address)
-              .put('/api/viewEvent/' + id + '/' + email + '/' + check)
-              .send(list)
-              .end((err, res) => {
-                  console.log(res.body)
-                  res.should.have.status(200);
-                  res.body.success.should.be.eql(true);
-                  res.body.message.should.be.eql('user added');
-                done();
-              });
-        });
-        });
-
-    describe('PUT /viewEvent/:id/:email/:check', () => {
 
       it('should add user to list', (done) => {
 
@@ -278,6 +256,28 @@ describe('User', () => {
               done();
             });
       });
+
+      it('should fail if user already in list', (done) => {
+
+        let id = "testEvent";
+        let email = "dhobbs@tcd.ie";
+        let check = 1;
+
+        let list = {
+          token: global.token
+        }
+        chai.request(address)
+            .put('/api/viewEvent/' + id + '/' + email + '/' + check)
+            .send(list)
+            .end((err, res) => {
+
+                res.should.have.status(200);
+                res.body.success.should.be.eql(false);
+                res.body.message.should.be.eql('user already added');
+              done();
+            });
+      });
+
       });
 
     describe('Delete /viewEvent/:id/:email', () => {
@@ -294,7 +294,6 @@ describe('User', () => {
             .delete('/api/viewEvent/' + id + '/' + email)
             .send(list)
             .end((err, res) => {
-                console.log(res.body)
                 res.should.have.status(200);
                 res.body.success.should.be.eql(true);
                 res.body.message.should.be.eql('user removed');
