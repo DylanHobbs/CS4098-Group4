@@ -33,17 +33,9 @@
         </div>
 
         <div class="field">
-            <label class="ui black label">Event</label>
-            <div class="ui selection dropdown">
-                <input name="event" id="event" ng-model="register.regData.eventId" type="hidden">
-                <i class="dropdown icon"></i>
-                <div class="default text">Select the event the guest will be attending</div>
-                <div class="menu">
-                    <div class="item" value="{{test}}" ng-repeat="test in tests">
-                        {{ test }}
-                    </div>
-                </div>
-            </div>
+             <label class="ui black label">Event ID</label>
+            <input ng-disabled="register.disabled" placeholder="Event ID" type="text" name="eventId" ng-model="register.regData.eventId"
+                    id="eventId">
         </div>
 
         <div class="field">

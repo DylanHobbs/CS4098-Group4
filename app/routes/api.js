@@ -894,9 +894,10 @@ module.exports = function(router){
 		router.put('/regGuest', function(req, res){
 		
 			var editEvent = req.body.eventId;
-			if(req.body.vegetarian ='1') 		var newVegetarian		= req.body.vegetarian;
-			if(req.body.vegan='1') 		var newVegan		= req.body.venue;
-			if(req.body.coeliac='1')		var newCoeliac 		= req.body.coeliac;
+			if(req.body.vegetarian =='1') 		var newVegetarian		= req.body.vegetarian;
+			console.log(req.body);
+			if(req.body.vegan=='1') 		var newVegan		= req.body.venue;
+			if(req.body.coeliac=='1')		var newCoeliac 		= req.body.coeliac;
 			if(req.body.otherInfo)	var newOtherInfo 	= req.body.otherInfo;
 			// Check if current user has access to this
 			User.findOne({ username: req.decoded.username }, function(err, mainUser){
@@ -908,16 +909,16 @@ module.exports = function(router){
 									res.json({ success: false, message: 'No event by this name was found' });
 								} else {
 									if(newVegetarian){
-										event.dietary.vegetarian +=1;
+										event.dietary +='Vegetarian,';
 									}
 									if(newVegan){
-										event.dietary.vegan +=1;
+										event.dietary +='Vegan, ';
 									}
 									if(newCoeliac){
-										event.dietary.coeliac +=1;
+										event.dietary +='Coeliac, ';
 									}
 									if(newOtherInfo){
-										event.otherInfo.push[newOtherInfo];
+										event.otherInfo += '' + newOtherInfo;
 									}
 									
 									event.save(function(err){

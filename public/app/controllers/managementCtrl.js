@@ -183,59 +183,73 @@ angular.module('managementController', [])
     var app = this;
     $('.ui.dropdown').dropdown();
     $scope.tests = ['Dinner','Lunch','Brunch'];
-    
-    /*function getAllEvents(){
-        Event.getEvents().then(function(data){
-            console.log(data);
-            if(data.data.success){
-                if(data.data.permission === 'admin'){
-                    //console.log(data.data.events);
-                    app.events = data.data.events;
-                    app.loading = false;
-                    app.accessDenied = false;
+    app.limit = 10;
+    function getAllEvents(){
+            Event.getEvents().then(function(data){
+                console.log(data.data);
+                if(data.data.success){
+                    if(data.data.permission === 'admin'){
+                        console.log(data.data.events);
+                        app.events = data.data.events;
+                        app.loading = false;
+                        app.accessDenied = false;
+                    } else {
+                        app.failMsg = "No permissions to access this feature";
+                        app.loading = false;
+                    }
                 } else {
-                    app.failMsg = "No permissions to access this feature";
+                    app.failMsg = data.data.message;
                     app.loading = false;
                 }
-            } else {
-                app.failMsg = data.data.message;
-                app.loading = false;
-            }
-        });
+            });
+        
+    
+      
     }
-
     getAllEvents();
 
-    eventList = [];
     
-    app.events.forEach(element => {
-        eventList.push(element.eventId);
-    });
-
-    $scope.tests = eventList;*/
-
 
 	this.guestReg = function(regData){
 		app.disabled = true;
 		app.loading = true;
         app.failMsg = false;
         
-        Event.addInfo(app.regData);
+        
         User.create(app.regData)
         .then(function(data){
 			if(data.data.success){
 				app.loading = false;
 				app.successMsg = data.data.message + '... Redirecting you back to management';
-				$timeout(function(){
-					app.successMsg = false;
-					$location.path('/management');
-				}, 2000);
 			} else {
 				app.loading = false;
 				app.disabled = false;
 				app.failMsg = data.data.message;
 			}
-		});
+        });
+        
+        console.log(app.regData);
+        Event.addInfo(app.regData);
+        Event.addUser(app.regData.eventId, app.regData.email, '1').then(function(data){
+            if(data.data.success){
+				app.loading = false;
+                app.successMsg = data.data.message + '... Redirecting you back to management';
+                $timeout(function(){
+            
+                    app.successMsg = false;
+                    $location.path('/management');
+                }, 2000);
+			} else {
+				app.loading = false;
+				app.disabled = false;
+				app.failMsg = data.data.message;
+			}
+        })
+
+        
+
+        
+        
     };
     
 });

@@ -16,8 +16,8 @@ var EventSchema = new Schema({
 	seatsPer:   {type: Number},
 	description: {type: String, default: ''},
 	menu:       {type: String, default: ''},
-	dietary: {type: {}, default: {}},
-	otherInfo: {type: {}, default: {}},
+	dietary: {type: String, default: ''},
+	otherInfo: {type: String, default: ''},
 	updates: {type: {}, default: {}}
 });
 
