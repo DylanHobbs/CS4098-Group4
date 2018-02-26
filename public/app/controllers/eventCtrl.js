@@ -248,7 +248,7 @@ angular.module('eventController', ['eventServices'])
             app.description = thisEvent.description;
             app.venue = thisEvent.venue;
             app.menu = thisEvent.menu;
-
+            app.dietary = thisEvent.dietary;
             app.invitedUsers = data.data.invitedUsers;
             app.rsvpUsers = data.data.rsvpUsers;
         } else {
