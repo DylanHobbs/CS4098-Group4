@@ -888,7 +888,52 @@ module.exports = function(router){
 			
 		});
 
-
+		router.put('/regGuest', function(req, res){
+		
+			var editEvent = req.body.eventId;
+			if(req.body.vegetarian ='1') 		var newVegetarian		= req.body.vegetarian;
+			if(req.body.vegan='1') 		var newVegan		= req.body.venue;
+			if(req.body.coeliac='1')		var newCoeliac 		= req.body.coeliac;
+			if(req.body.otherInfo)	var newOtherInfo 	= req.body.otherInfo;
+			// Check if current user has access to this
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+						
+							Event.findOne({eventId: editEvent}, function(err, event){
+								if(err) throw err;
+								if(!event){
+									res.json({ success: false, message: 'No event by this name was found' });
+								} else {
+									if(newVegetarian){
+										event.dietary.vegetarian +=1;
+									}
+									if(newVegan){
+										event.dietary.vegan +=1;
+									}
+									if(newCoeliac){
+										event.dietary.coeliac +=1;
+									}
+									if(newOtherInfo){
+										event.otherInfo.push[newOtherInfo];
+									}
+									
+									event.save(function(err){
+										if(err){
+											console.log(err);
+										} else {
+											res.json({ success: true, message: 'Details have been submitted' });
+										}	
+									});
+								}
+							});
+						
+	
+						
+	
+					});
+					
+				
+			});	
 
 	
 	return router; // Return the router object to server
