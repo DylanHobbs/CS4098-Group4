@@ -203,6 +203,28 @@ describe('User', () => {
             });
       });
     });
+
+    describe('PUT /viewEvent/:id/:email/:check', () => {
+
+      it('should add user to list', (done) => {
+        let list = {
+            // id: 23,
+            // email: "groganco@tcd.ie",
+            // check: "1",
+            token: global.token
+        }
+        chai.request(address)
+            .put('/api/viewEvent/23/groganco@tcd.ie/1')
+            .send(list)
+            .end((err, res) => {
+                console.log(res.body)
+                res.should.have.status(200);
+                res.body.success.should.be.eql(true);
+                res.body.message.should.be.eql('user added');
+              done();
+            });
+      });
+      });
 });
 
 

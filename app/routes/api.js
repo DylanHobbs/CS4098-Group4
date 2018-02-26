@@ -779,9 +779,10 @@ module.exports = function(router){
 		var eventID = req.params.id;
 		var email = req.params.email;
 		var check = req.params.check;
-		
-		Event.findOne({ eventId: eventID }, function(err, event){
+		console.log(req.params)
 
+		Event.findOne({ eventId: eventID }, function(err, event){
+			console.log(event)
 			var invite = event.invited; 
 			var invitedUsers = [];
 			var rsvpd = event.rsvp;
