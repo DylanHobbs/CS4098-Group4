@@ -185,8 +185,9 @@ or
 
 ```
 **I want to see the invite list [Product Backlog Number: 10]
-  I want to be able to see the rsvp list [Product Backlog Number: 22]
-  I want confirmation that people are registered to attend (RSVP'd) in order to have the correct number of staff for the event [Product Backlog Number: 25]**
+
+**I want to be able to see the rsvp list [Product Backlog Number: 22]**
+**I want confirmation that people are registered to attend (RSVP'd) in order to have the correct number of staff for the event [Product Backlog Number: 25]**
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -206,8 +207,8 @@ To view rsvp/invite list:
 ```
 
 **I want to be able to manage the guest list [Product Backlog Number: 27]
-I need to be able to manage  the responses so I can know who is attending [Product Backlog Number: 12]
-I want to be able to add/remove attendees from the guest list [Product Backlog Number: 28]**
+**I need to be able to manage  the responses so I can know who is attending [Product Backlog Number: 12]**
+**I want to be able to add/remove attendees from the guest list [Product Backlog Number: 28]**
 ```
 (NOTE: The attending list is a list of people who have responded and said that they are going to the event, the invited list is people who have been invited but have not yet responded. Someone cannot be on both lists at the same time.)
 
