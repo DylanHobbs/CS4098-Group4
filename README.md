@@ -32,6 +32,7 @@ npm test
 ```
 
 **I want to be able to login (change password/details/create account) [ Backlong number: 1 ]**
+
 ***1.0 - Registering a User***
 ```
 PREREQUISITES
@@ -91,6 +92,7 @@ To change usernames
 ```
 
 **I would like to be able to create an event e.g. a dinner [Product Backlog Number: 4]**
+
 ***4.0 - Creating an Event***
 ```
 PREREQUISITES
@@ -113,6 +115,7 @@ To create an event
 ```
 
 **I want to create menus [Product Backlog Number: 29]**
+
 ***29.0 - Event Menus***
 ```
 PREREQUISITES
@@ -134,7 +137,8 @@ To view an events menu
 5. Click the menu link.
 ```
 **I want to be able to give admin access to other people [Product Backlog Number: 2]**
-***Grant Users Admin Access***
+
+***2.0 - Grant Users Admin Access***
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -175,7 +179,8 @@ To remove a user from a list:
 ```
 
 **I want to be able to see a report of who is attending an event [Product Backlog Number: 24]**
-***View a Report of An Event***
+
+***24.0 - View a Report of An Event***
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -198,14 +203,20 @@ To view a report of an event
         "cmd-p" in mac
 ```
 
-**As a Staff member, registering guest for an event**
+**As staff, I need to register a guest for one event (including their details), so I can track what is needed for the event (dietary, ...) [Product Backlog Number: 13]**
+
+***23.0 - As a Staff member, registering guest for an event]***
 ```
 PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
-- At least 1 event created
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
 - Know guest's details, including ID of event they will be attending
+
 To register a guest:
 1.Click on management tab at the top of the page.
 2.Click register guest button
@@ -214,7 +225,9 @@ To register a guest:
 5.The guest's (anonymised) dietary requirements will be display upon viewing the event, as will their name in the guest list
 ```
 
-**Update Event information and submit Event updates**
+**I want to be able to update event information and submit event updates [Product Backlog Number: 5]**
+
+***5.0 - Update Event information and submit Event updates***
 ```
 PREREQUISITES
 - Logged in 
