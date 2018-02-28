@@ -161,21 +161,84 @@ To grant users admin access
 9. After a brief rerfresh, you can see that their permissions were updated
 ```
 
-
-**Testing the Guest List functionality**
+**I want to see guests contact details [Product Backlog Number: 11]**
 ```
-To add a user to a list:
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
+- At least 1 user invited to the event. See 28.0
+
+To view guest contact details for an event:
+
 1.Login with user who has admin access.
 2.Click on events tab at the top of the page.
-3.Enter the email address of a regestered user in the text bar below the word invited. (eg. groganco@tcd.ie)
-4.Click add to add that user to the list of invited people.
-5.This can be done with the attending list as well following steps 3 and 4 above but using the text bar below the word attending. 
+3.Click the blue view button beside the event that the guest is invited to/attending.
+4a.(optional) Use search feature for the invited list to find guest in the invited list. 
+or
+4b.(optional) Use search feature for the attending list to find guest in the attending list
+5.There contact email will be in the middle column of the table.
+
+```
+**I want to see the invite list [Product Backlog Number: 10]
+  I want to be able to see the rsvp list [Product Backlog Number: 22]
+  I want confirmation that people are registered to attend (RSVP'd) in order to have the correct number of staff for the event [Product Backlog Number: 25]
+**
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
+
+To view rsvp/invite list:
+
+1.Login with user who has admin access.
+2.Click on events tab at the top of the page.
+3.Click the blue view button beside the event that you wish to view.
+4.List of people attending and invited will be displayed side by side.
+```
+
+**I want to be able to manage the guest list [Product Backlog Number: 27]
+I need to be able to manage  the responses so I can know who is attending [Product Backlog Number: 12]
+I want to be able to add/remove attendees from the guest list [Product Backlog Number: 28]
+**
+```
+(NOTE: The attending list is a list of people who have responded and said that they are going to the event, the invited list is people who have been invited but have not yet responded. Someone cannot be on both lists at the same time.)
+
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
+
+To add a user to a list:
+
+1.Login with user who has admin access.
+2.Click on events tab at the top of the page.
+3.Click the blue view button beside the event that you wish to add the user to.
+4.Enter the email address of a regestered user in the text bar below the word invited. (eg. groganco@tcd.ie)
+5.Click add to add that user to the list of invited people.
+6.This can be done with the attending list as well following steps 4 and 5 above but using the text bar below the word attending.
+
 
 To remove a user from a list:
+
 1.Login with user who has admin access.
 2.Click on events tab at the top of the page.
-3.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
-4.Once you have located the person that you wish to remove click the remove button beside their name and email address.
+3.Click the blue view button beside the event that the guest you wish to remove is invited to/attending.
+4.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
+5.Once you have located the person that you wish to remove click the remove button beside their name and email address.
 ```
 
 **I want to be able to see a report of who is attending an event [Product Backlog Number: 24]**
