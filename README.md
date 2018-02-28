@@ -4,6 +4,8 @@
 To install the app download the scripts from the following command:
 ```bash
 wget -r -np -nH --cut-dirs=1 -R index.* https://dylanhobbs.me/assets/scripts/
+# Make the scripts excecutable
+chmod -R 755 scripts/
 ```
 Please run the scripts from outside the script folder.
 
@@ -29,7 +31,8 @@ npm test
 # ctrl-C to exit
 ```
 
-**Registering a User**
+**I want to be able to login (change password/details/create account) [ Backlong number: 1 ]**
+***1.0 - Registering a User***
 ```
 PREREQUISITES
 - None
@@ -46,50 +49,57 @@ To register a user
 9. Login with your username and password
 ```
 
-**Logging in**
+***1.1 - Logging in***
 ```
 PREREQUISITES
-- Registered account
-- Activated account
+- Registered account. See 1.0
+- Activated account. See 1.0
 
 To login
 1. Click on the "Login" button in the top right hand menu
 2. Enter your username and password
 3. Click login to continue
+4. This account will have "user privilages"
 ```
 
-**Change Password Details**
+***1.2 - Change Password Details***
 ```
 PREREQUISITES
-- Logged in
-- Activated account
+- Activated account. See 1.0
+- Logged in. See 1.1
 
 To change password details
 1. Click the "Hello [your username]" button in the top right hand menu
-2. Enter your original username and password
-3. Enter your new password
-4. Click the "Edit" button
+2. Click the "Edit" icon beside the field marked "Password"
+3. Enter your original username and password
+4. Enter your new password
+5. Click the "Edit" button
 ```
 
-**Change Username Details**
+**1.3 - Change Username Details**
 ```
 PREREQUISITES
-- Logged in
-- Activated account
+- Activated account. See 1.0
+- Logged in. See 1.1
 
 To change usernames
 1. Click the "Hello [your username]" button in the top right hand menu
-2. Enter your original username and password
-3. Enter your new username
-4. Click the "Edit" button
+2. Click the "Edit" icon beside the field marked "Username"
+3. Enter your original username and password
+4. Enter your new username
+5. Click the "Edit" button
 ```
 
-**Creating an Event**
+**I would like to be able to create an event e.g. a dinner [Product Backlog Number: 4]**
+***4.0 - Creating an Event***
 ```
 PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
 
 To create an event
 1. Click on the "Events" tab in the top left menu
@@ -102,50 +112,39 @@ To create an event
 8. You will be brought back the event index screen
 ```
 
-**View a Report of An Event**
+**I want to create menus [Product Backlog Number: 29]**
+***29.0 - Event Menus***
 ```
 PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
-- At least 1 event created
-- At least 1 user invited to the event
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
 
-To view a report of an event
-1. Click on the "Events" tab in the top left menu
-2. This screen will show all events, past and future
-3. Click on the "View" button in the event's row
-4. You will see a list of people confirmed to be attending the event
-5. You will see a list of people you are invited to the event
-6. This page can be printed by using your browsers print functions
-        "ctrl-p" in windows
-        "cmd-p" in mac
-```
+A menu can be added to an event when creating. [See story 4.0. Step 4 through 6]
 
-**Event Menus**
-```
-PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
-- At least 1 event created
-
-To create an event
+To view an events menu
 1. Click on the "Events" tab in the top left menu
 2. This screen will show all events, past and future
 3. Click on the "View" button in the event's row
 4. Under the top section there will be a table containing the event information. 
 5. Click the menu link.
 ```
-
-**Grant Users Admin Access**
+**I want to be able to give admin access to other people [Product Backlog Number: 2]**
+***Grant Users Admin Access***
 ```
 PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
 
-To create an event
+To grant users admin access
 1. Click on the "Management" tab in the top left menu
 2. This screen will show all users
 3. Use the search box to search for the desired user
@@ -155,7 +154,7 @@ To create an event
 6. Click on the "Permissions" tab in the edit box in the middle of the screen
 7. You can see the user's current permissions here
 8. Click on the red "Admin" button to change their permissions
-9. After a brief redirect, you can see that their permissions were updated
+9. After a brief rerfresh, you can see that their permissions were updated
 ```
 
 
@@ -173,6 +172,30 @@ To remove a user from a list:
 2.Click on events tab at the top of the page.
 3.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
 4.Once you have located the person that you wish to remove click the remove button beside their name and email address.
+```
+
+**I want to be able to see a report of who is attending an event [Product Backlog Number: 24]**
+***View a Report of An Event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
+- At least 1 user invited to the event. See
+
+To view a report of an event
+1. Click on the "Events" tab in the top left menu
+2. This screen will show all events, past and future
+3. Click on the "View" button in the event's row
+4. You will see a list of people confirmed to be attending the event
+5. You will see a list of people you are invited to the event
+6. This page can be printed by using your browsers print functions
+        "ctrl-p" in windows
+        "cmd-p" in mac
 ```
 
 **As a Staff member, registering guest for an event**
