@@ -184,7 +184,7 @@ or
 5.There contact email will be in the middle column of the table.
 
 ```
-**I want to see the invite list [Product Backlog Number: 10]
+**I want to see the invite list [Product Backlog Number: 10]**
 
 **I want to be able to see the rsvp list [Product Backlog Number: 22]**
 **I want confirmation that people are registered to attend (RSVP'd) in order to have the correct number of staff for the event [Product Backlog Number: 25]**
@@ -206,7 +206,7 @@ To view rsvp/invite list:
 4.List of people attending and invited will be displayed side by side.
 ```
 
-**I want to be able to manage the guest list [Product Backlog Number: 27]
+**I want to be able to manage the guest list [Product Backlog Number: 27]**
 **I need to be able to manage  the responses so I can know who is attending [Product Backlog Number: 12]**
 **I want to be able to add/remove attendees from the guest list [Product Backlog Number: 28]**
 ```
