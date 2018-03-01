@@ -1,4 +1,4 @@
-angular.module('emailController', ['userServices'])
+angular.module('emailController', ['userServices', 'eventServices'])
 
 // Handles sending confirmation emails
 .controller('emailCtrl', function($routeParams, User, $timeout, $location) {  
@@ -53,5 +53,44 @@ angular.module('emailController', ['userServices'])
 		User.sendUsername(app.userData.email).then(function(data){
 			console.log(data);
 		});
+	};
+})
+
+.controller('createEmailCtrl', function(User, Event){
+	app = this;
+	console.log("Hello beautiful");
+	var currentSelect = 'invited';
+	var invitedLists = [];
+	var rsvpLists = [];
+	var mailingLists = [];
+
+	app.events = [];
+	Event.getEvents().then(function(data){
+		invitedLists = data.data.events;
+		rsvpLists = data.data.events;
+		app.events = data.data.events;
+	});	
+
+
+	this.sendEmail = function(emailData){
+		app.disabled = true;
+		console.log('ye i\'ll totally send that to: ' + currentSelect);
+		console.log(app.emailData);
+	};
+
+	app.setSelect = function(toggle){
+		if(toggle === 'rsvp'){
+			currentSelect = 'rsvp';
+			app.events = rsvpLists;
+			console.log('rsvp');
+		} else if(toggle === 'lists'){
+			currentSelect = 'lists';
+			app.events = mailingLists;
+			console.log('list');
+		} else if(toggle === 'invited'){
+			currentSelect = 'invited';
+			app.events = invitedLists;
+			console.log('invited');
+		}
 	};
 });

@@ -138,6 +138,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
+	.when('/createEmail/:eventID?', {
+		templateUrl: 'app/views/pages/emails/createEmail.html',
+		controller: 'createEmailCtrl',
+		controllerAs: 'createEmail',
+		authenticated: true,
+		permission: 'admin'
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls
