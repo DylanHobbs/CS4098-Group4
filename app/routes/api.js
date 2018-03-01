@@ -1010,7 +1010,42 @@ module.exports = function(router){
 				
 			});	
 
-	
+	//MAIL ROUTE
+
+	router.put('/maillists', function(req, res){
+
+		var eventID = req.body.eventID;
+		var event_mails = {};
+		if(eventID == 'allusers'){
+			event_mails = person.email;
+		}
+		else{
+			Event.findOne({id: eventID}, function(err, event){
+				event_mails == event.rsvp;
+			});
+		}
+		var email = {
+			from: 'Staff, staff@localhost.com',
+			to: 'staff@localhost.com',
+			bcc: event_mails,
+			subject: req.body.mail_subject,
+			text: req.body.mail_body,
+			//(Do I need this???) html: 
+		}
+		client.sendMail(email, function(err, info){
+			if (err){
+				console.log(err);
+			}
+			else {
+				console.log('Message sent: ' + info.response);
+			}
+		});
+
+		res.json({success: true, message: 'Account activated!'});
+
+	});
+
+
 	return router; // Return the router object to server
 }
 
