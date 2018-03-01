@@ -1,135 +1,201 @@
-<div class="ui inverted segment">
-<h1>Register</h1>
-<form class="ui form success error" ng-submit="register.regUser(regData);" name="regForm" novalidate id="regForm">
-  <div class="three fields">
-    <br>
-      
-    <div class="field">
-      <label class="ui black label">Full Name</label>
-      <input ng-disabled="register.disabled" placeholder="Full Name" type="text" name="name" ng-model="register.regData.name" id="name" required>
+<br>
+<br>
+<div class="ui segment">
+  <h1>Register</h1>
+  <form class="ui form success error" ng-submit="register.regUser(regData);" name="regForm" novalidate id="regForm">
+    <div class="three fields">
+      <br>
+      <div class="five wide field">
+        <label class="ui primary label">
+          Full Name
+          <div class="ui icon mini button" data-content="Enter your full name in the form `Dylan Hobbs` or `Mary Jane-Doe`" data-variation="basic">
+            <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="register.disabled" placeholder="Full Name" type="text" name="name" ng-model="register.regData.name" id="name"
+          required>
+      </div>
+
+      <div class="five wide field">
+        <label class="ui primary label">
+          Username
+          <div class="ui icon mini button" data-content="Your username is what you'll use to login to the platform. It must be at least 3 characters and less thn 64"
+            data-variation="basic">
+            <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="register.disabled" placeholder="Username" type="text" name="username" ng-model="register.regData.username"
+          id="username">
+      </div>
+
+      <div class="six wide field">
+        <label class="ui primary label">
+          Email
+          <div class="ui icon mini button" data-content="Your email will be needed to activate your account. So enter one you can check"
+            data-variation="basic">
+            <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="register.disabled" placeholder="Email" type="text" name="email" ng-model="register.regData.email" id="email">
+      </div>
     </div>
 
-    <div class="field">
-      <label class="ui black label">Username</label>
-      <input ng-disabled="register.disabled" placeholder="Username" type="text" name="username" ng-model="register.regData.username" id="username">
+    <div class="two fields">
+      <div class="eight wide field">
+        <label class="ui primary label">
+          Password
+          <div class="ui icon mini button" data-content="Passwords must be at least 8 characters long" data-variation="basic">
+            <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="register.disabled" placeholder="Password" type="password" name="password" ng-model="register.regData.password"
+          id="password">
+      </div>
+
+      <div class=" eight wide field">
+        <label class="ui primary label">
+          Confirm Password
+          <div class="ui icon mini button" data-content="Please type your password again to confirm you typed it correctly" data-variation="basic">
+            <i class="help icon"></i>
+          </div>
+        </label>
+        <input ng-disabled="register.disabled" placeholder="Confirm Password" type="password" name="confirmPassword" ng-model="register.regData.confirmPassword"
+          id="confirmPassword">
+      </div>
     </div>
 
-    <div class="field">
-      <label class="ui black label">Email</label>
-      <input ng-disabled="register.disabled" placeholder="Email" type="text" name="email" ng-model="register.regData.email" id="email">
+    <div class="ui active dimmer" ng-show="register.loading">
+      <div class="ui text loader">Looking for Seán FitzPatrick...</div>
     </div>
 
-    <div class="field">
-      <label class="ui black label">Password</label>
-      <input ng-disabled="register.disabled" placeholder="Password" type="password" name="password" ng-model="register.regData.password" id="password">
+    <div class="ui success message" ng-show="register.successMsg">
+      <div class="header">All Set</div>
+      <p>{{ register.successMsg }}</p>
     </div>
-  </div>
 
-  <div class="ui active dimmer" ng-show="register.loading">
-    <div class="ui text loader">Looking for Seán FitzPatrick...</div>
-  </div>
+    <div class="ui error message" ng-show="register.failMsg">
+      <div class="header">Uh Oh</div>
+      <p>{{ register.failMsg }}</p>
+    </div>
 
-  <div class="ui success message" ng-show="register.successMsg">
-    <div class="header">All Set</div>
-    <p>{{ register.successMsg }}</p>
-  </div>
+    <button ng-disabled="register.disabled" class="ui huge primary button" type="submit">Register</button>
+  </form>
 
-  <div class="ui error message" ng-show="register.failMsg">
-    <div class="header">Uh Oh</div>
-    <p>{{ register.failMsg }}</p>
-  </div>
-
-  <button ng-disabled="register.disabled" class="ui huge primary button" type="submit">Register</button>
-</form>
-
-<script>
-  // TODO: Move this dragon somewhere not so visible
-  $(document)
-    .ready(function() {
-    (function ($) {
-      $('.ui.form').form({
-
-        name: {
-          identifier: 'name',
-          rules: [{
-            type: 'empty',
-            prompt: 'Please enter your First and Last names'
-          },{
-            type: 'minLength[4]',
-            prompt: 'Name must be more than 4 charecters'
-          },{
-            type: 'maxLength[40]',
-            prompt: 'Name must be less than 40 charecters'
-          },{
-            type: 'regExp',
-            value: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z-]{2,20})*)+$/,
-            prompt: 'Enter your full name in form "John Doe" or "Mary Lee-Smith'
-          }]
-        },           
-        username: {
-          identifier: 'username',
-          rules: [{
-            type: 'empty',
-            prompt: 'Please enter a username'
-          },{
-            type: 'minLength[3]',
-            prompt: 'Name must be more than 3 charecters'
-          },{
-            type: 'maxLength[40]',
-            prompt: 'Name must be less than 40 charecters'
-          }]
-        },       
-        email: {
-          identifier: 'email',
-          rules: [{
-            type: 'empty',
-            prompt: 'Please enter your email'
-          },{
-            type: 'email',
-            prompt: 'Please enter a valid email'
-          },{
-            type: 'minLength[3]',
-            prompt: 'Name must be more than 3 charecters'
-          },{
-            type: 'maxLength[25]',
-            prompt: 'Name must be less than 25 charecters'
-          }]
-        },       
-        password: {
-          identifier: 'password',
-          rules: [{
-            type: 'empty',
-            prompt: 'Please enter a password'
-          }, {
-            type: 'length[8]',
-            prompt: 'Password needs to be atleast 8 characters long'
-          }, {
-            type: 'regExp',
-            value: /^(?=.*[A-Z]).+$/,
-            prompt: 'Password must have at least 1 upper case letter'
-          }, {
-            type: 'regExp',
-            value: /^(?=.*[\d]).+$/,
-            prompt: 'Password must have at least 1 number'
-          }, {
-            type: 'regExp',
-            value: /^(?=.*[-+_!@#$%^&*.,?]).+$/,
-            prompt: 'Password must have at least 1 symbol'
-          }, {
-            type: 'regExp',
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[-+_!@#$%^&*.,?])).+$/,
-            prompt: 'Please fulfill password requirements. Should never see this'
-          }]
-        }
-      }, {
-        on: 'blur',
-        inline: 'true'
+  <script>
+    // TODO: Move this dragon somewhere not so visable
+    $(document)
+      .ready(function () {
+        (function ($) {
+          $('.icon')
+            .popup()
+            ;
+        }(jQuery));
       });
-    }(jQuery));
-  });
-</script> 
+  </script>
 
-<!-- <span>
+  <script>
+    // TODO: Move this dragon somewhere not so visible
+    $(document)
+      .ready(function () {
+        (function ($) {
+          $('.ui.form').form({
+
+            name: {
+              identifier: 'name',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please enter your First and Last names'
+              }, {
+                type: 'minLength[4]',
+                prompt: 'Name must be more than 4 charecters'
+              }, {
+                type: 'maxLength[64]',
+                prompt: 'Name must be less than 64 charecters'
+              }, {
+                type: 'regExp',
+                value: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z-]{2,20})*)+$/,
+                prompt: 'Enter your full name in form "John Doe" or "Mary Lee-Smith'
+              }]
+            },
+            username: {
+              identifier: 'username',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please enter a username'
+              }, {
+                type: 'minLength[3]',
+                prompt: 'Name must be more than 3 charecters'
+              }, {
+                type: 'maxLength[64]',
+                prompt: 'Name must be less than 64 charecters'
+              }]
+            },
+            email: {
+              identifier: 'email',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please enter your email'
+              }, {
+                type: 'email',
+                prompt: 'Please enter a valid email'
+              }, {
+                type: 'minLength[3]',
+                prompt: 'Name must be more than 3 charecters'
+              }, {
+                type: 'maxLength[128]',
+                prompt: 'Name must be less than 128 charecters'
+              }]
+            },
+            password: {
+              identifier: 'password',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please enter a password'
+              }, {
+                type: 'length[8]',
+                prompt: 'Password needs to be at least 8 characters long'
+              }
+                // {
+                //   type: 'regExp',
+                //   value: /^(?=.*[A-Z]).+$/,
+                //   prompt: 'Password must have at least 1 upper case letter'
+                // }, {
+                //   type: 'regExp',
+                //   value: /^(?=.*[\d]).+$/,
+                //   prompt: 'Password must have at least 1 number'
+                // }, {
+                //   type: 'regExp',
+                //   value: /^(?=.*[-+_!@#$%^&*.,?]).+$/,
+                //   prompt: 'Password must have at least 1 symbol'
+                // }, {
+                //   type: 'regExp',
+                //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[-+_!@#$%^&*.,?])).+$/,
+                //   prompt: 'Please fulfill password requirements. Should never see this'
+                // }
+              ]
+            },
+            confirmPassword: {
+              identifier: 'confirmPassword',
+              rules: [{
+                type: 'empty',
+                prompt: 'Please enter your password again'
+              }, {
+                type: 'length[8]',
+                prompt: 'Password needs to be at least 8 characters long'
+              }, {
+                type: 'match[password]',
+                prompt: 'Passwords do not match'
+              }]
+            }
+          }, {
+              on: 'blur',
+              inline: 'true'
+            });
+        }(jQuery));
+      });
+  </script>
+
+  <!-- <span>
   <strong>Is this form pristine? (new): </strong>{{ regForm.$pristine }}
 </span>
 <br>
@@ -144,7 +210,3 @@
 <span>
   <strong>Is it valid?: </strong>{{ regForm.$valid }}
 </span> -->
-
-
-
-
