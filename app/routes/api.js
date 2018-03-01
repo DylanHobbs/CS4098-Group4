@@ -1064,6 +1064,34 @@ module.exports = function(router){
 					
 				
 			});	
+	router.post('/eventSend', function(req, res){
+ 
+        var subject = req.body.subject;
+        var body = req.body.body;
+        var recipients = req.body.to;
+        if (req.body.subject == null || req.body.subject == "" || req.body.body == null || req.body.body == "" || req.body.to == null || req.body.to == ""){
+        	res.json({success : false, message: "Please ensure all fields are filled in."});
+        }
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: 'staff@localhost.com',
+	        bcc: recipients,
+	        subject: subject,
+	        text: body,
+	        //(Do I need this???) html:
+	   }
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Mail sent!'});
+ 
+    });
 
 	
 	return router; // Return the router object to server

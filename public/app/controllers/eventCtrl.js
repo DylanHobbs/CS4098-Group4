@@ -242,6 +242,7 @@ angular.module('eventController', ['eventServices'])
         if(data.data.success){
             var thisEvent = data.data.event;
             app.name = thisEvent.name;
+            app.id = thisEvent._id;
             app.seats = thisEvent.seatsPer;
             app.tables = thisEvent.tables;
             app.date = thisEvent.date;

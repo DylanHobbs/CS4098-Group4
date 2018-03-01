@@ -52,6 +52,15 @@
 
             </div>
         </div>
+         <div class="ui success message" ng-show="createEmail.successMsg">
+          <div class="header">All Set</div>
+          <p>{{ createEmail.successMsg }}</p>
+        </div>
+
+        <div class="ui error message" ng-show="createEmail.failMsg">
+          <div class="header">Uh Oh</div>
+          <p>{{ createEmail.failMsg }}</p>
+        </div>
         <button ng-disabled="createEmail.disabled" class="ui huge primary button" type="submit">Send Email</button>
     </form>
 </div>

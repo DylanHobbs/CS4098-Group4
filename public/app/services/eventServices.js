@@ -50,5 +50,9 @@ angular.module('eventServices', [])
 		return $http.post('/api/changeEventDate', dateData);
 	}
 
+    eventFactory.emailAttendees = function(emailData){
+        return $http.post('api/eventSend', emailData);
+    }
+
 	return eventFactory;
 });
