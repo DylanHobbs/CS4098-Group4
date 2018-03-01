@@ -847,7 +847,7 @@ module.exports = function(router){
 			}
 		});
 	});
-
+	
 	router.put('/viewEvent/:id/:email/:check', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
@@ -896,6 +896,61 @@ module.exports = function(router){
 					} else {
 						console.log("No Users")
 						res.json({ success: false, message: 'Could\'t find user with that email in database' });					
+					}
+				});	
+			}
+		});
+	});
+
+	router.put('/viewEvent/moveUser/:id/:email/:check', function(req, res){
+		var eventID = req.params.id;
+		var email = req.params.email;
+		var check = req.params.check;
+		console.log(req.params)
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+			console.log(event)
+			var invite = event.invited; 
+			var rsvpd = event.rsvp;
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				User.findOne({ email: email }, function(err1, user){
+					if(user){
+							console.log("invited");
+							if(rsvpd.includes(email)){
+								res.json({ success: false, message: 'User is already attending' });	
+							} else if(!invite.includes(email)){
+								res.json({ success: false, message: 'User is not in the invited list for this event' });	
+							}
+							else{
+								// Remove from invited
+								var index = invite.indexOf(email);
+								invite.splice(index, 1);
+
+								// Add to rsvp
+								rsvpd.push(email);
+								event.invited = invite;
+								event.rsvp = rsvpd;
+								event.save(function(err){
+									if(err) {
+										throw err
+									} else {
+										res.json({ success: true, message: 'user added' });
+									}
+								});
+								// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added' });
+								// });
+							}
+					} else {
+						console.log("No Users")
+						res.json({ success: false, message: 'Couldn\'t find user with that email in database' });					
 					}
 				});	
 			}

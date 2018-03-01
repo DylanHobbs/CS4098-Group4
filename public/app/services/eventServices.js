@@ -22,6 +22,10 @@ angular.module('eventServices', [])
         return $http.put('/api/viewEvent/' + id +'/'+ email + '/' + check);
     }
 
+    eventFactory.moveUser = function(id, email, check){
+        return $http.put('/api/viewEvent/moveUser/' + id +'/'+ email + '/' + check);
+    }
+
     eventFactory.viewEvent = function(id) {
         return $http.get('/api/editEvent/'+ id);
     };
