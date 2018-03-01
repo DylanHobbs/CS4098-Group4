@@ -1,0 +1,73 @@
+<div class="ui segment">
+    <h1>Create Email</h1>
+    <form class="ui form success error" ng-submit="createEmail.sendEmail(emailData);" name="emailForm" novalidate id="emailForm">
+        <!-- // Subject entry -->
+        <div class="sixteen wide field">
+            <label class="ui primary label">
+                Subject:
+                <div class="ui icon mini button" data-content="Subject line for your email" data-variation="basic">
+                    <i class="help icon"></i>
+                </div>
+            </label>
+            <input ng-disabled="createEmail.disabled" placeholder="Subject" type="text" name="subject" ng-model="createEmail.emailData.subject" id="subject"
+                required>
+        </div>
+        <!-- // To field. 
+        // BCC, CC, ect 
+        // Dropdown of mailing lists, defaulted if got here from event page 
+        // or enter emails  -->
+        <div class="sixteen wide field">
+            <label class="ui primary label">
+                To:
+                <div class="ui icon mini button" data-content="To field for your email. Select a button below to chosse either rsvp lists or invited guest lists and then select the desired event from the drop down. Or choose to use your custom mailing lists" data-variation="basic">
+                    <i class="help icon"></i>
+                </div>
+            </label>
+        </div>
+
+        <div class="sixteen wide field">
+            <div class="ui buttons">
+                <button ng-click="createEmail.setSelect('invited')" type="button" class="ui button">Invited Lists</button>
+                <button ng-click="createEmail.setSelect('rsvp')" type="button" class="ui button">Rsvp Lists</button>
+                <button ng-click="createEmail.setSelect('lists')" type="button" class="ui button">Mailing Lists</button>
+            </div>
+            <br>
+            <select ng-disabled="createEmail.disabled" class="ui fluid search dropdown" ng-model="createEmail.emailData.to" ng-options="event.name for event in createEmail.events">
+                <option value="">Mailing List</option>
+            </select>
+        </div>
+
+        <!-- // Body -->
+        <div class="field">
+            <div class="sixteen wide field">
+                <label class="ui primary label">
+                    Body
+                    <div class="ui icon mini button" data-content="This is the body of your email. Supports both html and plain text"
+                        data-variation="basic">
+                        <i class="help icon"></i>
+                    </div>
+                </label>
+                <textarea rows="12" ng-disabled="createEmail.disabled" placeholder="Body" type="text" name="body" ng-model="createEmail.emailData.body"
+                    id="body"></textarea>
+
+            </div>
+        </div>
+        <button ng-disabled="createEmail.disabled" class="ui huge primary button" type="submit">Send Email</button>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $('.ui.dropdown').dropdown();
+    });
+
+    // TODO: Move this dragon somewhere not so visable
+    $(document)
+      .ready(function() {
+      (function ($) {
+        $('.icon')
+          .popup()
+        ;
+      }(jQuery));
+    });
+</script>

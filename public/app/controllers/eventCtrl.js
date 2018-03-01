@@ -281,6 +281,19 @@ angular.module('eventController', ['eventServices'])
             }
         });
     }
+
+    app.moveUser = function(email, check){
+        console.log('ye')
+        Event.moveUser($routeParams.id,email,check).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
 });
 
 

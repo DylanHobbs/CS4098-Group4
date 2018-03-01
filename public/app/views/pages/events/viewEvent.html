@@ -80,6 +80,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Manage</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,9 @@
                         <td>{{ person.email }}</td>
                         <td>
                             <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
+                        </td>
+                        <td>
+                            <button ng-click="viewEvent.moveUser(person.email);" class="ui red button">Attending</button>
                         </td>
                     </tr> 
                     

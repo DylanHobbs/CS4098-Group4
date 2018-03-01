@@ -1,13 +1,16 @@
-<div class="ui inverted segment">
+<br>
+<br>
+<div class="ui segment">
 <form class="ui form success error" ng-submit="main.doLogin(loginData);">
+  <h1>Login</h1>
   <div class="two fields">
   	<br>
-    <div class="field">
-      <label class="ui black label">Username</label>
+    <div class="eight wide field">
+      <label class="ui primary label">Username</label>
       <input ng-disabled="main.disabled" placeholder="Username" type="text" name="username" ng-model="main.loginData.username">
     </div>
-    <div class="field">
-      <label class="ui black label">Password</label>
+    <div class="eight wide field">
+      <label class="ui primary label">Password</label>
       <input ng-disabled="main.disabled" placeholder="Password" type="password" name="password" ng-model="main.loginData.password">
     </div>
   </div>
@@ -33,10 +36,10 @@
     </p>
   </div>
 
-  <br>
-  <br>
-  <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Username?</button></a>
-  <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Password?</button></a>
+  <!-- <br>
+  <br> -->
+  <!-- <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Username?</button></a>
+  <a href="/resetUsername"><button ng-disabled="main.disabled" class="ui medium secondary inverted button" type="button">Forgot Password?</button></a> -->
 </form>
 </div>
 
