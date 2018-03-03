@@ -146,6 +146,10 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
+	.when('/createList', {
+		templateUrl: 'app/views/pages/mailingLists/createList.html',
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls

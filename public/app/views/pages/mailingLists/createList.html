@@ -1,0 +1,82 @@
+<div class="ui segment">
+    <h1>Create Email</h1>
+    <form class="ui form success error" ng-submit="xxx.createList(listData);" name="listForm" novalidate id="listForm">
+        <h4 class="ui dividing header">
+            Mailing List Name
+            <div class="ui icon button" data-content="A name for you to remember this mailing list by" data-variation="basic">
+                    <i class="help icon"></i>
+                </div>
+        </h4>
+        <div class="sixteen wide field">
+            <input ng-disabled="xxx.disabled" placeholder="Name" type="text" name="name" ng-model="xxx.listData.name" id="name" required>
+        </div>
+
+        <div class="sixteen wide field" ng-controller="managementCtrl as manage">
+            <h4 class="ui dividing header">Mailing List Members</h4>
+            <div class="ui form">
+                <div class="required nine wide field">
+                    <div class="ui action input">
+                        <input ng-model="number" type="text" placeholder="Entries to display...">
+                        <button ng-click="manage.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                        <button ng-click="manage.showAll();" class="ui primary  small button">Show All</button>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="ui icon input">
+                        <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <table id="example" class="ui celled inverted selectable primary table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="person in manage.users | filter: searchKeyword | limitTo: manage.limit">
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.username }}</td>
+                        <td>{{ person.email }}</td>
+                        <td>
+                            False
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ui success message" ng-show="xxx.successMsg">
+            <div class="header">All Set</div>
+            <p>{{ xxx.successMsg }}</p>
+        </div>
+
+        <div class="ui error message" ng-show="xxx.failMsg">
+            <div class="header">Uh Oh</div>
+            <p>{{ xxx.failMsg }}</p>
+        </div>
+        <button ng-disabled="xxx.disabled" class="ui primary button" type="submit">Create List</button>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $('.ui.dropdown').dropdown();
+    });
+
+    // TODO: Move this dragon somewhere not so visable
+    $(document)
+        .ready(function () {
+            (function ($) {
+                $('.icon')
+                    .popup()
+                    ;
+            }(jQuery));
+        });
+</script>
