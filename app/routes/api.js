@@ -823,21 +823,23 @@ module.exports = function(router){
 						if(element===email){
 							var index = invite.indexOf(email)
 							invite.splice(index,1)
-							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							event.invited = invite;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
 					} )
 
 					rsvpd.forEach(function(element){
 						if(element===email){
-							var index = rsvpd.indexOf(email)
-							rsvpd.splice(index,1)
-							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							var index = rsvpd.indexOf(email);
+							rsvpd.splice(index,1);
+							event.rsvp = rsvpd;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
 					} )	
 
@@ -876,9 +878,14 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });	
 							}else{
 								invite.push(email)
-								Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added', event: event});
+								// });
+								event.invited = invite;
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to invite list'});
 								});
 							}
 						}else {
@@ -887,9 +894,14 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });
 							} else {
 								rsvpd.push(email)
-								Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added' });
+								// });
+								event.rsvp = rsvpd;
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to rsvp list'});
 								});
 							}
 						}
