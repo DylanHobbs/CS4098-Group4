@@ -157,6 +157,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 		// permission: 'admin'
 	})
+	
+	.when('/purchaseTicket/:id', {
+		templateUrl: 'app/views/pages/events/purchaseTicket.html',
+		controller: 'purchaseTicketCtrl',
+		controllerAs: 'purchaseTicket',
+		authenticated: true
+	})
 
 	.otherwise({redirectTo: '/'});
 

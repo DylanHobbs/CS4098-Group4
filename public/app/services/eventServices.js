@@ -54,5 +54,10 @@ angular.module('eventServices', [])
         return $http.post('api/eventSend', emailData);
     }
 
+    // add ticketData to this
+    eventFactory.buyTicket = function(ticketData){
+        return $http.post('api/buyTicket', ticketData);
+    }
+
 	return eventFactory;
 });

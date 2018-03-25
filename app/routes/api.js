@@ -8,6 +8,7 @@ var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
+var qrImage = require('../../public/assets/js/qr.js')
 
 module.exports = function(router){
 
@@ -1103,6 +1104,96 @@ module.exports = function(router){
         });
  
         res.json({success: true, message: 'Mail sent!'});
+ 
+    });
+
+    router.post('/buyTicket', function(req, res){
+ 		// get the current user..
+
+
+    	console.log("You want to buy a ticket??")
+    	var fs = require("fs");
+
+    	var userName = req.decoded.username;
+    	var userEmail = req.decoded.email;
+
+    	
+
+    	// // these may be null right now
+     //    // var userEmail = req.body.userEmail;
+     //    // var seat = req.body.seat;
+     //    // var table = req.body.table;
+     //    // var eventId = req.body.eventId;
+     //    // var text = req.body.text;
+     //    // hashstuff 
+     	// some path stuff
+     	const path = require('path');
+     	const ABSPATH = path.dirname(process.mainModule.filename);
+
+
+        var myText = "OMG"
+        // var svg = qrImage.image(myText, {type: 'svg'});
+        // var namePath = "../temp/" + myText;
+        // var mypath = ABSPATH +"/temp/ohhmy.svg";
+        var uniqueIdentifier = 'i_hate_qr.svg'
+        var qr_svg = qrImage.image('I hate QR', {type: 'svg'});
+        qr_svg.pipe(require('fs').createWriteStream(uniqueIdentifier));
+
+        // var svg_string = qrImage.imageSync('I hate QR!!', {type: 'svg'});
+
+
+        // fs.appendFile(namePath,jpg, function(){
+        // 	console.log("done");
+        // });
+
+
+
+        // console.log("mypath = "+ mypath);
+        // fs.appendFile(mypath ,svg, function(){
+        // 	console.log("done");
+        // });
+        // console.log("ABSPATH = " + ABSPATH);
+        // console.log("jpg : " + svg);
+        // var qr_svg = qr.image('I love QR!', {type: 'svg'});
+        //qr_svg.pipe(require('fs').createWriteStream('i_love_qr.svg'));
+        // if (req.body.userEmail == null || req.body.userEmail == "" || req.body.seat == null || req.body.seat == "" || req.body.table == null || req.body.table == "" || req.body.eventId == null || req.body.eventId =="" || req.body.text ==null || req.body.text==""){
+        // 	res.json({success : false, message: "Please ensure all fields are filled in."});
+        // }
+        // update the body to be the long html 
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: 'ryann11@tcd.ie',
+	        subject: "Your Ticket",
+	        // this should be body
+	        text: myText,
+	        attachments:[
+	        	{	
+	        		 path: ABSPATH + '/'+ uniqueIdentifier
+	        	}
+	        ]
+	    }
+	        //(Do I need this???) html:
+	   
+	   // var mailOptions ={
+	   // 		// ...
+	   // 		html : 'Embedded image: <img src="cid:unique@kreata.ee"/>',
+	   // 		attachments: [{
+	   // 			filename : 'image.png',
+	   // 			path: '/path/to/file',
+	   // 			cid: 'unique@kreata.ee' //same value as img src
+	   // 		}]
+	   // }
+
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Ticket sent, check your email'});
  
     });
 

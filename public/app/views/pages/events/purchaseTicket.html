@@ -1,0 +1,117 @@
+<div class="ui segment">
+    <h2 class="ui header">General Information</h2>
+
+    
+        <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Number of tables</th>
+                    <th>Number of seats per table</th>
+                    <th>Tables Left</th>
+                    <th>Seats Left</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ purchaseTicket.tables }}</td>
+                        <td>{{ purchaseTicket.seats }}</td>
+                        <td >2</td>
+                        <td >10</td>
+                    </tr> 
+                </tbody>
+        </table>
+        <label>How many seats would you like?</label>
+        
+        <select ng-disabled="purchaseTicket.disabled" id="seat" class="ui dropdown" ng-model="purchaseTicket.ticketData.seat" name="seat">
+            <option ng-repeat="y in getNumber(seatsLeft+1) track by $index">
+                <span>{{$index}}</span>
+            </option>
+        </select>
+        <br>
+        OR
+        <br>
+        <label>How many tables would you like?</label>
+        <select ng-disabled="purchaseTicket.disabled" id="table" class="ui dropdown" ng-model="purchaseTicket.ticketData.table" name="table" >
+            <option ng-repeat="y in getNumber(tablesLeft+1) track by $index">
+                <span>{{$index}}</span>
+            </option>
+        </select>
+        <!-- <form class="ui form" ng-submit="purchaseTicket.emailTicket(regData);" name="purchaseForm">
+            <div class="field">
+                <label class="ui primary label black">How many table would you like?</label>
+                <input type="text" name="tables-set" placeholder="1">
+            </div>
+        <br>
+            <div class="field">
+                <label class="ui primary label black">How many seats would you like</label>
+                <input type="text" name="seats-sel" placeholder="0">
+            </div>
+        </form> -->
+
+        <td>
+        <br>
+        <!-- ticketData as parameter -->
+        <button ng-disabled="purchaseTicket.disabled" ng-click="purchaseTicket.submitTicket(ticketData);"  class="ui button" type="submit">Submit</button>
+        
+        
+       <!--  <div class="eight wide column">
+
+            <div class="ui icon input">
+                <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
+                <i class="search icon"></i> 
+            </div>
+            <h2 ng-model="checkInvited" >Invited</h2> 
+
+            <div class="ui action input">
+                <input ng-model="emailInvited" type="text" placeholder="Email of user to add...">
+                    <button ng-click="viewEvent.addUser(emailInvited,checkInvited);" class="ui blue button">Add</button>
+            </div> 
+
+            <table id="invited" class="ui celled inverted grey table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Manage</th>
+                    <th><a class="ui primary button" href='/createEmail/{{viewEvent.id}}'>Send Mail</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="person in viewEvent.invitedUsers | filter: searchWord | filter: search2 | limitTo: manage.limit">
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.email }}</td>
+                        <td>
+                            <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
+                        </td>
+                        <td>
+                            <button ng-click="viewEvent.moveUser(person.email);" class="ui red button">Attending</button>
+                        </td>
+                    </tr> 
+                    
+                </tbody>   
+            </table>
+        </div>
+    </div> -->
+    
+     
+
+    <!-- <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+         </div>  
+    </div> -->
+
+
+    <!-- <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div> -->
+
+    <!-- <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+    </div> -->
+</div>
