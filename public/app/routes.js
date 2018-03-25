@@ -103,7 +103,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'eventCtrl',
 		controllerAs: 'manage',
 		authenticated: true,
-		permission: 'admin'
+		//permission: 'admin'
 	})
 
 	.when('/createEvent', {

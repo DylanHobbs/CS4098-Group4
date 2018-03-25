@@ -14,7 +14,7 @@
                 <i class="search icon"></i>
             </div>        
         </div>
-        <a href="/createEvent" class="ui primary large button">Create Event</a>
+        <a ng-show="main.admin" href="/createEvent" class="ui primary large button">Create Event</a>
     </div>
 
 
@@ -41,15 +41,20 @@
                 <td>{{ event.venue }}</td>
                 <td>{{ event.date }}</td>
                 <td>
-                    <a href="/editEvent/{{event._id}}">
+                    <a ng-show="main.admin" href="/editEvent/{{event._id}}">
                         <button class="ui yellow basic button">Edit</button>
                     </a>
-                    <a href="/viewEvent/{{event.eventId}}">
+                    <a ng-show="main.admin" href="/viewEvent/{{event.eventId}}">
                         <button class="ui blue basic button">
                             View
                         </button>
                     </a>
-                    <button class="ui negative basic button right floated">
+                    <a ng-show="!main.admin" href="/viewEventUser/{{event.eventId}}">
+                        <button class="ui blue basic button">
+                            View
+                        </button>
+                    </a> 
+                    <button ng-show="main.admin" button class="ui negative basic button right floated">
                         Delete
                     </button>
                 </td>

@@ -738,17 +738,18 @@ module.exports = function(router){
 				if(!mainUser){
 					res.json({ success: false, message: 'User was not found' });
 				} else {
-					if(mainUser.permission === 'admin'){
+				//	if(mainUser.permission === 'admin'){
 						// Exitst and has permission
 						if(!events){
 							res.json({ success: false, message: 'Events[s] not found' });
 						} else {
 							res.json({ success: true, events: events, permission: mainUser.permission });
 						}
-					} else {
-						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-					}
-				}
+					} 
+					//else {
+				//		res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//	}
+				//}
 			});
  		});
 	});

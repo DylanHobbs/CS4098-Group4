@@ -17,15 +17,15 @@ angular.module('eventController', ['eventServices'])
         Event.getEvents().then(function(data){
             
             if(data.data.success){
-                if(data.data.permission === 'admin'){
-                    //console.log(data.data.events);
+                // if(data.data.permission === 'admin'){
+                //     //console.log(data.data.events);
                     app.events = data.data.events;
                     app.loading = false;
                     app.accessDenied = false;
-                } else {
-                    app.failMsg = "No permissions to access this feature";
-                    app.loading = false;
-                }
+                // } else {
+                //     app.failMsg = "No permissions to access this feature";
+                //     app.loading = false;
+                // }
             } else {
                 app.failMsg = data.data.message;
                 app.loading = false;
