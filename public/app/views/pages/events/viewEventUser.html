@@ -1,0 +1,93 @@
+<div class="ui inverted segment">
+    <h2 class="ui header">General Information</h2>
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Tables</th>
+                    <th>Seats</th>
+                    <th>Menu</th>
+                    <th>Dietary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{viewEventUser.name}}</th>
+                    <th>{{viewEventUser.venue}}</th>
+                    <th>{{viewEventUser.date}}</th>
+                    <th>{{viewEventUser.tables}}</th>
+                    <th>{{viewEventUser.seats}}</th>
+                    <th><a target="_blank" href={{viewEventUser.menu}}>Menu</a></th>
+                    <th>{{viewEventUser.eventId}}</th>
+                </tr>
+            </tbody>
+
+        </table>
+        <br>
+        <a href="/purchaseTicket/{{viewEventUser.eventId}}">
+            <button  class="ui negative basic button right floated">Puchase Ticket  </button>
+        </a>
+       <!--  <div class="eight wide column">
+
+            <div class="ui icon input">
+                <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
+                <i class="search icon"></i> 
+            </div>
+            <h2 ng-model="checkInvited" >Invited</h2> 
+
+            <div class="ui action input">
+                <input ng-model="emailInvited" type="text" placeholder="Email of user to add...">
+                    <button ng-click="viewEvent.addUser(emailInvited,checkInvited);" class="ui blue button">Add</button>
+            </div> 
+
+            <table id="invited" class="ui celled inverted grey table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Manage</th>
+                    <th><a class="ui primary button" href='/createEmail/{{viewEvent.id}}'>Send Mail</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="person in viewEvent.invitedUsers | filter: searchWord | filter: search2 | limitTo: manage.limit">
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.email }}</td>
+                        <td>
+                            <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
+                        </td>
+                        <td>
+                            <button ng-click="viewEvent.moveUser(person.email);" class="ui red button">Attending</button>
+                        </td>
+                    </tr> 
+                    
+                </tbody>   
+            </table>
+        </div>
+    </div> -->
+    
+     
+
+    <!-- <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+         </div>  
+    </div> -->
+
+
+    <!-- <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div> -->
+
+    <!-- <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+    </div> -->
+</div>

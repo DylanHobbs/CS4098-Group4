@@ -295,6 +295,102 @@ angular.module('eventController', ['eventServices'])
             }
         });
     }
+})
+
+.controller('viewEventUserCtrl', function(Event, $scope, $routeParams){
+    var app = this;
+
+    $scope.checkInvited = 1;
+    $scope.checkAttending = 0;
+    console.log("viewEventUserCtrl here!!!")
+    console.log("used this id to search" + $routeParams.id);
+    Event.getEvent($routeParams.id)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            app.menu = thisEvent.menu;
+            app.dietary = thisEvent.dietary;
+            app.invitedUsers = data.data.invitedUsers;
+            app.rsvpUsers = data.data.rsvpUsers;
+            app.eventId = $routeParams.id;
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }
+            
+    });
+
+})
+.controller('purchaseTicketCtrl', function(Event, $scope, $routeParams){
+    var app = this;
+
+    console.log("purchaseTicketCtrl here!!!")
+    Event.getEvent($routeParams.id)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            $scope.seatsLeft = 10;
+            $scope.tablesLeft = 2;
+            $scope.getNumber = function(num){
+                return new Array(num);
+            }
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }      
+    });
+    //
+    app.submitTicket = function(ticketData){
+        // var seat = $scope.document.getElementById("seatSel");
+        // var table = $scope.document.getElementById("tableSel");
+
+        // seatValue = seat.options[seat.selectedIndex].text;
+        // tableValue = table.options[table.selectedIndex].text;
+
+        // console.log("Seat VALUE ==" + seatValue);
+        // console.log("table VALUE ==" + tableValue);
+        
+        console.log("OHH hey there submitTicket")
+        console.log("seat :"+ app.ticketData.seat);
+        console.log("table :" + app.ticketData.table);
+        // console.log(ticketData.seat)
+        // console.log(ticketData.table)
+        // var ticketData;
+        // ticketData.
+         // Event.buyTicket(ticketData)
+         Event.buyTicket(app.ticketData)
+         .then(function(data){
+
+             if(data.data.success){
+
+             } else{
+                
+             }
+        
+        });
+    }
+
 });
+
 
 

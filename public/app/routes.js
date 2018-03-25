@@ -150,6 +150,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		templateUrl: 'app/views/pages/mailingLists/createList.html',
 	})
 
+	.when('/viewEventUser/:id', {
+		templateUrl: 'app/views/pages/events/viewEventUser.html',
+		controller: 'viewEventUserCtrl', 
+		controllerAs: 'viewEventUser',
+		authenticated: true
+		// permission: 'admin'
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls
