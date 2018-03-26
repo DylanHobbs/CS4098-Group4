@@ -394,8 +394,30 @@ angular.module('eventController', ['eventServices', 'userServices'])
 .controller('registerForEventCtrl', function(Event, User, $scope, $routeParams){
     var app = this;
 
-    console.log("registerForEventCtrl here!!!")
-    Event.getEvent($routeParams.EventId)
+    // var decrypted = decrypt($routeParams.Id)
+    // Console.log("decrypted : " +decrypted)
+
+    // var split = decrypted.split('+');
+    // var userName = split[0];
+    // var eventId = split[1];
+    // console.log("eventId = "+ eventId);
+    // console.log("userName = " + userName);
+    // console.log("registerForEventCtrl here!!!")
+
+
+    var eventid = "";
+    var userid = "";
+    Event.decryptHash($routeParams.Id)
+    .then(function(data){
+        if(data.data.success){
+            console.log("eventid = " +data.data.eventid);
+            console.log("userid = " + data.data.userid);
+            eventid = data.data.eventid;
+            userid = data.data.userid;
+            app.eventid = eventid
+            console.log("eventid == " +eventid);
+    console.log("username == " + userid)
+    Event.getEvent(eventid)
     .then(function(data){
         console.log(data.data.event)
         if(data.data.success){
@@ -410,9 +432,9 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.venue = thisEvent.venue;
             $scope.seatsLeft = 10;
             $scope.tablesLeft = 2;
-            $scope.getNumber = function(num){
-                return new Array(num);
-            }
+            // $scope.getNumber = function(num){
+            //     return new Array(num);
+            // }
         } else {
             console.log("no event???");
             app.failMsg = data.data.message;
@@ -420,7 +442,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
         }      
     });
 
-    User.getUser($routeParams.UserId)
+    User.getUser(userid)
     .then(function(data){
         console.log(data.data.user)
         if(data.data.success){
@@ -433,12 +455,27 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
     });
 
-    app.registerUser = function(){
-
-        // make api call to add the users data
-
-
+    
+        }else{
+            console.log("error with decryption");
+        }
+    });
+    /// Problems with check.. how to avoid..Might just assume they are in the invited column
+    // make check ==1??
+    // app.moveUser = function(email, check){
+    app.moveUser = function(){
+        console.log('ye IUFHSWIFUBSFIUB')
+        Event.moveUser(app.eventid,app.user.email,1).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
     }
+    
 
 });
 

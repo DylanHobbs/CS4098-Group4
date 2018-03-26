@@ -20,7 +20,25 @@ module.exports = function(router){
 	  }
 	}
 
-	var client = nodemailer.createTransport(sgTransport(options));
+	 var client = nodemailer.createTransport(sgTransport(options));
+	 var crypto = require('crypto'),
+	 		algorithm = 'aes-256-ctr',
+	 		password = 'd6F3Efeq';
+
+	function encrypt(text){
+		var cipher = crypto.createCipher(algorithm,password)
+		var crypted = cipher.update(text,'utf8', 'hex')
+		crypted += cipher.final('hex');
+		return crypted
+	}
+
+	function decrypt(text){
+		var decipher = crypto.createDecipher(algorithm, password)
+		var dec = decipher.update(text,'hex', 'utf8')
+		dec += decipher.final('utf8');
+		return dec;
+	}
+
 
 	/*
  #     #  #####  ####### ######     ######  ####### #     # ####### #######  #####
@@ -814,6 +832,10 @@ module.exports = function(router){
 			var rsvpUsers= []
 			// console.log(event.invited)
 			
+			
+
+
+
 			if(err) throw err;
 
 			if(!event){
@@ -852,12 +874,20 @@ module.exports = function(router){
 			}
 		});
 	});
+
 	
 	router.put('/viewEvent/:id/:email/:check', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
 		var check = req.params.check;
 		console.log(req.params)
+		console.log("we inviting somebody")
+		console.log("email :" + email)
+		var myEmail = email
+		
+		
+
+		
 
 		Event.findOne({ eventId: eventID }, function(err, event){
 			console.log(event)
@@ -886,6 +916,33 @@ module.exports = function(router){
 								// 	res.json({ success: true, message: 'user added', event: event});
 								// });
 								event.invited = invite;
+								var hashString = user._id + "+" + eventID;
+								var encoded = encrypt(hashString)
+								var decoded = decrypt(encoded)
+								console.log("encoded : " + encoded);
+								console.log("decoded : " + decoded);
+								console.log("email : " + myEmail);
+								var rsvpLinkAddress = "http://localhost:8080/registerForEvent/"+ encoded;
+								var bodyText = "You have been invited to rsvp for our event, please go to the link to rsvp\n" + 
+								rsvpLinkAddress + "\n Event Details : " + event.description;
+								var emails = {
+							        from: 'Staff, staff@localhost.com',
+							        to: myEmail,
+							        subject: "RSVP - " + event.name,
+							        // this should be body
+							        text: bodyText,
+						        }
+						        client.sendMail(emails, function(err, info){
+						            if (err){
+						                console.log(err);
+						            }
+						            else {
+						                console.log('Message sent: ' + info.response);
+						            }
+						        });
+
+
+
 								event.save(function(err, event){
 									if(err) throw err;
 									res.json({ success: true, message: 'User added to invite list'});
@@ -1197,6 +1254,29 @@ module.exports = function(router){
         res.json({success: true, message: 'Ticket sent, check your email'});
  
     });
+
+    router.get('/decryptHash/:id', function(req, res){
+
+    	
+		var hash = req.params.id;
+		console.log("Decrypting")
+		console.log("HASH == " + hash)
+		
+		var decrypted = decrypt(hash)
+	    console.log("decrypted : " +decrypted)
+
+	    var split = decrypted.split('+');
+	    var userId = split[0];
+	    var eventId = split[1];
+	    console.log("eventId = "+ eventId);
+	    console.log("userName = " + userId);
+	    console.log("registerForEventCtrl here!!!")
+				
+		res.json({success: true, userid: userId, eventid: eventId, message: 'Ticket sent, check your email'});
+
+		
+
+		});
 
 	
 	return router; // Return the router object to server

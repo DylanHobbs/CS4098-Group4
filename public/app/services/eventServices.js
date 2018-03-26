@@ -59,5 +59,9 @@ angular.module('eventServices', [])
         return $http.post('api/buyTicket', ticketData);
     }
 
+    eventFactory.decryptHash = function(decryptData){
+        return $http.get('/api/decryptHash/' + decryptData);
+    }
+
 	return eventFactory;
 });
