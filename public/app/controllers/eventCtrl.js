@@ -391,7 +391,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
     }
 
 })
-.controller('registerForEventCtrl', function(Event, User, $scope, $routeParams){
+.controller('registerForEventCtrl', function($location,Event, User, $scope, $routeParams){
     var app = this;
 
     // var decrypted = decrypt($routeParams.Id)
@@ -468,7 +468,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
         Event.moveUser(app.eventid,app.user.email,1).then(function(data){
             if(data.data.success){
                 console.log(data.data.message);
-                window.location.reload(true);
+                $location.path('/');
+                //window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
                 console.log(data.data.message);

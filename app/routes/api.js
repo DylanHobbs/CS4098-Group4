@@ -1271,8 +1271,33 @@ module.exports = function(router){
 	    console.log("eventId = "+ eventId);
 	    console.log("userName = " + userId);
 	    console.log("registerForEventCtrl here!!!")
-				
-		res.json({success: true, userid: userId, eventid: eventId, message: 'Ticket sent, check your email'});
+	    Event.findOne({eventId : eventId}, function(err, event){
+	    	if (err){ 
+	    		throw err;
+	    	}
+	    	var invited = event.invited;
+	    	for (let element of invited){
+				console.log("element :: "+ element);
+				console.log("userId :: "+ userId);
+				User.findOne({_id : userId}, function(err, user){
+					if(err){
+						throw err;
+					}
+					if(element == user.email){
+						console.log("This person is indeed invited")
+						res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
+						return	
+					}else{
+						res.json({success: false, message : "user is not invited actually.. cannot be rsvp"})
+					}
+				});
+			} 
+
+
+	    })
+
+
+		
 
 		
 
