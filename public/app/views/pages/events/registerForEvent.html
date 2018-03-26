@@ -1,0 +1,51 @@
+<div class="ui inverted segment">
+    <h2 class="ui header">Register For Event</h2>
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Tables</th>
+                    <th>Seats</th>
+                    <th>Menu</th>
+                    <th>Dietary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{registerForEvent.name}}</th>
+                    <th>{{registerForEvent.venue}}</th>
+                    <th>{{registerForEvent.date}}</th>
+                    <th>{{registerForEvent.tables}}</th>
+                    <th>{{registerForEvent.seats}}</th>
+                    <th><a target="_blank" href={{registerForEvent.menu}}>Menu</a></th>
+                    <th>{{registerForEvent.eventId}}</th>
+                </tr>
+            </tbody>
+
+        </table>
+        
+
+
+    <!-- <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                 <button ng-click="event.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                 <button ng-click="event.showAll();" class="ui primary  small button">Show All</button>
+            </div>      
+         </div>  
+    </div> -->
+
+
+    <!-- <div class="ui active dimmer" ng-show="event.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div> -->
+
+    <!-- <div class="ui success message" ng-show="event.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ event.successMsg }}</p>
+    </div> -->
+</div>

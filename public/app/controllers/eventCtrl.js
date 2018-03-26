@@ -390,6 +390,36 @@ angular.module('eventController', ['eventServices'])
         });
     }
 
+})
+.controller('registerForEventCtrl', function(Event, $scope, $routeParams){
+    var app = this;
+
+    console.log("registerForEventCtrl here!!!")
+    Event.getEvent($routeParams.EventId)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            $scope.seatsLeft = 10;
+            $scope.tablesLeft = 2;
+            $scope.getNumber = function(num){
+                return new Array(num);
+            }
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }      
+    });
+
 });
 
 
