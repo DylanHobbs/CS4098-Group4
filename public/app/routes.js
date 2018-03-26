@@ -165,7 +165,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
-	.when('/registerForEvent/:EventId/:UserId',{
+	.when('/registerForEvent/:Id',{
 		templateUrl: 'app/views/pages/events/registerForEvent.html',
 		controller: 'registerForEventCtrl',
 		controllerAs: 'registerForEvent',
