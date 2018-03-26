@@ -71,7 +71,9 @@ var UserSchema = new Schema({
 	email:      {type: String, lowercase: true, required: true, unique: true, validate: emailValidator},
 	active:     {type: Boolean, required: true, default: false},
 	tmpToken:   {type: String, required: true},
-	permission: {type: String, required: true, default: 'user'} // user -> host -> admin
+	permission: {type: String, required: true, default: 'user'}, // user -> host -> admin
+	totalDonated: {type: Number},// required: true, default: 0}, //maybe have this extra stuff ???
+	numberOfDonations: {type: Number}//, required: true, default: 0} //maybe have this extra stuff ???
 });
 
 
