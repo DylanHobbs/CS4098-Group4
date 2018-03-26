@@ -101,6 +101,7 @@
         <div class="right item">
         <a ng-show="!main.isLoggedIn" href="/login" class="ui inverted button">Log in</a>
         <a ng-show="!main.isLoggedIn" href="/register" class="ui inverted button">Register</a>
+        <a ng-show="main.isLoggedIn" href="" class="ui inverted green button">DONATE</a>
         <a ng-show="main.isLoggedIn" href="#" class="ui inverted button" ng-click="main.logout();">Logout</a>
         <a ng-show="main.isLoggedIn" href="/profile" class="ui primary inverted button large">Hello, {{ main.username }}</a>
         </div>

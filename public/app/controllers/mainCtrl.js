@@ -20,6 +20,8 @@ angular.module('mainController', ['authServices', 'userServices'])
 				console.log(app.username);
 				app.useremail = data.data.email;
 				app.fullname = data.data.name;
+				app.totalDonated = data.data.totalDonated;
+				app.numberOfDonations = data.data.numberOfDonations;
 				User.getPermission().then(function(data){
 					if(data.data.permission == 'admin'){
 						app.admin = true;

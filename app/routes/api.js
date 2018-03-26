@@ -492,7 +492,7 @@ module.exports = function(router){
 	// Grabing up to date info from DB. Above method will work if their token is 
 	// Changed on update. TODO:!!
 	router.post('/me', function(req, res) {
-		User.findOne({ email: req.decoded.email }).select('email name username').exec(function(err, user) {
+		User.findOne({ email: req.decoded.email }).select('email name username totalDonated numberOfDonations').exec(function(err, user) {
 			if (err) {
 				res.json({ success: false, message: err }); // Error if cannot connect
 			} else {
