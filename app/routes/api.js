@@ -8,6 +8,7 @@ var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
+var qrImage = require('../../public/assets/js/qr.js')
 
 module.exports = function(router){
 
@@ -573,7 +574,8 @@ module.exports = function(router){
 			if(!mainUser){
 				res.json({ success: false, message: 'User was not found' });
 			} else {
-				if(mainUser.permission === 'admin'){
+				//TODO :ask dylan if this is hacking ;)
+				//if(mainUser.permission === 'admin'){
 					User.findOne({_id: editUser}, function(err, user){
 						if(err) throw err;
 						if(!user){
@@ -582,9 +584,9 @@ module.exports = function(router){
 							res.json({ success: true, user: user});
 						}
 					});
-				} else {
-					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-				}
+				//} else {
+				//	res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//}
 			}
 		});
 	});
@@ -738,17 +740,18 @@ module.exports = function(router){
 				if(!mainUser){
 					res.json({ success: false, message: 'User was not found' });
 				} else {
-					if(mainUser.permission === 'admin'){
+				//	if(mainUser.permission === 'admin'){
 						// Exitst and has permission
 						if(!events){
 							res.json({ success: false, message: 'Events[s] not found' });
 						} else {
 							res.json({ success: true, events: events, permission: mainUser.permission });
 						}
-					} else {
-						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-					}
-				}
+					} 
+					//else {
+				//		res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//	}
+				//}
 			});
  		});
 	});
@@ -823,21 +826,23 @@ module.exports = function(router){
 						if(element===email){
 							var index = invite.indexOf(email)
 							invite.splice(index,1)
-							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							event.invited = invite;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
 					} )
 
 					rsvpd.forEach(function(element){
 						if(element===email){
-							var index = rsvpd.indexOf(email)
-							rsvpd.splice(index,1)
-							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							var index = rsvpd.indexOf(email);
+							rsvpd.splice(index,1);
+							event.rsvp = rsvpd;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
 					} )	
 
@@ -847,7 +852,7 @@ module.exports = function(router){
 			}
 		});
 	});
-
+	
 	router.put('/viewEvent/:id/:email/:check', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
@@ -876,9 +881,14 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });	
 							}else{
 								invite.push(email)
-								Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added', event: event});
+								// });
+								event.invited = invite;
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to invite list'});
 								});
 							}
 						}else {
@@ -887,15 +897,75 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });
 							} else {
 								rsvpd.push(email)
-								Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added' });
+								// });
+								event.rsvp = rsvpd;
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to rsvp list'});
 								});
 							}
 						}
 					} else {
 						console.log("No Users")
 						res.json({ success: false, message: 'Could\'t find user with that email in database' });					
+					}
+				});	
+			}
+		});
+	});
+
+	router.put('/viewEvent/moveUser/:id/:email/:check', function(req, res){
+		var eventID = req.params.id;
+		var email = req.params.email;
+		var check = req.params.check;
+		console.log(req.params)
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+			console.log(event)
+			var invite = event.invited; 
+			var rsvpd = event.rsvp;
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				User.findOne({ email: email }, function(err1, user){
+					if(user){
+							console.log("invited");
+							if(rsvpd.includes(email)){
+								res.json({ success: false, message: 'User is already attending' });	
+							} else if(!invite.includes(email)){
+								res.json({ success: false, message: 'User is not in the invited list for this event' });	
+							}
+							else{
+								// Remove from invited
+								var index = invite.indexOf(email);
+								invite.splice(index, 1);
+
+								// Add to rsvp
+								rsvpd.push(email);
+								event.invited = invite;
+								event.rsvp = rsvpd;
+								event.save(function(err){
+									if(err) {
+										throw err
+									} else {
+										res.json({ success: true, message: 'user added' });
+									}
+								});
+								// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added' });
+								// });
+							}
+					} else {
+						console.log("No Users")
+						res.json({ success: false, message: 'Couldn\'t find user with that email in database' });					
 					}
 				});	
 			}
@@ -1009,6 +1079,124 @@ module.exports = function(router){
 					
 				
 			});	
+	router.post('/eventSend', function(req, res){
+ 
+        var subject = req.body.subject;
+        var body = req.body.body;
+        var recipients = req.body.to;
+        if (req.body.subject == null || req.body.subject == "" || req.body.body == null || req.body.body == "" || req.body.to == null || req.body.to == ""){
+        	res.json({success : false, message: "Please ensure all fields are filled in."});
+        }
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: 'staff@localhost.com',
+	        bcc: recipients,
+	        subject: subject,
+	        text: body,
+	        //(Do I need this???) html:
+	   }
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Mail sent!'});
+ 
+    });
+
+    router.post('/buyTicket', function(req, res){
+ 		// get the current user..
+
+
+    	console.log("You want to buy a ticket??")
+    	var fs = require("fs");
+
+    	var userName = req.decoded.username;
+    	var userEmail = req.decoded.email;
+
+    	
+
+    	// // these may be null right now
+     //    // var userEmail = req.body.userEmail;
+     //    // var seat = req.body.seat;
+     //    // var table = req.body.table;
+     //    // var eventId = req.body.eventId;
+     //    // var text = req.body.text;
+     //    // hashstuff 
+     	// some path stuff
+     	const path = require('path');
+     	const ABSPATH = path.dirname(process.mainModule.filename);
+
+     	// hash these
+        var myText = userName
+        // var svg = qrImage.image(myText, {type: 'svg'});
+        // var namePath = "../temp/" + myText;
+        // var mypath = ABSPATH +"/temp/ohhmy.svg";
+        var uniqueIdentifier = userName+'.svg'
+        var qr_svg = qrImage.image('I hate QR', {type: 'svg'});
+        qr_svg.pipe(require('fs').createWriteStream(uniqueIdentifier));
+
+        // var svg_string = qrImage.imageSync('I hate QR!!', {type: 'svg'});
+
+
+        // fs.appendFile(namePath,jpg, function(){
+        // 	console.log("done");
+        // });
+
+
+
+        // console.log("mypath = "+ mypath);
+        // fs.appendFile(mypath ,svg, function(){
+        // 	console.log("done");
+        // });
+        // console.log("ABSPATH = " + ABSPATH);
+        // console.log("jpg : " + svg);
+        // var qr_svg = qr.image('I love QR!', {type: 'svg'});
+        //qr_svg.pipe(require('fs').createWriteStream('i_love_qr.svg'));
+        // if (req.body.userEmail == null || req.body.userEmail == "" || req.body.seat == null || req.body.seat == "" || req.body.table == null || req.body.table == "" || req.body.eventId == null || req.body.eventId =="" || req.body.text ==null || req.body.text==""){
+        // 	res.json({success : false, message: "Please ensure all fields are filled in."});
+        // }
+        // update the body to be the long html 
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: 'ryann11@tcd.ie',
+	        subject: "Your Ticket",
+	        // this should be body
+	        text: myText,
+	        attachments:[
+	        	{	
+	        		 path: ABSPATH + '/'+ uniqueIdentifier
+	        	}
+	        ]
+	    }
+	        //(Do I need this???) html:
+	   
+	   // var mailOptions ={
+	   // 		// ...
+	   // 		html : 'Embedded image: <img src="cid:unique@kreata.ee"/>',
+	   // 		attachments: [{
+	   // 			filename : 'image.png',
+	   // 			path: '/path/to/file',
+	   // 			cid: 'unique@kreata.ee' //same value as img src
+	   // 		}]
+	   // }
+
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Ticket sent, check your email'});
+ 
+    });
 
 	
 	return router; // Return the router object to server

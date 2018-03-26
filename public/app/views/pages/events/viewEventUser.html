@@ -15,53 +15,22 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>{{viewEvent.name}}</th>
-                    <th>{{viewEvent.venue}}</th>
-                    <th>{{viewEvent.date}}</th>
-                    <th>{{viewEvent.tables}}</th>
-                    <th>{{viewEvent.seats}}</th>
-                    <th><a target="_blank" href={{viewEvent.menu}}>Menu</a></th>
-                    <th>{{viewEvent.dietary}}</th>
+                    <th>{{viewEventUser.name}}</th>
+                    <th>{{viewEventUser.venue}}</th>
+                    <th>{{viewEventUser.date}}</th>
+                    <th>{{viewEventUser.tables}}</th>
+                    <th>{{viewEventUser.seats}}</th>
+                    <th><a target="_blank" href={{viewEventUser.menu}}>Menu</a></th>
+                    <th>{{viewEventUser.eventId}}</th>
                 </tr>
             </tbody>
+
         </table>
         <br>
-    
-    <h2 class="ui header">Guest/Invite List</h2>
-    <div class="ui two column middle stackable grid">
-        <div class="eight wide column">
-
-            <div class="ui icon input">
-                <input ng-model="search1" class="prompt" type="text" placeholder="Search...">
-                <i class="search icon"></i>
-            </div>
-            <h2 ng-model="checkAttending" >Attending </h2>
-
-            <div class="ui action input">
-                <input ng-model="email" type="text" placeholder="Email of user to add...">
-                    <button ng-click="viewEvent.addUser(email, checkAttending);" class="ui blue button">Add</button>
-            </div> 
-            <table id="attending" class="ui celled inverted green table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Manage</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="person in viewEvent.rsvpUsers | filter: searchWord | filter: search1 | limitTo: manage.limit">
-                        <td>{{ person.name }}</td>
-                        <td>{{ person.email }}</td>
-                        <td>
-                            <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
-                        </td>
-                    </tr>
-                </tbody>   
-            </table>   
-        </div>
-
-        <div class="eight wide column">
+        <a href="/purchaseTicket/{{viewEventUser.eventId}}">
+            <button  class="ui negative basic button right floated">Puchase Ticket  </button>
+        </a>
+       <!--  <div class="eight wide column">
 
             <div class="ui icon input">
                 <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
@@ -98,7 +67,7 @@
                 </tbody>   
             </table>
         </div>
-    </div>
+    </div> -->
     
      
 

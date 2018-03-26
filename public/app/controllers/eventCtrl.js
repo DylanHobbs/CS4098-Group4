@@ -1,4 +1,4 @@
-angular.module('eventController', ['eventServices'])
+angular.module('eventController', ['eventServices', 'userServices'])
 .controller('eventCtrl', function(Event, $scope, $routeParams){
 
     // TODO: 
@@ -17,15 +17,15 @@ angular.module('eventController', ['eventServices'])
         Event.getEvents().then(function(data){
             
             if(data.data.success){
-                if(data.data.permission === 'admin'){
-                    //console.log(data.data.events);
+                // if(data.data.permission === 'admin'){
+                //     //console.log(data.data.events);
                     app.events = data.data.events;
                     app.loading = false;
                     app.accessDenied = false;
-                } else {
-                    app.failMsg = "No permissions to access this feature";
-                    app.loading = false;
-                }
+                // } else {
+                //     app.failMsg = "No permissions to access this feature";
+                //     app.loading = false;
+                // }
             } else {
                 app.failMsg = data.data.message;
                 app.loading = false;
@@ -242,6 +242,7 @@ angular.module('eventController', ['eventServices'])
         if(data.data.success){
             var thisEvent = data.data.event;
             app.name = thisEvent.name;
+            app.id = thisEvent._id;
             app.seats = thisEvent.seatsPer;
             app.tables = thisEvent.tables;
             app.date = thisEvent.date;
@@ -273,6 +274,19 @@ angular.module('eventController', ['eventServices'])
     app.addUser = function(email, check){
         Event.addUser($routeParams.id,email,check).then(function(data){
             if(data.data.success){
+                console.log(data.data);
+                window.location.reload(true);
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
+
+    app.moveUser = function(email, check){
+        console.log('ye')
+        Event.moveUser($routeParams.id,email,check).then(function(data){
+            if(data.data.success){
                 console.log(data.data.message);
                 window.location.reload(true);
             } else {
@@ -281,6 +295,152 @@ angular.module('eventController', ['eventServices'])
             }
         });
     }
+})
+
+.controller('viewEventUserCtrl', function(Event, $scope, $routeParams){
+    var app = this;
+
+    $scope.checkInvited = 1;
+    $scope.checkAttending = 0;
+    console.log("viewEventUserCtrl here!!!")
+    console.log("used this id to search" + $routeParams.id);
+    Event.getEvent($routeParams.id)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            app.menu = thisEvent.menu;
+            app.dietary = thisEvent.dietary;
+            app.invitedUsers = data.data.invitedUsers;
+            app.rsvpUsers = data.data.rsvpUsers;
+            app.eventId = $routeParams.id;
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }
+            
+    });
+
+})
+.controller('purchaseTicketCtrl', function(Event, $scope, $routeParams){
+    var app = this;
+
+    console.log("purchaseTicketCtrl here!!!")
+    Event.getEvent($routeParams.id)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            $scope.seatsLeft = 10;
+            $scope.tablesLeft = 2;
+            $scope.getNumber = function(num){
+                return new Array(num);
+            }
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }      
+    });
+    //
+    app.submitTicket = function(ticketData){
+        // var seat = $scope.document.getElementById("seatSel");
+        // var table = $scope.document.getElementById("tableSel");
+
+        // seatValue = seat.options[seat.selectedIndex].text;
+        // tableValue = table.options[table.selectedIndex].text;
+
+        // console.log("Seat VALUE ==" + seatValue);
+        // console.log("table VALUE ==" + tableValue);
+        
+        console.log("OHH hey there submitTicket")
+        console.log("seat :"+ app.ticketData.seat);
+        console.log("table :" + app.ticketData.table);
+        // console.log(ticketData.seat)
+        // console.log(ticketData.table)
+        // var ticketData;
+        // ticketData.
+         // Event.buyTicket(ticketData)
+         Event.buyTicket(app.ticketData)
+         .then(function(data){
+
+             if(data.data.success){
+
+             } else{
+                
+             }
+        
+        });
+    }
+
+})
+.controller('registerForEventCtrl', function(Event, User, $scope, $routeParams){
+    var app = this;
+
+    console.log("registerForEventCtrl here!!!")
+    Event.getEvent($routeParams.EventId)
+    .then(function(data){
+        console.log(data.data.event)
+        if(data.data.success){
+            var thisEvent = data.data.event;
+            app.name = thisEvent.name;
+            app.id = thisEvent._id;
+            app.seats = thisEvent.seatsPer;
+            app.tables = thisEvent.tables;
+            //console.log("thisEvent.tables" + thisEvent.tables);
+            app.date = thisEvent.date;
+            app.description = thisEvent.description;
+            app.venue = thisEvent.venue;
+            $scope.seatsLeft = 10;
+            $scope.tablesLeft = 2;
+            $scope.getNumber = function(num){
+                return new Array(num);
+            }
+        } else {
+            console.log("no event???");
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }      
+    });
+
+    User.getUser($routeParams.UserId)
+    .then(function(data){
+        console.log(data.data.user)
+        if(data.data.success){
+            app.user = data.data.user;
+        } else{
+            console.log("No user??")
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }
+
+    });
+
+    app.registerUser = function(){
+
+        // make api call to add the users data
+
+
+    }
+
 });
+
 
 

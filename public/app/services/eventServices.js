@@ -22,6 +22,10 @@ angular.module('eventServices', [])
         return $http.put('/api/viewEvent/' + id +'/'+ email + '/' + check);
     }
 
+    eventFactory.moveUser = function(id, email, check){
+        return $http.put('/api/viewEvent/moveUser/' + id +'/'+ email + '/' + check);
+    }
+
     eventFactory.viewEvent = function(id) {
         return $http.get('/api/editEvent/'+ id);
     };
@@ -45,6 +49,15 @@ angular.module('eventServices', [])
     eventFactory.changeDate = function(dateData){
 		return $http.post('/api/changeEventDate', dateData);
 	}
+
+    eventFactory.emailAttendees = function(emailData){
+        return $http.post('api/eventSend', emailData);
+    }
+
+    // add ticketData to this
+    eventFactory.buyTicket = function(ticketData){
+        return $http.post('api/buyTicket', ticketData);
+    }
 
 	return eventFactory;
 });

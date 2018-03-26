@@ -1,4 +1,4 @@
-angular.module('emailController', ['userServices'])
+angular.module('emailController', ['userServices', 'eventServices'])
 
 // Handles sending confirmation emails
 .controller('emailCtrl', function($routeParams, User, $timeout, $location) {  
@@ -53,5 +53,72 @@ angular.module('emailController', ['userServices'])
 		User.sendUsername(app.userData.email).then(function(data){
 			console.log(data);
 		});
+	};
+})
+
+//TODO;
+//Redirect user to event page they came from (maybe??)
+
+.controller('createEmailCtrl', function(User, Event, $routeParams, $timeout, $location){
+	app = this;
+	console.log("Hello beautiful");
+	var currentSelect = 'invited';
+	var invitedLists = [];
+	var rsvpLists = [];
+	var mailingLists = [];
+	var selectedEvent = $routeParams.eventID; //will do
+
+
+	app.events = [];
+	Event.getEvents().then(function(data){
+		invitedLists = data.data.events;
+		rsvpLists = data.data.events;
+		app.events = data.data.events;
+	});	
+
+
+	this.sendEmail = function(emailData){
+		app.disabled = true;
+		console.log('ye i\'ll totally send that to: ' + currentSelect);
+		
+		if (currentSelect === "invited"){
+			app.emailData.to = app.emailData.to.invited;
+		}
+		else if (currentSelect === "rsvp"){
+			app.emailData.to = app.emailData.to.rsvp;
+		}
+		else{
+			//vb
+		}
+		console.log(app.emailData);
+		Event.emailAttendees(app.emailData).then(function(data){
+			if(data.data.success){
+				console.log(data.data);
+				app.successMsg = data.data.message + "... Redirecting you to events...";
+				$timeout(function(){
+					$location.path('/events');
+				}, 2000);
+			}
+			else{
+				app.failMsg = data.data.message;
+				app.disabled = false;
+			}
+		});
+	};
+
+	app.setSelect = function(toggle){
+		if(toggle === 'rsvp'){
+			currentSelect = 'rsvp';
+			app.events = rsvpLists;
+			console.log('rsvp');
+		} else if(toggle === 'lists'){
+			currentSelect = 'lists';
+			app.events = mailingLists;
+			console.log('list');
+		} else if(toggle === 'invited'){
+			currentSelect = 'invited';
+			app.events = invitedLists;
+			console.log('invited');
+		}
 	};
 });

@@ -103,7 +103,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'eventCtrl',
 		controllerAs: 'manage',
 		authenticated: true,
-		permission: 'admin'
+		//permission: 'admin'
 	})
 
 	.when('/createEvent', {
@@ -136,6 +136,41 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controllerAs: 'register',
 		authenticated: true,
 		permission: 'admin'
+	})
+
+	.when('/createEmail/:eventID?', {
+		templateUrl: 'app/views/pages/emails/createEmail.html',
+		controller: 'createEmailCtrl',
+		controllerAs: 'createEmail',
+		authenticated: true,
+		permission: 'admin'
+	})
+
+	.when('/createList', {
+		templateUrl: 'app/views/pages/mailingLists/createList.html',
+	})
+
+	.when('/viewEventUser/:id', {
+		templateUrl: 'app/views/pages/events/viewEventUser.html',
+		controller: 'viewEventUserCtrl', 
+		controllerAs: 'viewEventUser',
+		authenticated: true
+		// permission: 'admin'
+	})
+
+	.when('/purchaseTicket/:id', {
+		templateUrl: 'app/views/pages/events/purchaseTicket.html',
+		controller: 'purchaseTicketCtrl',
+		controllerAs: 'purchaseTicket',
+		authenticated: true
+	})
+
+	.when('/registerForEvent/:EventId/:UserId',{
+		templateUrl: 'app/views/pages/events/registerForEvent.html',
+		controller: 'registerForEventCtrl',
+		controllerAs: 'registerForEvent',
+		authenticated: true
+
 	})
 
 	.otherwise({redirectTo: '/'});
