@@ -574,7 +574,8 @@ module.exports = function(router){
 			if(!mainUser){
 				res.json({ success: false, message: 'User was not found' });
 			} else {
-				if(mainUser.permission === 'admin'){
+				//TODO :ask dylan if this is hacking ;)
+				//if(mainUser.permission === 'admin'){
 					User.findOne({_id: editUser}, function(err, user){
 						if(err) throw err;
 						if(!user){
@@ -583,9 +584,9 @@ module.exports = function(router){
 							res.json({ success: true, user: user});
 						}
 					});
-				} else {
-					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-				}
+				//} else {
+				//	res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//}
 			}
 		});
 	});

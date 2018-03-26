@@ -1,4 +1,4 @@
-angular.module('eventController', ['eventServices'])
+angular.module('eventController', ['eventServices', 'userServices'])
 .controller('eventCtrl', function(Event, $scope, $routeParams){
 
     // TODO: 
@@ -391,7 +391,7 @@ angular.module('eventController', ['eventServices'])
     }
 
 })
-.controller('registerForEventCtrl', function(Event, $scope, $routeParams){
+.controller('registerForEventCtrl', function(Event, User, $scope, $routeParams){
     var app = this;
 
     console.log("registerForEventCtrl here!!!")
@@ -419,6 +419,26 @@ angular.module('eventController', ['eventServices'])
             app.loading = false;
         }      
     });
+
+    User.getUser($routeParams.UserId)
+    .then(function(data){
+        console.log(data.data.user)
+        if(data.data.success){
+            app.user = data.data.user;
+        } else{
+            console.log("No user??")
+            app.failMsg = data.data.message;
+            app.loading = false;
+        }
+
+    });
+
+    app.registerUser = function(){
+
+        // make api call to add the users data
+
+
+    }
 
 });
 
