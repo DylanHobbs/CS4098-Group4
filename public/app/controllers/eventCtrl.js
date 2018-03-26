@@ -414,6 +414,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
             console.log("userid = " + data.data.userid);
             eventid = data.data.eventid;
             userid = data.data.userid;
+            app.eventid = eventid
             console.log("eventid == " +eventid);
     console.log("username == " + userid)
     Event.getEvent(eventid)
@@ -454,16 +455,26 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
     });
 
-    app.registerUser = function(){
-
-        // make api call to add the users data
-
-
-    }
+    
         }else{
             console.log("error with decryption");
         }
     });
+    /// Problems with check.. how to avoid..Might just assume they are in the invited column
+    // make check ==1??
+    // app.moveUser = function(email, check){
+    app.moveUser = function(){
+        console.log('ye IUFHSWIFUBSFIUB')
+        Event.moveUser(app.eventid,app.user.email,1).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
     
 
 });
