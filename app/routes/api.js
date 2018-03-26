@@ -1130,12 +1130,12 @@ module.exports = function(router){
      	const path = require('path');
      	const ABSPATH = path.dirname(process.mainModule.filename);
 
-
-        var myText = "OMG"
+     	// hash these
+        var myText = userName
         // var svg = qrImage.image(myText, {type: 'svg'});
         // var namePath = "../temp/" + myText;
         // var mypath = ABSPATH +"/temp/ohhmy.svg";
-        var uniqueIdentifier = 'i_hate_qr.svg'
+        var uniqueIdentifier = userName+'.svg'
         var qr_svg = qrImage.image('I hate QR', {type: 'svg'});
         qr_svg.pipe(require('fs').createWriteStream(uniqueIdentifier));
 
