@@ -1175,6 +1175,20 @@ module.exports = function(router){
     	var userName = req.decoded.username;
     	var userEmail = req.decoded.email;
 
+    	// Add the now paid users email to the paid list of the correct event
+    	// Not sure this is working right now..
+    	Event.findOne({eventId : req.body.eventId}, function(error, event){
+    		if(err){
+    			throw err;
+    		}
+    		if(!event){
+				res.json({ success: false, message: 'No event by this name was found' });
+			} else {
+				var paid = event.paid;
+				paid.push(userEmail);
+			}
+    	});
+
     	
 
     	// // these may be null right now
@@ -1276,27 +1290,37 @@ module.exports = function(router){
 	    		throw err;
 	    	}
 	    	var invited = event.invited;
-	    	for (let element of invited){
-				console.log("element :: "+ element);
-				console.log("userId :: "+ userId);
+	    	var paid = event.paid;
+	    	// for (let element of invited){
+				// console.log("element :: "+ element);
+				// console.log("userId :: "+ userId);
 				User.findOne({_id : userId}, function(err, user){
 					if(err){
 						throw err;
 					}
-					if(element == user.email){
+					if(invited.includes(user.email)){
 						console.log("This person is indeed invited")
-						res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
-						return	
-					}else{
+						if(!paid.includes(user.email)){
+							console.log("YOU HAVE NOT PAID, you filthy animal!!");
+							res.json({success: true, userid: userId, eventid: eventId, message : 'You have not paid yet unfortunately'});
+							return;
+						}else{
+							res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
+							return;
+						}	
+					}
+					else{
+						console.log("How did we get here")
 						res.json({success: false, message : "user is not invited actually.. cannot be rsvp"})
+						return
 					}
 				});
-			} 
-
-
+			// }
+			
 	    })
 
-
+	    //res.json({success: false, message : "Event not found??"})
+		//	return
 		
 
 		
