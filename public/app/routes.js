@@ -173,6 +173,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	})
 
+	.when('/donate',{
+		templateUrl: 'app/views/pages/users/donate.html',
+		controller: 'donateCtrl',
+		controllerAs: 'donateToEvent',
+		authenticated: true
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls

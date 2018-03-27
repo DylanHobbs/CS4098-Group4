@@ -712,6 +712,30 @@ module.exports = function(router){
 		});
 	});
 
+	router.post('/donate', function(req, res){
+		console.log(req.body)
+		var amount = req.body.donation;
+		User.findOne({ email: req.decoded.email }, function(err, user){
+			if(err) throw err;
+			if(!user){
+				res.json({ success: false, message: 'No user was found' });
+			} else {
+				if (amount){
+					user.totalDonated+=amount;
+					user.numberOfDonations+=1;
+					user.save(function(err, user){
+						if(err) throw err;
+						res.json({ success: true, message: 'donation was succcessfull' });
+					});
+				} else {
+					res.json({ success: false, message: 'No donation was found' });
+				}
+				
+			}
+		});
+	});
+
+
 	/*
  ####### #     # ####### #     # #######    ######  ####### #     # ####### #######  #####
  #       #     # #       ##    #    #       #     # #     # #     #    #    #       #     #

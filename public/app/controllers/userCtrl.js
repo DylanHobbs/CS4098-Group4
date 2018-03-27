@@ -23,4 +23,26 @@ angular.module('userControllers', ['userServices'])
 			}
 		});
 	};
+})
+
+.controller('donateCtrl', function(User) {  
+	var app = this;
+	var donateData = {}
+	app.successMsg = false;
+	
+    app.addDonation = function(donation){
+
+    	donateData.donation = donation;
+
+        User.donate(donateData).then(function(data){
+            if(data.data.success){
+                console.log(data.data);
+                app.successMsg = true;
+            } else {
+                app.failMsg = true;
+                console.log(data.data.message);
+            }
+        });
+    }
+	
 });
