@@ -380,15 +380,15 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
          // Gotta make sure that the user is logged in.. or this will be a pain
 
-        // Event.buyTicket(app.ticketData)
-        //  .then(function(data){
-
-        //      if(data.data.success){
-        //       } else{
+        Event.buyTicket(app.ticketData)
+         .then(function(data){
+            // TODO 
+             if(data.data.success){
+              } else{
                 
-        //      }
+             }
         
-        // });
+        });
     }
 
 })
