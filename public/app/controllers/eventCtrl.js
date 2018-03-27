@@ -69,7 +69,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
     };
 })
 
-.controller('editEventCtrl', function($scope, Event, $routeParams, $timeout){
+.controller('editEventCtrl', function($location,$scope, Event, $routeParams, $timeout){
     var app = this;
     
     app.failMsg = false;
@@ -81,13 +81,15 @@ angular.module('eventController', ['eventServices', 'userServices'])
             $scope.newDate = data.data.event.date;
             $scope.newSeats = data.data.event.seatsPer;
             $scope.newTables = data.data.event.tables;
+            $scope.newDescription = data.data.event.description;
+            $scope.newMenu = data.data.event.menu;
             app.currentEventID = data.data.event._id;
         } else {
             app.failMsg = data.data.message;
         }
     });
 
-    app.updateDetails = function(newName,newVenue, newDate, newTables, newSeats){
+    app.updateDetails = function(newName,newVenue, newDate, newTables, newSeats, newDescription, newMenu){
         var eventObject = {};
         app.disabled = true;
         app.failMsg = false;
@@ -97,6 +99,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
         eventObject.date = $scope.newDate;
         eventObject.seatsPer = $scope.newSeats;
         eventObject.tables = $scope.newTables;
+        eventObject.description = $scope.newDescription;
+        eventObject.menu = $scope.newMenu;
         eventObject._id = app.currentEventID;
         Event.editEvent(eventObject).then(function(data){
             
@@ -108,8 +112,12 @@ angular.module('eventController', ['eventServices', 'userServices'])
                     $scope.newDate = newDate;
                     $scope.newSeats = newSeats;
                     $scope.newTables = newTables;
+                    $scope.newDescription =newDescription;
+                    $scope.newMenu = newMenu;
+
                     app.successMsg = false;
                     app.disabled = false;
+                    $location.path('/events');
                 }, 2000)
             } else {
                 app.failMsg = data.data.message;
@@ -227,6 +235,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
             }
         });
     };
+
+    
 
 })
 

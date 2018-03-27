@@ -64,7 +64,11 @@ angular.module('userServices', [])
 	// Edit a user
     userFactory.editUser = function(id) {
         return $http.put('/api/edit', id);
-    };
+	};
+	
+	userFactory.createGuest = function(regData){
+		return $http.post('/api/guests', regData);
+	}
 
 	return userFactory;
 });

@@ -1,4 +1,4 @@
-angular.module('managementController', [])
+angular.module('managementController', ['userServices'])
 .controller('managementCtrl', function(User, $scope){
     var app = this;
 
@@ -207,15 +207,76 @@ angular.module('managementController', [])
       
     }
     getAllEvents();
+    
+	
+
+
+	app.events = [];
+	Event.getEvents().then(function(data){
+		app.events = data.data.events;
+	});	
+
+
+	this.guestReg = function(regData){
+		app.disabled = true;
+		var selectedEvent = app.regData.eventId;
+		if(app.regData.email != ""){
+            app.regData.to = app.regData.email;
+            app.regData.subject = "Moldova Events"
+            app.regData.body = "Congratulations, you're registered!"
+            Event.emailAttendees(app.regData).then(function(data){
+                if(data.data.success){
+                    console.log(data.data);
+                }
+                else{
+                    app.failMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+        }
+        User.createGuest(app.regData).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+            Event.addInfo(app.regData).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+            Event.addGuest(app.regData.eventId,app.regData.number).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                    app.successMsg = data.data.message + "... Redirecting you to events...";
+                    $timeout(function(){
+                        $location.path('/events');
+                    }, 2000);
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+    
+        
+	};
 
     
 
-	this.guestReg = function(regData){
+	/*this.guestReg = function(regData){
 		app.disabled = true;
 		app.loading = true;
         app.failMsg = false;
         
-        
+        /*
         User.createAuthd(app.regData)
         .then(function(data){
 			if(data.data.success){
@@ -226,10 +287,12 @@ angular.module('managementController', [])
 				app.disabled = false;
 				app.failMsg = data.data.message;
 			}
-        });
+        });*/
         
-        console.log(app.regData);
-        Event.addInfo(app.regData).then(
+        // add to temp guests
+        
+        //console.log(app.regData);
+        /*Event.addInfo(app.regData).then(
 
         Event.addUser(app.regData.eventId, app.regData.email, '1').then(function(data){
             if(data.data.success){
@@ -247,10 +310,12 @@ angular.module('managementController', [])
 			}
         })
 
-    );
+    );*/
 
         
         
-    };
+//};
+
+    
     
 });

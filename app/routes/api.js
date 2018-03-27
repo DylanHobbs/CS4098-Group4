@@ -3,6 +3,7 @@
 // ****************************************************************************
 var User    = require('../models/user');
 var Event   = require('../models/event');
+var Guest   = require('../models/guest');
 var jwt     = require('jsonwebtoken');
 var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
@@ -117,6 +118,35 @@ module.exports = function(router){
 
 					// Send response
 					res.json({success: true, message: 'Account Registered! Please check email for activation link'});
+				}
+			});
+		}
+	});
+
+	router.post('/guests', function(req, res){
+		var guest = new Guest();
+		guest.number = req.body.number;
+		guest.email    = req.body.email;
+		guest.name     = req.body.name;
+
+		if(req.body.number == null || req.body.name == null || req.body.name == ''){
+			res.json({success: false, message: 'Ensure name and number are provided'});
+		} else {
+			console.log("HELLO");
+			guest.save(function(err){
+				if(err){
+					console.log(err);
+					if(err.errors != null){ 
+						if(err.errors.name){
+							res.json({success: false, message: err.errors.name.message});
+						} else if(err.errors.email){
+							res.json({success: false, message: err.errors.email.message});
+						}else {
+							res.json({success: false, message: err});
+						}
+					} 
+				} else {
+					res.json({success: true, message: 'User Registered'});
 				}
 			});
 		}
@@ -789,8 +819,9 @@ module.exports = function(router){
 					var invited = event.invited; 
 					var invitedUsers = [];
 					var rsvp = event.rsvp;
-					var rsvpUsers= []
-		
+					var rsvpUsers= [];
+					var rsvpGuests= [];
+					var guestrsvp= event.guestrsvp;
 					// if invited is already a list why iterate through it ????
 					invited.forEach(function(element){
 
@@ -802,16 +833,31 @@ module.exports = function(router){
 					rsvp.forEach(function(element){
 
 						User.findOne({email: element}, function(err, user){
-
 							if(err) throw err;
 							rsvpUsers.push(user);
 						});
+
 					} )
+
+
+					guestrsvp.forEach(function(element){
+						
+						Guest.findOne({number: element}, function(err, guest){
+							if(err) throw err;
+							console.log(guest);
+							rsvpGuests.push(guest);
+						});
+
+					} )
+					
+					//console.log(rsvpGuests);
+				
+
 					// need to make a callback function for this
 					setTimeout(function() {
-						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, message: 'heres a message'});
+						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, rsvpGuests: rsvpGuests, message: 'heres a message'});
 
-						}, 100);
+						}, 2000);
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
 			}
@@ -1029,6 +1075,37 @@ module.exports = function(router){
 		});
 	});
 
+	router.put('/addGuest/:id/:number/', function(req, res){
+		var eventID = req.params.id;
+		var number = req.params.number;
+		console.log(req.params);
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+			console.log(event);
+			var invite = event.invited; 
+			var rsvpd = event.guestrsvp;
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				rsvpd.push(number.toString());
+				event.guestrsvp = rsvpd;
+								event.save(function(err){
+									if(err) {
+										throw err
+									} else {
+										res.json({ success: true, message: 'User added' });
+									}
+								});
+			
+			}
+		});
+	});
+
+
 	router.get('/editEvent/:id', function(req, res){
 		let eventID = req.params.id;
 		Event.findOne({ _id: eventID }, function(err, event){
@@ -1058,6 +1135,8 @@ module.exports = function(router){
 		if(req.body.date)		var newDate 		= req.body.date;
 		if(req.body.seatsPer)	var newSeats 	= req.body.seatsPer;
 		if(req.body.tables)		var newTables 		= req.body.tables;
+		if(req.body.menu)		var newMenu 		= req.body.menu;
+		if(req.body.description)		var newDescription 		= req.body.description;
 		// Check if current user has access to this
 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
 			if(err) throw err;
@@ -1073,6 +1152,8 @@ module.exports = function(router){
 								event.date = newDate;
 								event.seatsPer = newSeats;
 								event.tables = newTables;
+								event.menu = newMenu;
+								event.description = newDescription;
 								event.save(function(err){
 									if(err){
 										console.log(err);
