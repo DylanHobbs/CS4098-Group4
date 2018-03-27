@@ -384,6 +384,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
          .then(function(data){
             // TODO 
              if(data.data.success){
+                window.alert("Your ticket has been emailed to you, you will now be redirected");
+                $location.path('/');
               } else{
                 
              }
