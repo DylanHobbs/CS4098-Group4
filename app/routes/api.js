@@ -744,6 +744,7 @@ module.exports = function(router){
 
 	router.post('/donate', function(req, res){
 		console.log(req.body)
+		console.log("We're in the Backend")
 		var amount = req.body.donation;
 		User.findOne({ email: req.decoded.email }, function(err, user){
 			if(err) throw err;
