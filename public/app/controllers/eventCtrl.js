@@ -354,6 +354,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.id = thisEvent._id;
             app.seats = thisEvent.seatsPer;
             app.tables = thisEvent.tables;
+            app.eventId = thisEvent.eventId;
             //console.log("thisEvent.tables" + thisEvent.tables);
             app.date = thisEvent.date;
             app.description = thisEvent.description;
@@ -383,17 +384,19 @@ angular.module('eventController', ['eventServices', 'userServices'])
         console.log("OHH hey there submitTicket")
         console.log("seat :"+ app.ticketData.seat);
         console.log("table :" + app.ticketData.table);
-        // console.log(ticketData.seat)
-        // console.log(ticketData.table)
-        // var ticketData;
-        // ticketData.
-         // Event.buyTicket(ticketData)
-         Event.buyTicket(app.ticketData)
+        app.ticketData.eventId = app.eventId;
+        console.log("eventId :" + app.ticketData.eventId);
+
+
+         // Gotta make sure that the user is logged in.. or this will be a pain
+
+        Event.buyTicket(app.ticketData)
          .then(function(data){
-
+            // TODO 
              if(data.data.success){
-
-             } else{
+                window.alert("Your ticket has been emailed to you, you will now be redirected");
+                $location.path('/');
+              } else{
                 
              }
         
@@ -420,6 +423,14 @@ angular.module('eventController', ['eventServices', 'userServices'])
     Event.decryptHash($routeParams.Id)
     .then(function(data){
         if(data.data.success){
+            if(data.data.message == "You have not paid yet unfortunately"){
+                console.log("please purchase a ticket before trying to rsvp");
+                window.alert("You have not paid for your ticket yet, you are being redirected");
+                //$timeout(function() { $scope.displayErrorMsg = false;}, 2000);
+                console.log(eventid)
+                $location.path('/purchaseTicket/'+ data.data.eventid)
+
+            } 
             console.log("eventid = " +data.data.eventid);
             console.log("userid = " + data.data.userid);
             eventid = data.data.eventid;
@@ -430,6 +441,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
     Event.getEvent(eventid)
     .then(function(data){
         console.log(data.data.event)
+        console.log(data.data.message)
         if(data.data.success){
             var thisEvent = data.data.event;
             app.name = thisEvent.name;
@@ -466,7 +478,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
     });
 
     
-        }else{
+        }
+        else{
             console.log("error with decryption");
         }
     });

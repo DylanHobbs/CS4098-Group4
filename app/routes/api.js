@@ -742,6 +742,30 @@ module.exports = function(router){
 		});
 	});
 
+	router.post('/donate', function(req, res){
+		console.log(req.body)
+		var amount = req.body.donation;
+		User.findOne({ email: req.decoded.email }, function(err, user){
+			if(err) throw err;
+			if(!user){
+				res.json({ success: false, message: 'No user was found' });
+			} else {
+				if (amount){
+					user.totalDonated+=amount;
+					user.numberOfDonations+=1;
+					user.save(function(err, user){
+						if(err) throw err;
+						res.json({ success: true, message: 'donation was succcessfull' });
+					});
+				} else {
+					res.json({ success: false, message: 'No donation was found' });
+				}
+				
+			}
+		});
+	});
+
+
 	/*
  ####### #     # ####### #     # #######    ######  ####### #     # ####### #######  #####
  #       #     # #       ##    #    #       #     # #     # #     #    #    #       #     #
@@ -1255,6 +1279,37 @@ module.exports = function(router){
 
     	var userName = req.decoded.username;
     	var userEmail = req.decoded.email;
+    	console.log("eventId : "+ req.body.eventId)
+    	console.log("userEmail :" + userEmail);
+    	console.log("userName : "+ userName);
+    	// Add the now paid users email to the paid list of the correct event
+    	// Not sure this is working right now..
+    	Event.findOne({eventId : req.body.eventId}, function(err, event){
+    		if(err){
+    			throw err;
+    		}
+    		if(!event){
+    			console.log("No event??")
+				res.json({ success: false, message: 'No event by this name was found' });
+			} else {
+				var paid = event.paid;
+				if(paid.includes(userEmail)){
+					console.log("This person has already paid");
+				}
+				else{
+					console.log("pushing user email to paid");
+				
+					paid.push(userEmail);
+
+					event.save(function(err, event){
+					if(err) throw err;
+
+					console.log("user successfully added to paid")
+						// res.json({ success: true, message: 'User added to paid list'});
+					});
+				}
+			}
+    	});
 
     	
 
@@ -1357,27 +1412,37 @@ module.exports = function(router){
 	    		throw err;
 	    	}
 	    	var invited = event.invited;
-	    	for (let element of invited){
-				console.log("element :: "+ element);
-				console.log("userId :: "+ userId);
+	    	var paid = event.paid;
+	    	// for (let element of invited){
+				// console.log("element :: "+ element);
+				// console.log("userId :: "+ userId);
 				User.findOne({_id : userId}, function(err, user){
 					if(err){
 						throw err;
 					}
-					if(element == user.email){
+					if(invited.includes(user.email)){
 						console.log("This person is indeed invited")
-						res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
-						return	
-					}else{
+						if(!paid.includes(user.email)){
+							console.log("YOU HAVE NOT PAID, you filthy animal!!");
+							res.json({success: true, userid: userId, eventid: eventId, message : 'You have not paid yet unfortunately'});
+							return;
+						}else{
+							res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
+							return;
+						}	
+					}
+					else{
+						console.log("How did we get here")
 						res.json({success: false, message : "user is not invited actually.. cannot be rsvp"})
+						return
 					}
 				});
-			} 
-
-
+			// }
+			
 	    })
 
-
+	    //res.json({success: false, message : "Event not found??"})
+		//	return
 		
 
 		

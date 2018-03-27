@@ -10,6 +10,7 @@ var EventSchema = new Schema({
 	venue:      {type: String, required: true},
 	eventId:    {type: String, required: true, unique: true},
 	invited:    {type: [String], default: []},
+	paid: 		{type: [String], default: []}, 
 	rsvp:       {type: [String], default: []},
 	guestrsvp:       {type: [Number], default: []},
 	attended:   {type: [String], default: []},
