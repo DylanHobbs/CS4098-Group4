@@ -70,5 +70,10 @@ angular.module('userServices', [])
 		return $http.post('/api/guests', regData);
 	}
 
+	userFactory.donate = function(amount){
+		return $http.post('/api/donate', amount);
+	}
+
+
 	return userFactory;
 });

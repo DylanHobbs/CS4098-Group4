@@ -31,9 +31,9 @@ angular.module('userControllers', ['userServices'])
 	app.successMsg = false;
 	
     app.addDonation = function(donation){
-
+    	console.log("help pls")
     	donateData.donation = donation;
-
+    	console.log(donation)
         User.donate(donateData).then(function(data){
             if(data.data.success){
                 console.log(data.data);
