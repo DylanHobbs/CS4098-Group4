@@ -138,6 +138,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
+	.when('/donationStats', {
+		templateUrl: 'app/views/pages/management/donationStats.html',
+		controller: 'donationStatCtrl',
+		controllerAs: 'viewDonations',
+		authenticated: true,
+		permission: 'admin'
+	})
+
 	.when('/createEmail/:eventID?', {
 		templateUrl: 'app/views/pages/emails/createEmail.html',
 		controller: 'createEmailCtrl',

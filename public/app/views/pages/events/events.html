@@ -29,6 +29,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>ID</th>
                 <th>Venue</th>
                 <th>Date</th>
                 <th></th>
@@ -38,6 +39,7 @@
 
             <tr ng-repeat="event in manage.events | filter: searchKeyword | limitTo: manage.limit">
                 <td>{{ event.name }}</td>
+                <td>{{ event.eventId }}</td>
                 <td>{{ event.venue }}</td>
                 <td>{{ event.date }}</td>
                 <td>

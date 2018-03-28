@@ -318,4 +318,111 @@ angular.module('managementController', ['userServices'])
 
     
     
+})
+
+.controller('donationStatCtrl', function(User) {  
+	var app = this;
+    var donateData = {}
+    var users = [];
+    app.successMsg = false;
+    app.totalRaised = 0;
+    app.totalDonations = 0;
+    app.biggestDonors = [];
+    app.frequentDonors = [];
+
+    function compareNum(a,b) {
+        if (a.numberOfDonations < b.numberOfDonations)
+          return 1;
+        if (a.numberOfDonations > b.numberOfDonations)
+          return -1;
+        return 0;
+      }
+
+      function compareTotal(a,b) {
+        if (a.totalDonated < b.totalDonated)
+          return 1;
+        if (a.totalDonated > b.totalDonated)
+          return -1;
+        return 0;
+      }
+    
+    User.donationStats().then(function(data){
+        if(data.data.success){
+            app.loading = false;
+            users = data.data.users;
+
+
+            
+            users.forEach(function(element){
+                if(element.totalDonated){
+                    
+                    app.totalRaised += element.totalDonated;
+                    app.totalDonations += element.numberOfDonations;
+                    
+                    smallest = -1;
+                    if(app.biggestDonors.length < 5){
+                        app.biggestDonors.push(element);
+                    }else {
+                        smallest = element;
+                        app.biggestDonors.forEach(function(donor){
+                            if(smallest.totalDonated > donor.totalDonated){
+                                smallest = donor;
+                            }
+                        });
+        
+                        if(smallest != element){
+                            index = app.biggestDonors.indexOf(smallest);
+                            app.biggestDonors.splice(index,1);
+                            app.biggestDonors.push(element);
+                        }
+                    }
+                    
+                        
+                
+                    smallest = -1;
+                    if(app.frequentDonors.length < 5){
+                        app.frequentDonors.push(element);
+                    }else{
+                        smallest = element;
+                        app.frequentDonors.forEach(function(donor){
+                            if(smallest.numberOfDonations > donor.numberOfDonations){
+                                smallest = donor;
+                            }
+                        });
+        
+                        if(smallest != element){
+                            index = app.frequentDonors.indexOf(smallest);
+                            app.frequentDonors.splice(index,1);
+                            app.frequentDonors.push(element);
+                        }
+                    }
+
+                    
+                }
+                
+            })
+
+
+            app.frequentDonors.sort(compareNum);
+            app.biggestDonors.sort(compareTotal);
+
+            
+
+            
+              
+              
+
+            console.log(app.totalRaised);
+            
+        } else {
+            app.loading = false;
+            app.disabled = false;
+            app.failMsg = data.data.message;
+        }
+
+    })
+
+    
+	
+	
 });

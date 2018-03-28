@@ -27,15 +27,19 @@
         </table>
         <br>
     
+        
     <h2 class="ui header">Guest/Invite List</h2>
     <div class="ui two column middle stackable grid">
         <div class="eight wide column">
 
+
+            <h2 ng-model="checkAttending" >Attending </h2>
             <div class="ui icon input">
                 <input ng-model="search1" class="prompt" type="text" placeholder="Search...">
                 <i class="search icon"></i>
             </div>
-            <h2 ng-model="checkAttending" >Attending </h2>
+            <br>
+            <br>
 
             <div class="ui action input">
                 <input ng-model="email" type="text" placeholder="Email of user to add...">
@@ -70,11 +74,16 @@
 
         <div class="eight wide column">
 
+            <h2 ng-model="checkInvited" >Invited</h2> 
+
             <div class="ui icon input">
                 <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
                 <i class="search icon"></i> 
             </div>
-            <h2 ng-model="checkInvited" >Invited</h2> 
+            
+            <br>
+            <br>
+
 
             <div class="ui action input">
                 <input ng-model="emailInvited" type="text" placeholder="Email of user to add...">
