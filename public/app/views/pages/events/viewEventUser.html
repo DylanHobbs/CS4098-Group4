@@ -21,14 +21,24 @@
                     <th>{{viewEventUser.tables}}</th>
                     <th>{{viewEventUser.seats}}</th>
                     <th><a target="_blank" href={{viewEventUser.menu}}>Menu</a></th>
-                    <th>{{viewEventUser.eventId}}</th>
+                    <th>{{viewEventUser.dietary}}</th>
                 </tr>
             </tbody>
 
         </table>
         <br>
+        <a ng-show="!viewEventUser.attending" ng-click="viewEventUser.RSVP();">
+            <button  class="ui negative basic button right floated">RSVP to this event </button>
+        </a>
+
+        <a ng-show="viewEventUser.attending" ng-click="viewEventUser.unRSVP();">
+            <button  class="ui negative basic button right floated">Un-RSVP to this event </button>
+        </a>
+
+        <h2 ng-show="viewEventUser.attending" class="ui header">You're attending this event!</h2>
+
         <a href="/purchaseTicket/{{viewEventUser.eventId}}">
-            <button  class="ui negative basic button right floated">Puchase Ticket  </button>
+            <button  class="ui negative basic button right floated">Purchase Ticket  </button>
         </a>
        <!--  <div class="eight wide column">
 

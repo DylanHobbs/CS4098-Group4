@@ -45,7 +45,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Email/Number</th>
                     <th>Manage</th>
                 </tr>
                 </thead>
@@ -57,14 +57,15 @@
                             <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
                         </td>
                     </tr>
-                    <!--<tr ng-repeat="guest in viewEvent.rsvpGuests | filter: searchWord | filter: search1 | limitTo: manage.limit">
+                    <tr ng-repeat="guest in viewEvent.guestrsvp | filter: searchWord | filter: search1 | limitTo: manage.limit">
                         <td>{{ guest.name }}</td>
                         <td>{{ guest.number }}</td>
                         <td>
+                            <button ng-click="viewEvent.removeGuest(guest.number);" class="ui red button">Remove</button>
                         </td>
-                    </tr>-->
+                    </tr>
                 </tbody>   
-            </table>   
+            </table> 
         </div>
 
         <div class="eight wide column">

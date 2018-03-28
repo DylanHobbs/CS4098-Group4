@@ -246,7 +246,6 @@ angular.module('eventController', ['eventServices', 'userServices'])
 		
     $scope.checkInvited = 1;
     $scope.checkAttending = 0;
-
     Event.getEvent($routeParams.id)
     .then(function(data){
         if(data.data.success){
@@ -262,6 +261,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.dietary = thisEvent.dietary;
             app.invitedUsers = data.data.invitedUsers;
             app.rsvpUsers = data.data.rsvpUsers;
+            app.guestrsvp = data.data.rsvpGuests;
+            console.log(app.guestrsvp)
         } else {
             app.failMsg = data.data.message;
             app.loading = false;
@@ -271,6 +272,19 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
     app.removeUser = function(email){
         Event.removeUser($routeParams.id,email).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
+
+    app.removeGuest = function(phone){
+        console.log("hi there from remove guest");
+        Event.removeGuest($routeParams.id,phone).then(function(data){
             if(data.data.success){
                 console.log(data.data.message);
                 window.location.reload(true);
@@ -307,7 +321,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
     }
 })
 
-.controller('viewEventUserCtrl', function(Event, $scope, $routeParams){
+.controller('viewEventUserCtrl', function(User, Event, $scope, $routeParams, $timeout){
     var app = this;
 
     $scope.checkInvited = 1;
@@ -319,6 +333,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
         console.log(data.data.event)
         if(data.data.success){
             var thisEvent = data.data.event;
+            
             app.name = thisEvent.name;
             app.id = thisEvent._id;
             app.seats = thisEvent.seatsPer;
@@ -331,7 +346,10 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.dietary = thisEvent.dietary;
             app.invitedUsers = data.data.invitedUsers;
             app.rsvpUsers = data.data.rsvpUsers;
+            
             app.eventId = $routeParams.id;
+            
+
         } else {
             console.log("no event???");
             app.failMsg = data.data.message;
@@ -340,8 +358,51 @@ angular.module('eventController', ['eventServices', 'userServices'])
             
     });
 
+    Event.viewEventUser($routeParams.id).then(function(data){
+        if(data.data.success){
+            console.log(data.data);
+            app.attending = data.data.attending;
+        }
+    });
+
+
+    
+
+    app.RSVP = function(email){
+        Event.RSVP($routeParams.id).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+                $timeout(function(){
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
+
+    app.unRSVP = function(email){
+        Event.unRSVP($routeParams.id).then(function(data){
+            if(data.data.success){
+                console.log(data.data.message);
+                window.location.reload(true);
+                $timeout(function(){
+                    app.successMsg = false;
+                    app.disabled = false;
+                }, 2000)
+            } else {
+                app.failMsg = data.data.message;
+                console.log(data.data.message);
+            }
+        });
+    }
+
+
 })
-.controller('purchaseTicketCtrl', function(Event, $scope, $routeParams){
+.controller('purchaseTicketCtrl', function($location, Event, $scope, $routeParams){
     var app = this;
 
     console.log("purchaseTicketCtrl here!!!")

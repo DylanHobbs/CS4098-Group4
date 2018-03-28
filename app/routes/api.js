@@ -615,6 +615,8 @@ module.exports = function(router){
 		});
 	});
 
+
+
 	router.get('/edit/:id', function(req, res){
 		var editUser = req.params.id;
 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
@@ -755,7 +757,7 @@ module.exports = function(router){
 					user.numberOfDonations+=1;
 					user.save(function(err, user){
 						if(err) throw err;
-						res.json({ success: true, message: 'donation was succcessfull' });
+						res.json({ success: true, message: 'Donation was successful' });
 					});
 				} else {
 					res.json({ success: false, message: 'No donation was found' });
@@ -828,6 +830,47 @@ module.exports = function(router){
  		});
 	});
 
+	router.get('/viewEventUser/:id', function(req, res){
+		
+		attending = false;
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+	
+			Event.findOne({ eventId: eventID }, function(err, event){
+				
+				if(err) throw err;
+
+				if(!event){
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					
+						
+
+						var rsvp = event.rsvp;
+						
+						index = rsvp.indexOf(mainUser.email);
+					
+						if(index > -1){
+							attending = true;
+						}
+
+
+						
+						//console.log(rsvpGuests);
+					
+
+						// need to make a callback function for this
+						setTimeout(function() {
+							res.json({ success: true, event: event, attending: attending,  message: 'heres a message'});
+
+							}, 10);
+						// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
+
+				}
+			});
+		});
+	});
+
 	router.get('/viewEvent/:id', function(req, res){
 		
 		var eventID = req.params.id;
@@ -874,7 +917,7 @@ module.exports = function(router){
 
 					} )
 					
-					//console.log(rsvpGuests);
+					console.log(rsvpGuests);
 				
 
 					// need to make a callback function for this
@@ -940,6 +983,42 @@ module.exports = function(router){
 
 				} else {
 					res.json({ success: false, message: 'no email' });
+				}
+			}
+		});
+	});
+
+	router.delete('/viewEventGuest/:id/:phone', function(req, res){
+		var eventID = req.params.id;
+		var phone = req.params.phone;
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+
+			var rsvpd = event.guestrsvp;
+						
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				if(phone){
+
+					index = rsvpd.indexOf(phone);
+					
+					if(index > -1){
+						rsvpd.splice(index,1);
+						event.guestrsvp = rsvpd;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'User removed' });
+							});
+					}
+					
+
+				} else {
+					res.json({ success: false, message: 'no phone number' });
 				}
 			}
 		});
@@ -1098,6 +1177,91 @@ module.exports = function(router){
 			}
 		});
 	});
+
+	router.put('/RSVP/:id', function(req, res){
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			
+			//var check = req.params.check;
+
+			Event.findOne({ eventId: eventID }, function(err, event){
+				console.log(event)
+				var rsvpd = event.rsvp;
+				
+				if(err) throw err;
+
+				if(!event){
+					console.log("no event")
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					
+								console.log("RSVPing");
+							
+									// Add to rsvp
+									rsvpd.push(mainUser.email);
+									event.rsvp = rsvpd;
+									event.save(function(err){
+										if(err) {
+											throw err
+										} else {
+											res.json({ success: true, message: 'You have RSVP\'d!' });
+										}
+									});
+									// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									// 	if(err) throw err;
+									// 	res.json({ success: true, message: 'user added' });
+									// });
+					}
+					});	
+	
+		});
+	});
+
+	router.delete('/unRSVP/:id', function(req, res){
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			
+			//var check = req.params.check;
+
+			Event.findOne({ eventId: eventID }, function(err, event){
+				console.log(event)
+				var rsvpd = event.rsvp;
+				
+				if(err) throw err;
+
+				if(!event){
+					console.log("no event")
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					
+								console.log("unRSVPing");
+							
+									// Remove from rsvp
+									index = rsvpd.indexOf(mainUser.email);
+
+									if(index > -1){
+										rsvpd.splice(index,1);
+										event.guestrsvp = rsvpd;
+											event.save(function(err, event){
+												if(err) throw err;
+												res.json({ success: true, message: 'User removed' });
+											});
+									}
+
+								
+									// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									// 	if(err) throw err;
+									// 	res.json({ success: true, message: 'user added' });
+									// });
+					}
+					});	
+	
+		});
+	});
+
+
 
 	router.put('/addGuest/:id/:number/', function(req, res){
 		var eventID = req.params.id;
