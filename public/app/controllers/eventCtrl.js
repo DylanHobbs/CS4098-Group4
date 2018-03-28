@@ -338,6 +338,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.id = thisEvent._id;
             app.seats = thisEvent.seatsPer;
             app.tables = thisEvent.tables;
+            app.eventId = thisEvent.eventId;
             //console.log("thisEvent.tables" + thisEvent.tables);
             app.date = thisEvent.date;
             app.description = thisEvent.description;
@@ -562,7 +563,15 @@ angular.module('eventController', ['eventServices', 'userServices'])
     }
     
 
-});
+})
 
+.controller('eventLiveTrackerCtrl', function($location,Event, User, $scope, $routeParams){
+    var app = this;
+
+
+    // Grab the event here.. and add a donation total number..
+
+
+});
 
 
