@@ -333,7 +333,7 @@ PREREQUISITES
 3.2 To Un-RSVP to event (if already RSVP'd), click 'Un-RSVP to this event' button
 4. The page will refresh, and will show the 'Un-RSVP button' and 'You're attending' text if you're RSVP'd, otherwise just the 'RSVP button' if you're not RSVP'd
 5. The guest's RSVP status can also be viewed by logging into an admin account and viewing the guest list of the event, ie:
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
