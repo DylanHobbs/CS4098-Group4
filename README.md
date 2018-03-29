@@ -99,7 +99,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -122,7 +122,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -144,7 +144,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -167,7 +167,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -197,7 +197,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -220,7 +220,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -259,7 +259,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -284,7 +284,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -313,7 +313,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -333,7 +333,7 @@ PREREQUISITES
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
-        To login as guest attending/invited to event, logout (if logged in already) and login with the credentials:
+        To login as guest attending/invited to event, logout (if logged in already), refresh page and login with the credentials:
         username: Travis37
         password: Password*1
 1. Click on events tab at the top of the page.
@@ -357,7 +357,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 1. Click on management tab at the top of the page.
