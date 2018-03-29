@@ -607,7 +607,13 @@ Send automated invitations with link to rsvp
 ***23.0 - I want to I want to confirm that people have paid to attend***
 ```
 PREREQUISITES
-- None
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Register an account with your email. see 1.0
 
 The system is built so that you cannot rsvp unless you have paid, so any user contained in the rsvp list in the events pages has already paid to attend.
 
