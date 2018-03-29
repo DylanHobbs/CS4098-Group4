@@ -66,7 +66,7 @@ angular.module('emailController', ['userServices', 'eventServices'])
 	var invitedLists = [];
 	var rsvpLists = [];
 	var mailingLists = [];
-	var selectedEvent = $routeParams.eventID; //will do
+	var selectedEvent = $routeParams.eventID; 
 
 
 	app.events = [];

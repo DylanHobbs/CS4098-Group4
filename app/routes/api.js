@@ -1640,10 +1640,10 @@ module.exports = function(router){
 
      // MAIL LIST ROUTES
 
-	router.post('createList', function(req, res){
+	router.post('/createList', function(req, res){
 
     	var list = new MailList();
-    	var name = req.body.name;
+    	list.name = req.body.name;
 
     	if(req.body.name == null || req.body.name == ''){
 			res.json({success: false, message: 'Ensure all input fields are filled in'});

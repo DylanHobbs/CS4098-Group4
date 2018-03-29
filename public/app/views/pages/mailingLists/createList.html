@@ -1,6 +1,6 @@
 <div class="ui segment">
     <h1>Create Email</h1>
-    <form class="ui form success error" ng-submit="xxx.createList(listData);" name="listForm" novalidate id="listForm">
+    <form class="ui form success error" ng-submit="mailList.createList(listData);" name="listForm" novalidate id="listForm">
         <h4 class="ui dividing header">
             Mailing List Name
             <div class="ui icon button" data-content="A name for you to remember this mailing list by" data-variation="basic">
@@ -8,7 +8,7 @@
                 </div>
         </h4>
         <div class="sixteen wide field">
-            <input ng-disabled="xxx.disabled" placeholder="Name" type="text" name="name" ng-model="xxx.listData.name" id="name" required>
+            <input ng-disabled="mailList.disabled" placeholder="Name" type="text" name="name" ng-model="mailList.listData.name" id="name" required>
         </div>
 
         <div class="sixteen wide field" ng-controller="managementCtrl as manage">
@@ -36,7 +36,7 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Added</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,23 +45,28 @@
                         <td>{{ person.username }}</td>
                         <td>{{ person.email }}</td>
                         <td>
-                            False
+                            <a class="ui primary button" ng-click="listAdded=true" ng-click="createMailList.addMember(person.email);" ng-hide="listAdded">
+                                Add
+                            </a>
+                            <div ng-show="listAdded">
+                                Added!
+                            </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="ui success message" ng-show="xxx.successMsg">
+        <div class="ui success message" ng-show="mailList.successMsg">
             <div class="header">All Set</div>
-            <p>{{ xxx.successMsg }}</p>
+            <p>{{ mailList.successMsg }}</p>
         </div>
 
-        <div class="ui error message" ng-show="xxx.failMsg">
+        <div class="ui error message" ng-show="mailList.failMsg">
             <div class="header">Uh Oh</div>
-            <p>{{ xxx.failMsg }}</p>
+            <p>{{ mailList.failMsg }}</p>
         </div>
-        <button ng-disabled="xxx.disabled" class="ui primary button" type="submit">Create List</button>
+        <button ng-disabled="mailList.disabled" class="ui primary button" type="submit">Create List</button>
     </form>
 </div>
 

@@ -36,52 +36,22 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
     app.failMsg = false;
     app.limit = 10;
 
+    console.log("ok we are in");
 
-    /* function getUsers(){
-        User.getUsers().then(function(data){
+    app.addMember = function(email, check){
+        Event.addUser($routeParams.id,email,check).then(function(data){
             if(data.data.success){
-                if(data.data.permission === 'admin'){
-                    app.users = data.data.users;
-                    app.loading = false;
-                    app.accessDenied = false;
-                } else {
-                    app.failMsg = "No permissions to access this feature";
-                    app.loading = false;
-                }
+                console.log(data.data);
+                window.location.reload(true);
             } else {
                 app.failMsg = data.data.message;
-                app.loading = false;
+                console.log(data.data.message);
             }
         });
     }
+    
 
-    getUsers();
-
-    app.showMore = function(number){
-        if(number > 0){
-            app.limit = number;
-        } else {
-            app.failMsg = "Please enter a valid number"
-        }
-    };
-
-    app.showAll = function(){
-        app.limit = undefined;
-        app.failMsg = false;
-        $scope.number = undefined;
-    };
-
-    app.deleteUser = function(username){
-        User.deleteUser(username).then(function(data){
-            if(data.data.success){
-                getUsers();
-            } else {
-                app.failMsg = data.data.message;
-            }
-        });
-    } */
-
-    this.createMailList = function(mailListData){
+    this.createMailList = function(listData){
 		 // Disable inputs when submitted
         app.disabled = true;
         // show to loading spinner
@@ -90,15 +60,16 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
         app.failMsg = false;
 
 
-        MailList.create(app.mailListData)
+        MailList.create(app.listData)
         .then(function(data){
+            //console.log("okey dokey");
             if(data.data.success){
                 console.log(data);
                 app.loading = false;
-                app.successMsg = data.data.message + '.. Redirecting you back home';
+                app.successMsg = data.data.message + '.. Redirecting you back to Mail Lists';
                 $timeout(function(){
 					app.successMsg = false;
-					$location.path('/home');
+					$location.path('/mailLists');
 				}, 2000);
             } else {
                 app.loading = false;

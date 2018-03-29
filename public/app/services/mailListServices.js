@@ -10,6 +10,10 @@ angular.module('mailListServices', [])
         return $http.get('/api/mailLists');
     }
 
+    mailListFactory.addUser = function(id, email, check){
+        return $http.put('/api/createList/' + id +'/'+ email + '/' + check);
+    }
+
 
     return mailListFactory;
 });
