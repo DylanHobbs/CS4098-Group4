@@ -288,7 +288,7 @@ PREREQUISITES
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
-- Know guest's details, including ID of event they will be attending
+- Know guest's details, including ID of event they will be attending, eg. ID = 42 for Trinity Dinner event
           The ID of the event can be found by doing the following:
           Click the "events tab" at the top of the page. 
           Search for the event the guest will be attending, then view the ID in the "ID" column.
