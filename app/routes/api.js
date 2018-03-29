@@ -1628,7 +1628,7 @@ module.exports = function(router){
         // update the body to be the long html 
 	    var email = {
 	        from: 'Staff, staff@localhost.com',
-	        to: 'ryann11@tcd.ie',
+	        to: userEmail,
 	        subject: "Your Ticket",
 	        // this should be body
 	        text: myText,
