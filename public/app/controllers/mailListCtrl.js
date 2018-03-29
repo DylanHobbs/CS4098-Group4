@@ -4,10 +4,11 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
 	var app = this;
     app.limit = 10;
 
-    console.log('I showed you my angular answer me');
+    //console.log('I showed you my angular answer me');
 
     function getMailLists(){
         MailList.getMailLists().then(function(data){
+            //console.log('I showed you my angular answer me');
             if(data.data.success){
                 //if(data.data.permission === 'admin'){
                     //console.log(data.data.events);
@@ -36,9 +37,9 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
     app.failMsg = false;
     app.limit = 10;
 
-    console.log("ok we are in");
+    //console.log("ok we are in");
 
-    app.addMember = function(email, check){
+    /*app.addMember = function(email, check){
         Event.addUser($routeParams.id,email,check).then(function(data){
             if(data.data.success){
                 console.log(data.data);
@@ -48,10 +49,10 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
                 console.log(data.data.message);
             }
         });
-    }
+    }*/
     
 
-    this.createMailList = function(listData){
+    this.createList = function(listData){
 		 // Disable inputs when submitted
         app.disabled = true;
         // show to loading spinner
@@ -62,7 +63,7 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
 
         MailList.create(app.listData)
         .then(function(data){
-            //console.log("okey dokey");
+            console.log("okey dokey");
             if(data.data.success){
                 console.log(data);
                 app.loading = false;
@@ -76,6 +77,7 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
                 app.disabled = false;
                 app.failMsg = data.data.message;
             }
+        
         });
 	};
 

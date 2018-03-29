@@ -59,7 +59,7 @@ angular.module('emailController', ['userServices', 'eventServices'])
 //TODO;
 //Redirect user to event page they came from (maybe??)
 
-.controller('createEmailCtrl', function(User, Event, $routeParams, $timeout, $location){
+.controller('createEmailCtrl', function(User, Event, MailList, $routeParams, $timeout, $location){
 	app = this;
 	console.log("Hello beautiful");
 	var currentSelect = 'invited';

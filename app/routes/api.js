@@ -4,6 +4,7 @@
 var User    = require('../models/user');
 var Event   = require('../models/event');
 var Guest   = require('../models/guest');
+var MailList = require('../models/mailList');
 var jwt     = require('jsonwebtoken');
 var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
@@ -1653,6 +1654,9 @@ module.exports = function(router){
 
     	var list = new MailList();
     	list.name = req.body.name;
+    	list.members = [];
+
+    	console.log("am I here?");
 
     	if(req.body.name == null || req.body.name == ''){
 			res.json({success: false, message: 'Ensure all input fields are filled in'});
@@ -1675,7 +1679,7 @@ module.exports = function(router){
 				if(!mainUser){
 					res.json({ success: false, message: 'User was not found' });
 				} else {
-				//	if(mainUser.permission === 'admin'){
+				if(mainUser.permission === 'admin'){
 						// Exitst and has permission
 						if(!mailLists){
 							res.json({ success: false, message: 'MailLists[s] not found' });
@@ -1683,10 +1687,10 @@ module.exports = function(router){
 							res.json({ success: true, mailLists: mailLists, permission: mainUser.permission });
 						}
 					} 
-					//else {
-				//		res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-				//	}
-				//}
+					else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
 			});
  		});
 	}); 
