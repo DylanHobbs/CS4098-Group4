@@ -470,3 +470,36 @@ PREREQUISITES
 6. Click Send Email.
 
 ```
+
+**Track which guests are big spenders and/or regular donors [Product Backlog Number: 7]**
+
+***7.0 - Track big spenders and/or regular donors***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the 'Donation Stats' button towards the top of the page
+3. The page shows the current total amount raised, total number of donations, as well as the most generous donors and the most frequent donors.
+4. Click the donate button at the top of the page.
+5. Enter an amount to donate (eg. 100000) and click the donate button. 
+6. Follow steps 1-3, to view the updated donation stats after donating.
+
+If you wish to look for a specific person to find their donation total and number of donations follow the following instructions:
+
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the search bar and type the name of person you wish to view.
+3. The person shall be displayed with their donation total and number of donations. 
+
+```
