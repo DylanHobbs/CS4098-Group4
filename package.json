@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "scripts/popDB.sh && mocha --timeout 10000"
+    "test": "scripts/popDB.sh && mocha --timeout 10000 && scripts/popDB.sh"
   },
   "author": "",
   "license": "ISC",
