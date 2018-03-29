@@ -359,3 +359,114 @@ PREREQUISITES
 6. Follow steps 1-3, to view the updated donation stats after donating.
 
 ```
+
+**Keep track of possible/previous guests [Product Backlog Number: 6]**
+
+***6.0 - Track users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. A list of users will be viewable on this page
+
+```
+
+**I want to send invitations to a mailing list, so that people know to come and that they are invited [Product Backlog Number: 8]**
+
+***8.0 - Create Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. ON the mailing lists screen, click "Create Mail List".
+4. Enter a name for your mail list in the "name" field.
+5. Add users to the mail list by clicking the "Add" button for each user.
+6. When all users have been added and the list has been named, click "Create List".
+
+```
+
+***8.1 - Send Mail using a Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Prior Mail List created. See 8.0
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. For the mailing list you wish to use, click the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Mailing Lists" and select your desired mail list from the dropdown menu.
+6. Click Send Email.
+
+```
+
+***8.2 - Send Mail to people invited to an event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Invited Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+
+```
+
+**I would like to email legitimately subscribed users [Product Backlog Number: 20]**
+
+***20.0 - Email Users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Navigate to the "send mail" screen, through either the management or events tab.
+2. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+3. Click on a mailing list or a list of attendees/invitees you wish to use in the dropdown menu.
+4. Click Send Email.
+
+```
+
+**Follow up with attendees (queries) [Product Backlog Number: 61]**
+
+***61.0 - Follow up with RSVP'd Users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "RSVP Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+
+```
