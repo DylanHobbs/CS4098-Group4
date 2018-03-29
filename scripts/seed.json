@@ -29,8 +29,8 @@
     "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
     "email": "travis37@test.me",
     "tmpToken": false,
-    "totalDonated": 0,
-    "numberOfDonations": 0
+    "totalDonated": 200,
+    "numberOfDonations": 10
   },
   {
     "name": "Mcbride Mcbride",
