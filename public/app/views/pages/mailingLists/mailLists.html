@@ -34,11 +34,11 @@
         </thead>
         <tbody>
 
-            <tr ng-repeat="mailList in manage.mailLists | filter: searchKeyword | limitTo: manage.limit">
-                <td>{{ mailList.name }}</td>
+            <tr ng-repeat="list in mailList.mailLists | filter: searchKeyword | limitTo: manage.limit">
+                <td>{{ list.name }}</td>
                 <td>
-                    <a ng-show="main.admin" href="/editMailList/{{mailList.id}}">
-                        <button class="ui yellow basic button">Edit</button>
+                    <a ng-show="main.admin" href="/createEmail">
+                        <button class="ui primary button">Send Mail</button>
                     </a> 
                     <button ng-show="main.admin" button class="ui negative basic button right floated">
                         Delete
