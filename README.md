@@ -26,10 +26,18 @@ Navigate your browser to:
 http://localhost:8080
 
 **Running Tests**
+
 ```bash
+#Ctrl-C to stop running server
+cd CS4098-Group4-dev
 npm test
 # ctrl-C to exit
 ```
+**Restarting the server**
+```bash
+nodemon server.js
+```
+
 
 **I want to be able to login (change password/details/create account) [ Backlog number: 1 ]**
 **Create an account/register [ Backlog number: 62]**
