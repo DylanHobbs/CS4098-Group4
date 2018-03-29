@@ -128,8 +128,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "geneva98@test.org",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 400,
+      "numberOfDonations": 3
     },
     {
       "name": "Adrian Vega",
@@ -139,8 +139,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "jones51@test.us",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 100,
+      "numberOfDonations": 2
     },
     {
       "name": "Meyers Goodman",
@@ -194,8 +194,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "banks81@test.biz",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 500,
+      "numberOfDonations": 1
     },
     {
       "name": "Lesa Hughes",
@@ -205,8 +205,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "betty17@test.net",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 50,
+      "numberOfDonations": 3
     },
     {
       "name": "Kelly Colon",
@@ -216,8 +216,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "carla35@test.com",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 1000,
+      "numberOfDonations": 10
     },
     {
       "name": "Dale Cruz",
@@ -227,8 +227,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "sharlene43@test.biz",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 2000,
+      "numberOfDonations": 9
     },
     {
       "name": "Mendoza Reyes",
@@ -238,8 +238,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "mary56@test.ca",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 4500,
+      "numberOfDonations": 3
     },
     {
       "name": "Glenda Potter",
@@ -249,8 +249,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "reilly64@test.name",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 10,
+      "numberOfDonations": 1
     },
     {
       "name": "Noelle Aguilar",
@@ -260,8 +260,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "marquita57@test.org",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 600,
+      "numberOfDonations": 3
     },
     {
       "name": "Short Holland",
@@ -271,8 +271,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "clarissa62@test.us",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 400,
+      "numberOfDonations": 8
     },
     {
       "name": "Katrina Maddox",
@@ -282,8 +282,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "ladonna29@test.io",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 950,
+      "numberOfDonations": 20
     },
     {
       "name": "Marjorie Christian",
@@ -302,8 +302,8 @@
       "password": "$2a$10$uNI1nz1FshuLUkVJ9vT.5.xTfZQhOfnOc75HfjF9EtoRae/mWi9Zi",
       "email": "essie43@test.tv",
       "tmpToken": false,
-      "totalDonated": 0,
-      "numberOfDonations": 0
+      "totalDonated": 7500,
+      "numberOfDonations": 22
     },
     {
       "name": "Leslie Bowen",
