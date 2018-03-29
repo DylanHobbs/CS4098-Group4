@@ -346,7 +346,7 @@ PREREQUISITES
         username: dhobbs
         password: Password*1
 6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
-7. The guest will be show in the "Attending" list if RSVP'd, and the "Invited" list if not RSVP'd
+7. The guest will be show in the "Attending" list if RSVP'd, and the "Invited" list if not RSVP'd (for above account, name = John Brien and email = john@test.org)
 ```
 
 **I want to track current amount raised [Product Backlog Number: 54]**
