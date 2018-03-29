@@ -36,21 +36,14 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
     app.accessDenied = true;
     app.failMsg = false;
     app.limit = 10;
+    var members = [];
 
     //console.log("ok we are in");
 
-    /*app.addMember = function(email, check){
-        Event.addUser($routeParams.id,email,check).then(function(data){
-            if(data.data.success){
-                console.log(data.data);
-                window.location.reload(true);
-            } else {
-                app.failMsg = data.data.message;
-                console.log(data.data.message);
-            }
-        });
-    }*/
-    
+    app.addMember = function(email){
+        members.push(email);
+        console.log("adding " + email);
+    }
 
     this.createList = function(listData){
 		 // Disable inputs when submitted
@@ -60,7 +53,7 @@ angular.module('mailListController', ['mailListServices', 'authServices'])
         // Set any existing errors to false
         app.failMsg = false;
 
-
+        app.listData.members = members;
         MailList.create(app.listData)
         .then(function(data){
             console.log("okey dokey");

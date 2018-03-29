@@ -1442,6 +1442,7 @@ module.exports = function(router){
 			});	
 	router.post('/eventSend', function(req, res){
  
+        //console.log(req.body);
         var subject = req.body.subject;
         var body = req.body.body;
         var recipients = req.body.to;
@@ -1467,6 +1468,19 @@ module.exports = function(router){
  
         res.json({success: true, message: 'Mail sent!'});
  
+    });
+
+    router.post('/sendAll', function(req, res){
+    	var subject = req.body.subject;
+        var body = req.body.body;
+        var recipients = [];
+        User.find({}, function(err, users){
+        	if(err) throw(err);
+        	if(users){
+        		console.log(users);
+        		res.json({success: true, message: 'Mail sent!'});
+        	}
+        });
     });
 
     router.post('/buyTicket', function(req, res){
@@ -1654,9 +1668,11 @@ module.exports = function(router){
 
     	var list = new MailList();
     	list.name = req.body.name;
-    	list.members = [];
+    	list.members = req.body.members;
 
-    	console.log("am I here?");
+    	console.log(req.body);
+
+    	//console.log("am I here?");
 
     	if(req.body.name == null || req.body.name == ''){
 			res.json({success: false, message: 'Ensure all input fields are filled in'});

@@ -45,7 +45,7 @@
                         <td>{{ person.username }}</td>
                         <td>{{ person.email }}</td>
                         <td>
-                            <a class="ui primary button" ng-click="listAdded=true" ng-click="createMailList.addMember(person.email);" ng-hide="listAdded">
+                            <a class="ui primary button" ng-click="listAdded=true; mailList.addMember(person.email);" ng-hide="listAdded">
                                 Add
                             </a>
                             <div ng-show="listAdded">
