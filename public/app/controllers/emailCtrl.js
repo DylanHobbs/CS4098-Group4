@@ -70,12 +70,18 @@ angular.module('emailController', ['userServices', 'eventServices'])
 
 
 	app.events = [];
+	app.mailLists = [];
+
 	Event.getEvents().then(function(data){
 		invitedLists = data.data.events;
 		rsvpLists = data.data.events;
 		app.events = data.data.events;
 	});	
 
+	MailList.getMailLists().then(function(data){
+		mailingLists = data.data.mailLists;
+		app.mailLists = data.data.mailLists;
+	})
 
 	this.sendEmail = function(emailData){
 		app.disabled = true;
@@ -88,7 +94,7 @@ angular.module('emailController', ['userServices', 'eventServices'])
 			app.emailData.to = app.emailData.to.rsvp;
 		}
 		else{
-			//vb
+			app.emailData.to = app.emailData.to.lists;
 		}
 		console.log(app.emailData);
 		Event.emailAttendees(app.emailData).then(function(data){
