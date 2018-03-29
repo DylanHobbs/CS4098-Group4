@@ -554,3 +554,71 @@ The table on the management screen is also sortable so if you wish to sort is it
 (eg. if you want to sort by amount donated click on "amount donated" at the top of the table, the first click will sort lowest to highest, a second click will sort highest to lowest, every click after will change the sorting to the opposite)
 
 ```
+
+**Online Ticketing - keeping in mind mostly repeat Customers/Attendees [Product Backlog Number: 18]**
+
+***18.0 - Online Ticketing - keeping in mind mostly repeat Customers/Attendees***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Make sure the email is real and can be used later
+
+1. Click on the "events" button on the upper left
+2. Click the "purchase Ticket" button on the bottom
+3. Select the given amount of seats/tables using the two dropdowns
+4. Click the "submit" button.
+5. This will send an email to the specified user, in the attachment of the email contains a @insertUserName.svg file
+6. This is the entry to the event, so it can be printed later and given to a staff member.
+
+```
+**I want to be able to send automated invitations, with link to register for event [Product Backlog Number: 14]**
+
+***14.0 - I want to be able to send automated invitations, with link to register/rsvp for event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Register an account with your email. see 1.0
+
+Send automated invitations with link to rsvp
+1. Click the "Events" button in the top left hand menu as an admin
+2. Click the "view" button across from an event. If no events are currently created, please create one. see 4.0
+3. In the "invited" column, input the email of the account you just registered as a user e.g. Butterfeld@tcd.ie across from the "add" button
+4. Logout of your admin account, by clicking the "logout" button in the upper right corner in browser
+5. Login as the user of the account you are trying to rsvp, which you invited using their email. see 1.1
+6. login to your email account that you inputed. Click on the rsvp link provided.
+7. If you have not yet "paid" for the event, an alert will pop up. Click the "OK" button.
+8. Select how many seats and tables you would like, by clicking the dropdown and clicking a number for each
+9. When finished selecting, Click the "submit" button at the bottom
+10. You will be sent another email containing a qrcode, but just reopen the link that was sent in the original email to rsvp
+11. Click the "Confirm RSVP" button at the bottom.
+12. This will now move you to the rsvp list of the event.
+13. logout of that account, and login as your admin account, see above or 1.1
+14. follow previous steps 1-2, making sure to click on the same event.
+15. Now you should see that your user has been moved to the rsvp section after they had registered.
+```
+**I want to confirm that people have paid to attend [Product Backlog Number: 23]**
+
+***23.0 - I want to I want to confirm that people have paid to attend***
+```
+PREREQUISITES
+- None
+
+The system is built so that you cannot rsvp unless you have paid, so any user contained in the rsvp list in the events pages has already paid to attend.
+
+See 14. - 6 - 9. The user is not allowed to rsvp until they have paid. This can be seen in 14. 6-9. 
+
+1. do steps in task 14. 1 up to 7.
+2. Leave the page by clicking the "home" button in the upper menu 
+3. Go back to the rsvp link that was sent by email, by clicking on it
+4. You will notice you are still getting an alert saying you have not paid and you will be redirected 
+
+ if you leave that page without submitting and try to rsvp without submiting payment. It will come up with the same alert and redirect you to the "purchastTicket" screen.
+
+Confirmation of payment, is in inself built in the rsvp section of the system.
+```
