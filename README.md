@@ -329,7 +329,7 @@ PREREQUISITES
 **Accounts associated as guests can change their rsvp status as an attendee [Product Backlog Number: 118]**
 
 ***118.0 - Guests can change RSVP status***
-
+```
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
@@ -347,12 +347,12 @@ PREREQUISITES
         password: Password*1
 6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
 7. The guest will be show in the "Attending" list if RSVP'd, and the "Invited" list if not RSVP'd
-
+```
 
 **I want to track current amount raised [Product Backlog Number: 54]**
 
 ***54.0 - Track current amount raised***
-
+```
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
