@@ -38,7 +38,7 @@ body {
 
 #progress {
   float: left;
-  width: 16%;
+  width: 1%;
   height: 20px;
   background: #FF5D50;
   z-index: 333;

@@ -203,7 +203,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	.when('/eventLiveTracker/:id',{
 		templateUrl: 'app/views/pages/events/eventLiveTracker.html',
 		controller: 'eventLiveTrackerCtrl',
-		constroller : 'eventLiveTracker',
+		controllerAs : 'eventLiveTracker',
 		authenticated: true
 	})
 

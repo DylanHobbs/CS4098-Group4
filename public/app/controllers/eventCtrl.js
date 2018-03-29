@@ -565,13 +565,61 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
 })
 
-.controller('eventLiveTrackerCtrl', function($location,Event, User, $scope, $routeParams){
+.controller('eventLiveTrackerCtrl', function(Event, $routeParams, $scope, $interval){
     var app = this;
+    Event.getEvent($routeParams.id).then(function(data){
+        if(data.data.success){
+            //goal
+            app.goal = data.data.event.goal;
+            console.log(data.data.event.goal);
+            // $ raised
+            app.raised = data.data.event.raised;
+            //% funded
+            app.percent = (data.data.event.raised / data.data.event.goal) * 100
+            // number of donations
+            app.donators = data.data.event.numDonate;
+        }
+    });
 
+    $scope.refreshScore = function() {
+        Event.getEvent($routeParams.id).then(function(data){
+            if(data.data.success){
+                console.log("This is an interval");
+                //goal
+                app.goal = data.data.event.goal;
+                console.log(data.data.event.goal);
+                // $ raised
+                app.raised = data.data.event.raised;
+                //% funded
+                app.percent = (data.data.event.raised / data.data.event.goal) * 100
+                // number of donations
+                app.donators = data.data.event.numDonate;
+            }
+        });
+     }
+     var promise = $interval($scope.refreshScore, 10000);
+     $scope.$on('$destroy',function(){
+         if(promise)
+             $interval.cancel(promise);   
+             console.log("interval stopped")
+     });
 
-    // Grab the event here.. and add a donation total number..
-
-
+    // $interval(function(){
+    //     Event.getEvent($routeParams.id).then(function(data){
+    //         if(data.data.success){
+    //             console.log("This is an interval");
+    //             //goal
+    //             app.goal = data.data.event.goal;
+    //             console.log(data.data.event.goal);
+    //             // $ raised
+    //             app.raised = data.data.event.raised;
+    //             //% funded
+    //             app.percent = (data.data.event.raised / data.data.event.goal) * 100
+    //             // number of donations
+    //             app.donators = data.data.event.numDonate;
+    //         }
+    //     });
+    // },30000);
 });
 
 
