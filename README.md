@@ -31,7 +31,8 @@ npm test
 # ctrl-C to exit
 ```
 
-**I want to be able to login (change password/details/create account) [ Backlong number: 1 ]**
+**I want to be able to login (change password/details/create account) [ Backlog number: 1 ]**
+**Create an account/register [ Backlog number: 62]**
 
 ***1.0 - Registering a User***
 ```
@@ -99,7 +100,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -122,7 +123,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -144,7 +145,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -167,7 +168,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -195,7 +196,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -218,7 +219,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -250,7 +251,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -275,7 +276,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -304,7 +305,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -324,7 +325,7 @@ PREREQUISITES
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
-        To login as guest attending/invited to event, logout (if logged in already), refresh page and login with the credentials:
+        To login as guest attending/invited to event, logout (if logged in already) and login with the credentials:
         username: johnbrien
         password: Password*1
 1. Click on events tab at the top of the page.
@@ -333,7 +334,7 @@ PREREQUISITES
 3.2 To Un-RSVP to event (if already RSVP'd), click 'Un-RSVP to this event' button
 4. The page will refresh, and will show the 'Un-RSVP button' and 'You're attending' text if you're RSVP'd, otherwise just the 'RSVP button' if you're not RSVP'd
 5. The guest's RSVP status can also be viewed by logging into an admin account and viewing the guest list of the event, ie:
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
         password: Password*1
 6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
@@ -348,7 +349,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        To login as admin, logout (if logged in already), and login with the credentials:
         username: dhobbs
         password: Password*1
 1. Click on management tab at the top of the page.
@@ -357,5 +358,49 @@ PREREQUISITES
 4. Click the donate button at the top of the page.
 5. Enter an amount to donate (eg. 100000) and click the donate button. 
 6. Follow steps 1-3, to view the updated donation stats after donating.
+```
 
+***54.1 - To track the current amount raised for a given event***
+```
+- Activated account. See 1.0
+- Logged in. See 1.1
+- At least 1 event created. See 4.0
+1. Click the events tab in the top left menu
+2. Type the name of the event into the search bar or look at the list to find the event you want
+3. The current amount raised for that event is displayed there.
+4. Alternitivly you can go to the live tracker for that event. See 53.0
+```
+
+**Have a tracker/ live count that updates with donations throughout the event [Product Backlog Number: 53]**
+***53.0 - View an events live traker**
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- User privileges.
+        To login as a user, logout (if logged in already) and login with the credentials:
+        username: johnbrien
+        password: Password*1
+- At least 1 event created. See 4.0
+1. Click on the events tab in the top left menu
+2. Click on the view button for a given event
+3. Click the button labled "View Live Donation Tracker"
+4. The thermometer style donation tracker updates every 15 seconds without refreshing
+5. To see this change do 53.1 and repeach 53.0
+```
+***53.1 - Donating to an event**
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- User privileges.
+        To login as a user, logout (if logged in already) and login with the credentials:
+        username: johnbrien
+        password: Password*1
+- At least 1 event created. See 4.0
+1. Click on the events tab in the top left menu
+2. Click on the view button for a given event
+3. Click the button labled "Donate to Event"
+4. Enter an amount to donate
+5. This will update information in 53.0 and 54.1
 ```

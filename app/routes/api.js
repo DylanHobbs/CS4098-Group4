@@ -817,9 +817,8 @@ module.exports = function(router){
 					}
 				}
 			});
-		}
-		if(success){
-			res.json({ success: true, message: 'Donation was successful'});
+		} else {
+			res.json({ success: true, message: 'Donation was successful' });
 		}
 	});
 

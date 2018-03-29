@@ -25,13 +25,14 @@
     </div>
 
 
-    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="120%">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>ID</th>
                 <th>Venue</th>
                 <th>Date</th>
+                <th>Donations</th>
                 <th></th>
             </tr>
         </thead>
@@ -42,6 +43,7 @@
                 <td>{{ event.eventId }}</td>
                 <td>{{ event.venue }}</td>
                 <td>{{ event.date }}</td>
+                <td>${{ event.raised}}</td>
                 <td>
                     <a ng-show="main.admin" href="/editEvent/{{event._id}}">
                         <button class="ui yellow basic button">Edit</button>
