@@ -898,5 +898,16 @@
     "tmpToken": false,
     "totalDonated": 0,
     "numberOfDonations": 0
+  },
+  {
+    "active" : true,
+    "permission" : "user",
+    "username" : "johnbrien",
+    "password" : "$2a$10$dT6JtI3LqZuExBRFacQ4Ce3JCqjdAsFqj9xgPrk.aNn61A0Hud8Nu",
+    "email" : "john@test.org",
+    "name" : "John Brien",
+    "tmpToken" : false,
+    "totalDonated" : 10,
+    "numberOfDonations" : 1
   }
 ]

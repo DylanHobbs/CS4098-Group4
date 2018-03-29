@@ -1213,7 +1213,7 @@ module.exports = function(router){
 			Event.findOne({ eventId: eventID }, function(err, event){
 				console.log(event)
 				var rsvpd = event.rsvp;
-				
+				var invite = event.invited; 
 				if(err) throw err;
 
 				if(!event){
@@ -1222,8 +1222,14 @@ module.exports = function(router){
 				} else {
 					
 								console.log("RSVPing");
-							
+
+									var index = invite.indexOf(mainUser.email);
+									if(index > -1){
+										invite.splice(index, 1);
+									}
+									
 									// Add to rsvp
+									event.invited = invite;
 									rsvpd.push(mainUser.email);
 									event.rsvp = rsvpd;
 									event.save(function(err){
@@ -1253,7 +1259,7 @@ module.exports = function(router){
 			Event.findOne({ eventId: eventID }, function(err, event){
 				console.log(event)
 				var rsvpd = event.rsvp;
-				
+				var invite = event.invited; 
 				if(err) throw err;
 
 				if(!event){
@@ -1263,18 +1269,21 @@ module.exports = function(router){
 					
 								console.log("unRSVPing");
 							
+									invite.push(mainUser.email);
+									event.invited = invite;
 									// Remove from rsvp
 									index = rsvpd.indexOf(mainUser.email);
 
 									if(index > -1){
 										rsvpd.splice(index,1);
-										event.guestrsvp = rsvpd;
-											event.save(function(err, event){
-												if(err) throw err;
-												res.json({ success: true, message: 'User removed' });
-											});
+										
+											
 									}
-
+									event.rsvp = rsvpd;
+									event.save(function(err, event){
+										if(err) throw err;
+										res.json({ success: true, message: 'User removed' });
+									});		
 								
 									// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
 									// 	if(err) throw err;

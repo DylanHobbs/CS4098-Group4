@@ -334,13 +334,13 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
         To login as guest attending/invited to event, logout (if logged in already) and login with the credentials:
-        username: Travis37
+        username: johnbrien
         password: Password*1
 1. Click on events tab at the top of the page.
 2. Click on the view button beside the event you wish to change status (Trinity Dinner).
 3.1 To RSVP to event (if not already RSVP'd), click 'RSVP to this event' button 
 3.2 To Un-RSVP to event (if already RSVP'd), click 'Un-RSVP to this event' button
-4. The page will refresh, and will show the 'Un-RSVP button' and 'You're attending' text if you're RSVP'd, and just the 'RSVP button' if you're not RSVP'd
+4. The page will refresh, and will show the 'Un-RSVP button' and 'You're attending' text if you're RSVP'd, otherwise just the 'RSVP button' if you're not RSVP'd
 5. The guest's RSVP status can also be viewed by logging into an admin account and viewing the guest list of the event, ie:
         To login as admin, logout (if logged in already) and login with the credentials:
         username: dhobbs
