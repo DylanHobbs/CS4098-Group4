@@ -156,14 +156,6 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
-	.when('/mailAll', {
-		templateUrl: 'app/views/pages/emails/mailAll.html',
-		controller: 'mailAllCtrl',
-		controllerAs: 'mailAll',
-		authenticated: true,
-		permission: 'admin'
-	})
-
 	.when('/createList', {
 		templateUrl: 'app/views/pages/mailingLists/createList.html',
 		controller: 'createMailListCtrl',
