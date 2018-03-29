@@ -107,7 +107,7 @@ To create an event
 1. Click on the "Events" tab in the top left menu
 2. This screen will show all events, past and future
 3. Click on the "Create Event" button
-4. Fill in all the fields for the event you wish to create
+4. Fill in all the fields for the event you wish to create. All fields are required except for menu, which is optional.
 5. On screen instructions will inform you of requirements for each field
 6. Hover over the "Question Mark" icon for help in a particular field
 7. Click the create button when done
