@@ -1638,6 +1638,51 @@ module.exports = function(router){
 
 		});
 
+     // MAIL LIST ROUTES
+
+	router.post('createList', function(req, res){
+
+    	var list = new MailList();
+    	var name = req.body.name;
+
+    	if(req.body.name == null || req.body.name == ''){
+			res.json({success: false, message: 'Ensure all input fields are filled in'});
+		} else {
+			list.save(function(err){
+				if(err) throw err;
+				res.json({success: true, message: 'Mail List Created'});
+			});
+		}
+
+    });
+
+    router.get('/mailLists', function(req, res){
+		MailList.find({}, function(err, mailLists){
+			
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+				//	if(mainUser.permission === 'admin'){
+						// Exitst and has permission
+						if(!mailLists){
+							res.json({ success: false, message: 'MailLists[s] not found' });
+						} else {
+							res.json({ success: true, mailLists: mailLists, permission: mainUser.permission });
+						}
+					} 
+					//else {
+				//		res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//	}
+				//}
+			});
+ 		});
+	}); 
+
+
 	
 	return router; // Return the router object to server
 }

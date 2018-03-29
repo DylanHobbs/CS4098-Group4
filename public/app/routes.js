@@ -156,6 +156,18 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/createList', {
 		templateUrl: 'app/views/pages/mailingLists/createList.html',
+		controller: 'createMailListCtrl',
+		controllerAs: 'mailList',
+		authenticated: true,
+		permission: 'admin'
+	})
+
+	.when('/mailLists', {
+		templateUrl: 'app/views/pages/mailingLists/mailLists.html',
+		controller: 'mailListCtrl',
+		controllerAs: 'mailList',
+		authenticated: true,
+		permission: 'admin'
 	})
 
 	.when('/viewEventUser/:id', {
