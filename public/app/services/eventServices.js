@@ -10,6 +10,11 @@ angular.module('eventServices', [])
         return $http.get('/api/viewEvent/'+ id);
     }
 
+    eventFactory.viewEventWithDb = function(id){
+        return $http.get('/api/viewEventWithDb/'+ id);
+    }
+    
+
     eventFactory.getEvents = function(){
         return $http.get('/api/events');
     }

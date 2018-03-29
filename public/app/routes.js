@@ -209,6 +209,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
+	.when('/seating/:id',{
+		templateUrl: 'app/views/pages/events/seating.html',
+		controller: 'tablesCtrl',
+		controllerAs : 'tables',
+		authenticated: true
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls

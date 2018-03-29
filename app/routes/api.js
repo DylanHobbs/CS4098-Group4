@@ -914,7 +914,6 @@ module.exports = function(router){
 		var eventID = req.params.id;
 		
 		Event.findOne({ eventId: eventID }, function(err, event){
-			
 			if(err) throw err;
 
 			if(!event){
@@ -962,7 +961,66 @@ module.exports = function(router){
 					setTimeout(function() {
 						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, rsvpGuests: rsvpGuests, message: 'heres a message'});
 
-						}, 2000);
+						}, 300);
+					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
+
+			}
+		});
+	});
+
+	router.get('/viewEventWithDb/:id', function(req, res){
+		
+		var eventID = req.params.id;
+		
+		Event.findOne({ _id: eventID }, function(err, event){
+			if(err) throw err;
+
+			if(!event){
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				
+					var invited = event.invited; 
+					var invitedUsers = [];
+					var rsvp = event.rsvp;
+					var rsvpUsers= [];
+					var rsvpGuests= [];
+					var guestrsvp= event.guestrsvp;
+					// if invited is already a list why iterate through it ????
+					invited.forEach(function(element){
+
+						User.findOne({email: element}, function(err, user){
+							if(err) throw err;
+							invitedUsers.push(user);
+						});
+					} )
+					rsvp.forEach(function(element){
+
+						User.findOne({email: element}, function(err, user){
+							if(err) throw err;
+							rsvpUsers.push(user);
+						});
+
+					} )
+
+
+					guestrsvp.forEach(function(element){
+						
+						Guest.findOne({number: element}, function(err, guest){
+							if(err) throw err;
+							console.log(guest);
+							rsvpGuests.push(guest);
+						});
+
+					} )
+					
+					console.log(rsvpGuests);
+				
+
+					// need to make a callback function for this
+					setTimeout(function() {
+						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, rsvpGuests: rsvpGuests, message: 'heres a message'});
+
+						}, 300);
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
 			}

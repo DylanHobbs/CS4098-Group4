@@ -1,0 +1,80 @@
+<br>
+<br>
+<div class="ui grid">
+    <div class="ten wide column">
+        <select ng-disabled="tables.disabled" class="ui fluid dropdown" ng-model="tables.tableNumber" ng-options="table.number for table in tables.tableObj;">
+            <div ng-click="tables.setCurrentTable(tables.tableNumber)"<option value="">Table Number</option></div>
+        </select>
+        <br>
+        <br>
+        <form class="ui form success error" ng-submit="tables.setTable(tables.tableNumber, tableData);">
+            <div class="field">
+                <br>
+
+                <div class="sixteen wide field">
+                    <div class="input-append" ng-repeat="seats in tables.tableObj">
+                        <select ng-disabled="createEmail.disabled" class="ui fluid search dropdown" ng-model="createEmail.emailData.to" ng-options="event.name for event in createEmail.events; ">
+                            <option value="">Event</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-append" ng-repeat="website in table.websites">
+                <input type="url" ng-model="website.url">
+                <button class="btn" ng-click="remove($index)">X</button>
+            </div>
+
+            <div class="ui active dimmer" ng-show="main.loading">
+                <div class="ui text loader">Loading...</div>
+            </div>
+
+            <div class="ui success message" ng-show="main.successMsg">
+                <div class="header">All Set</div>
+                <p>{{ main.successMsg }}</p>
+            </div>
+
+            <button ng-disabled="main.disabled" class="ui huge primary button" type="submit">Set Table</button>
+
+            <div class="ui error message" ng-show="main.failMsg">
+                <div class="header">Uh Oh</div>
+                <p>{{ main.failMsg }}</p>
+            </div>
+
+        </form>
+    </div>
+    <div class="six wide column">
+        <table id="attending" class="ui celled inverted green table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email/Number</th>
+                    <th>Donated</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="person in tables.rsvp | filter: searchWord | filter: search1 | limitTo: manage.limit">
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.email }}</td>
+                    <td>${{person.totalDonated}}</td>
+                </tr>
+                <tr ng-repeat="guest in tables.guests | filter: searchWord | filter: search1 | limitTo: manage.limit">
+                    <td>{{ guest.name }}</td>
+                    <td>{{ guest.email }}</td>
+                    <td>${{ guest.totalDonated }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 
+    <label class="ui primary label">
+        Table Name
+        <div class="ui icon mini button" data-content="Name this table" data-variation="basic">
+            <i class="help icon"></i>
+        </div>
+    </label>
+    <input ng-disabled="event.disabled" placeholder="Full Name" type="text" name="name" ng-model="tables.tableData.table" id="name"
+        required> -->

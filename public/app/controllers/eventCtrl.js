@@ -604,16 +604,46 @@ angular.module('eventController', ['eventServices', 'userServices'])
      });
 })
 
-.controller('tablesCtrl', function(Event, $routeParams){
+.controller('tablesCtrl', function(Event, $routeParams, $scope){
     var app = this;
-    Event.viewEventUser($routeParams.id).then(function(data){
-        if(data.data.success){
-            var currentEvent = data.data.event;
+    var tables = [];
+    app.currentTable = {};
 
+    Event.viewEventWithDb($routeParams.id).then(function(data){
+        if(data.data.success){
+            console.log(data.data)
+            var currentEvent = data.data.event;
+            app.rsvp = data.data.rsvpUsers;
+            app.guests = data.data.rsvpGuests;
             app.tables = currentEvent.tables;
             app.seats = currentEvent.seatsPer;
+
+            // create table numbers
+            var tabArr = [];
+            for (var i = 1; i <= currentEvent.tables; i++) {
+                console.log(i)
+                var tab = {}
+                tab.number = i;
+                tab.seatsRemaining = currentEvent.seatsPer;
+        
+                //creat seat array
+                var seats = []
+                for (var i = 1; i <= currentEvent.seatsPer; i++) {
+                    seats[i] = "Please enter a guest"
+                }
+
+                tab.seats = seats;
+
+                tabArr.push(tab);
+            }
+            app.tableObj = tabArr;
         }
     });
+
+    app.setCurrentTable = function(number){
+        app.currentTable = tables[number];
+        console.log("new table num")
+    }
 });
 
 
