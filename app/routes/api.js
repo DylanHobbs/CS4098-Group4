@@ -844,6 +844,7 @@ module.exports = function(router){
 		event.tables = req.body.tables;
 		event.seatsPer = req.body.seats;
 		event.description = req.body.description;
+		event.goal = req.body.goal;
 		if(req.body.menu){
 			event.menu = req.body.menu;
 		}

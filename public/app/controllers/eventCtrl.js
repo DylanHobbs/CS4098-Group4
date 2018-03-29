@@ -576,6 +576,7 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.percent = (data.data.event.raised / data.data.event.goal) * 100
             // number of donations
             app.donators = data.data.event.numDonate;
+            app.name = data.data.event.name;
         }
     });
 
