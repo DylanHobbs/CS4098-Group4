@@ -602,6 +602,18 @@ angular.module('eventController', ['eventServices', 'userServices'])
              $interval.cancel(promise);   
              console.log("interval stopped")
      });
+})
+
+.controller('tablesCtrl', function(Event, $routeParams){
+    var app = this;
+    Event.viewEventUser($routeParams.id).then(function(data){
+        if(data.data.success){
+            var currentEvent = data.data.event;
+
+            app.tables = currentEvent.tables;
+            app.seats = currentEvent.seatsPer;
+        }
+    });
 });
 
 
