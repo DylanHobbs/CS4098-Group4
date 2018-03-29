@@ -24,9 +24,12 @@
                     <th>{{viewEventUser.dietary}}</th>
                 </tr>
             </tbody>
-
         </table>
         <br>
+        <a href="/eventLiveTracker/{{viewEventUser.eventId}}">
+        <button class="ui negative basic button right floated" >View Live Tracker</button>
+        </a>
+
         <a ng-show="!viewEventUser.attending" ng-click="viewEventUser.RSVP();">
             <button  class="ui negative basic button right floated">RSVP to this event </button>
         </a>

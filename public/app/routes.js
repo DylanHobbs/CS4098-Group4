@@ -188,6 +188,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
+	.when('/eventLiveTracker/:Id',{
+		templateUrl: 'app/views/pages/events/eventLiveTracker.html',
+		controller: 'eventLiveTrackerCtrl',
+		constroller : 'eventLiveTracker',
+		authenticated: true
+	})
+
 	.otherwise({redirectTo: '/'});
 
 	// gets rid of hashes in urls
