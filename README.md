@@ -254,10 +254,10 @@ To remove a user from a list:
 3.Click the blue view button beside the event that the guest you wish to remove is invited to/attending.
 4.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
 5.Once you have located the person that you wish to remove click the remove button beside their name and email address.
-```
+
 
 To move a user from the invite list to the RSVP list:
-```
+
 1. Login with user who has admin access.
 2. Click on events tab at the top of the page.
 3. Search for the user using the input box
