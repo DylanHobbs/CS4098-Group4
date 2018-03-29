@@ -603,23 +603,6 @@ angular.module('eventController', ['eventServices', 'userServices'])
              $interval.cancel(promise);   
              console.log("interval stopped")
      });
-
-    // $interval(function(){
-    //     Event.getEvent($routeParams.id).then(function(data){
-    //         if(data.data.success){
-    //             console.log("This is an interval");
-    //             //goal
-    //             app.goal = data.data.event.goal;
-    //             console.log(data.data.event.goal);
-    //             // $ raised
-    //             app.raised = data.data.event.raised;
-    //             //% funded
-    //             app.percent = (data.data.event.raised / data.data.event.goal) * 100
-    //             // number of donations
-    //             app.donators = data.data.event.numDonate;
-    //         }
-    //     });
-    // },30000);
 });
 
 
