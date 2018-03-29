@@ -35,6 +35,7 @@ npm test
 ```
 **Restarting the server**
 ```bash
+# While inside CS4098-Group4-dev folder
 nodemon server.js
 ```
 
