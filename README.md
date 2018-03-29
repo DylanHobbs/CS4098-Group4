@@ -107,7 +107,7 @@ To create an event
 1. Click on the "Events" tab in the top left menu
 2. This screen will show all events, past and future
 3. Click on the "Create Event" button
-4. Fill in all the fields for the event you wish to create
+4. Fill in all the fields for the event you wish to create. All fields are required except for menu, which is optional.
 5. On screen instructions will inform you of requirements for each field
 6. Hover over the "Question Mark" icon for help in a particular field
 7. Click the create button when done
@@ -288,7 +288,7 @@ PREREQUISITES
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
-- Know guest's details, including ID of event they will be attending
+- Know guest's details, including ID of event they will be attending, eg. ID = 42 for Trinity Dinner event
           The ID of the event can be found by doing the following:
           Click the "events tab" at the top of the page. 
           Search for the event the guest will be attending, then view the ID in the "ID" column.
@@ -329,7 +329,7 @@ PREREQUISITES
 **Accounts associated as guests can change their rsvp status as an attendee [Product Backlog Number: 118]**
 
 ***118.0 - Guests can change RSVP status***
-
+```
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
@@ -347,12 +347,12 @@ PREREQUISITES
         password: Password*1
 6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
 7. The guest will be show in the "Attending" list if RSVP'd, and the "Invited" list if not RSVP'd
-
+```
 
 **I want to track current amount raised [Product Backlog Number: 54]**
 
 ***54.0 - Track current amount raised***
-
+```
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
