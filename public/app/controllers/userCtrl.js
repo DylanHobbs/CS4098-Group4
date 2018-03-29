@@ -27,7 +27,7 @@ angular.module('userControllers', ['userServices'])
 
 .controller('loginCtrl', function($route){
 	var app = this;
-	$route.reload();
+	//console.log("login");
 })
 
 .controller('donateCtrl', function(User, $routeParams) {  

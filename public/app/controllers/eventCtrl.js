@@ -1,5 +1,5 @@
 angular.module('eventController', ['eventServices', 'userServices'])
-.controller('eventCtrl', function(Event, $scope, $routeParams){
+.controller('eventCtrl', function(Event, $scope, $routeParams, $route){
 
     // TODO: 
     // these may or may not be needed
@@ -9,6 +9,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
     // 
     var app = this;
     app.limit = 10;
+    app.failMsg = false;
+    app.successMsg = false;
     // console.log('hello from event controller');
 
     // Trying to display the test event from the database
@@ -35,6 +37,18 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
     getEvents();
 
+    app.deleteEvent = function(id){
+        console.log("delete")
+        Event.deleteEvent(id).then(function(data){
+            if(data.data.success){
+                app.successMsg = data.data.message;
+                app.failMsg = false;
+                $route.reload();
+            } else {
+                app.failMsg = "Could not delete event"
+            }
+        })
+    }
 
 })
 

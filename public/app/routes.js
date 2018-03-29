@@ -25,6 +25,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/login', {
 		templateUrl: 'app/views/pages/users/login.html',
+		controller: 'loginCtrl',
+		controllerAs: 'login',
 
 		// Prevent logged in users from getting here
 		authenticated: false

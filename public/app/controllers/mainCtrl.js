@@ -76,8 +76,8 @@ angular.module('mainController', ['authServices', 'userServices'])
 		// Redirect to logout page
 		$location.path('/logout');
 		$timeout(function() {
-			$route.reload();
 			$location.path('/');
+			window.location.reload(true);
 		}, 300);
 	};
 });
