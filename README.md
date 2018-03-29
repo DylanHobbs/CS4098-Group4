@@ -371,8 +371,114 @@ PREREQUISITES
 4. Alternitivly you can go to the live tracker for that event. See 53.0
 ```
 
+**Keep track of possible/previous guests [Product Backlog Number: 6]**
+
+***6.0 - Track users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. A list of users will be viewable on this page
+
+```
+
+**I want to send invitations to a mailing list, so that people know to come and that they are invited [Product Backlog Number: 8]**
+
+***8.0 - Create Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. ON the mailing lists screen, click "Create Mail List".
+4. Enter a name for your mail list in the "name" field.
+5. Add users to the mail list by clicking the "Add" button for each user.
+6. When all users have been added and the list has been named, click "Create List".
+
+```
+
+***8.1 - Send Mail using a Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Prior Mail List created. See 8.0
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. For the mailing list you wish to use, click the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Mailing Lists" and select your desired mail list from the dropdown menu.
+6. Click Send Email.
+
+```
+
+***8.2 - Send Mail to people invited to an event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Invited Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+
+```
+
+**I would like to email legitimately subscribed users [Product Backlog Number: 20]**
+
+***20.0 - Email Users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Navigate to the "send mail" screen, through either the management or events tab.
+2. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+3. Click on a mailing list or a list of attendees/invitees you wish to use in the dropdown menu.
+4. Click Send Email.
+
+```
+
+**Follow up with attendees (queries) [Product Backlog Number: 61]**
+***61.0 - Follow up with RSVP'd Users***
+```
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "RSVP Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+```
+
 **Have a tracker/ live count that updates with donations throughout the event [Product Backlog Number: 53]**
-***53.0 - View an events live traker**
+***53.0 - View an events live tracker**
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -386,7 +492,7 @@ PREREQUISITES
 2. Click on the view button for a given event
 3. Click the button labled "View Live Donation Tracker"
 4. The thermometer style donation tracker updates every 15 seconds without refreshing
-5. To see this change do 53.1 and repeach 53.0
+5. To see this change do 53.1 and repeat 53.0
 ```
 ***53.1 - Donating to an event**
 ```
@@ -403,4 +509,38 @@ PREREQUISITES
 3. Click the button labled "Donate to Event"
 4. Enter an amount to donate
 5. This will update information in 53.0 and 54.1
+```
+
+**Track which guests are big spenders and/or regular donors [Product Backlog Number: 7]**
+
+***7.0 - Track big spenders and/or regular donors***
+```
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the 'Donation Stats' button towards the top of the page
+3. The page shows the current total amount raised, total number of donations, as well as the most generous donors and the most frequent donors.
+4. Click the donate button at the top of the page.
+5. Enter an amount to donate (eg. 100000) and click the donate button. 
+6. Follow steps 1-3, to view the updated donation stats after donating.
+
+If you wish to look for a specific person to find their donation total and number of donations follow the following instructions:
+
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the search bar and type the name of person you wish to view.
+3. The person shall be displayed with their donation total and number of donations. 
+
+The table on the management screen is also sortable so if you wish to sort is it by amount donated or number of donations click on the respective column heading. This is useful to see who has donated the most or least number of times or who has donated the most or least.
+
+(eg. if you want to sort by amount donated click on "amount donated" at the top of the table, the first click will sort lowest to highest, a second click will sort highest to lowest, every click after will change the sorting to the opposite)
+
 ```

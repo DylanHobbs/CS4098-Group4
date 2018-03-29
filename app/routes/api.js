@@ -1483,18 +1483,6 @@ module.exports = function(router){
  
     });
 
-    router.post('/sendAll', function(req, res){
-    	var subject = req.body.subject;
-        var body = req.body.body;
-        var recipients = [];
-        User.find({}, function(err, users){
-        	if(err) throw(err);
-        	if(users){
-        		console.log(users);
-        		res.json({success: true, message: 'Mail sent!'});
-        	}
-        });
-    });
 
     router.post('/buyTicket', function(req, res){
  		// get the current user..
