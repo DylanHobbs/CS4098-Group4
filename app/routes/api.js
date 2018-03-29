@@ -886,41 +886,23 @@ module.exports = function(router){
 	});
 
 	router.get('/viewEventUser/:id', function(req, res){
-		
 		attending = false;
 		var eventID = req.params.id;
 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
-	
 			Event.findOne({ eventId: eventID }, function(err, event){
-				
 				if(err) throw err;
-
 				if(!event){
 					res.json({ success: false, message: 'Event was not found' });
 				} else {
-					
-						
-
 						var rsvp = event.rsvp;
-						
 						index = rsvp.indexOf(mainUser.email);
-					
 						if(index > -1){
 							attending = true;
 						}
-
-
-						
-						//console.log(rsvpGuests);
-					
-
 						// need to make a callback function for this
 						setTimeout(function() {
 							res.json({ success: true, event: event, attending: attending,  message: 'heres a message'});
-
-							}, 10);
-						// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
-
+						}, 10);
 				}
 			});
 		});
@@ -986,8 +968,17 @@ module.exports = function(router){
 		});
 	});
 
-	// trying to remove user from rsvp/guest list
+	//delete event
+	router.delete('/deleteEvent/:id', function(req, res){
+		var eventId = req.params.id;
 
+		Event.findOneAndRemove({eventId: eventId}, function(err, event){
+			if(err) throw err;
+			res.json({ success: true, message: 'Event was deleted' });
+		});
+	});
+
+	// trying to remove user from rsvp/guest list
 	router.delete('/viewEvent/:id/:email', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;

@@ -1,6 +1,6 @@
 angular.module('mainController', ['authServices', 'userServices'])
 
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, User){
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, User, $route){
 	var app = this;
 
 	// To prevent angular shtuff showing up after html loads
@@ -76,6 +76,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 		// Redirect to logout page
 		$location.path('/logout');
 		$timeout(function() {
+			$route.reload();
 			$location.path('/');
 		}, 300);
 	};

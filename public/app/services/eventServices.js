@@ -14,6 +14,10 @@ angular.module('eventServices', [])
         return $http.get('/api/events');
     }
 
+    eventFactory.deleteEvent = function(id){
+        return $http.delete('/api/deleteEvent/' + id);
+    }
+
     eventFactory.removeUser = function(id, email){
         return $http.delete('/api/viewEvent/' + id +'/'+ email);
     }
@@ -64,7 +68,7 @@ angular.module('eventServices', [])
 	}
 
     eventFactory.changeName = function(nameData){
-		return $http.post('/api/changeEventName', nameData);
+		return $http.post('/api/changeName', nameData);
     }
     
     eventFactory.changeVenue = function(venueData){

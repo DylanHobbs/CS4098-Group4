@@ -25,6 +25,11 @@ angular.module('userControllers', ['userServices'])
 	};
 })
 
+.controller('loginCtrl', function($route){
+	var app = this;
+	$route.reload();
+})
+
 .controller('donateCtrl', function(User, $routeParams) {  
 	var app = this;
 	var donateData = {}
