@@ -502,4 +502,8 @@ PREREQUISITES
 2. Click on the search bar and type the name of person you wish to view.
 3. The person shall be displayed with their donation total and number of donations. 
 
+The table on the management screen is also sortable so if you wish to sort is it by amount donated or number of donations click on the respective column heading. This is useful to see who has donated the most or least number of times or who has donated the most or least.
+
+(eg. if you want to sort by amount donated click on "amount donated" at the top of the table, the first click will sort lowest to highest, a second click will sort highest to lowest, every click after will change the sorting to the opposite)
+
 ```
