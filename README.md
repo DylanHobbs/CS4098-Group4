@@ -5,6 +5,7 @@ To install the app download the scripts from the following command:
 ```bash
 wget -r -np -nH --cut-dirs=1 -R index.* https://dylanhobbs.me/assets/scripts/
 # Make the scripts excecutable
+cd dylanhobbs.me
 chmod -R 755 scripts/
 ```
 Please run the scripts from outside the script folder.
