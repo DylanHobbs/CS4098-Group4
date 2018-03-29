@@ -99,7 +99,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -122,7 +122,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -144,7 +144,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 
@@ -167,7 +167,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -191,13 +191,11 @@ or
 
 ***22.0 - See RSVP list***
 ```
-<<<<<<< HEAD
-=======
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -220,27 +218,20 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
->>>>>>> 3f4f8b16a9e450b7c6e9af54d2b995bc706f0e29
 
 To add a user to a list:
 
 1.Login with user who has admin access.
 2.Click on events tab at the top of the page.
-<<<<<<< HEAD
-3.Enter the email address of a registered user in the text bar below the word invited. (eg. groganco@tcd.ie)
-4.Click add to add that user to the list of invited people.
-5.This can be done with the attending list as well following steps 3 and 4 above but using the text bar below the word attending. 
-=======
 3.Click the blue view button beside the event that you wish to add the user to.
 4.Enter the email address of a regestered user in the text bar below the word invited. (eg. groganco@tcd.ie)
 5.Click add to add that user to the list of invited people.
 6.This can be done with the attending list as well following steps 4 and 5 above but using the text bar below the word attending.
 
->>>>>>> 3f4f8b16a9e450b7c6e9af54d2b995bc706f0e29
 
 To remove a user from a list:
 
@@ -259,7 +250,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -284,7 +275,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -313,7 +304,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
@@ -333,7 +324,7 @@ PREREQUISITES
 PREREQUISITES
 - Activated account. See 1.0
 - Logged in as guest attending/invited to event: 
-        To login as guest attending/invited to event, logout (if logged in already) and login with the credentials:
+        To login as guest attending/invited to event, logout (if logged in already), refresh page and login with the credentials:
         username: johnbrien
         password: Password*1
 1. Click on events tab at the top of the page.
@@ -357,7 +348,7 @@ PREREQUISITES
 - Activated account. See 1.0
 - Logged in. See 1.1
 - Admin privileges.
-        To login as admin, logout (if logged in already) and login with the credentials:
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
         username: dhobbs
         password: Password*1
 1. Click on management tab at the top of the page.
