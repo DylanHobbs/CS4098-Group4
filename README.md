@@ -193,7 +193,10 @@ To view guest contact details for an event:
 or
 4b.(optional) Use search feature for the attending list to find guest in the attending list
 5.There contact email will be in the middle column of the table.
-
+- If you want to see 'a' user's details -
+6.1. Click on the "management" button in the upper left menu
+6.2. Input the users name into the search box.
+6.3. The users details should appear at the top if they are present in the system.
 ```
 **I want to see the invite list [Product Backlog Number: 10]**
 
@@ -251,6 +254,15 @@ To remove a user from a list:
 3.Click the blue view button beside the event that the guest you wish to remove is invited to/attending.
 4.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
 5.Once you have located the person that you wish to remove click the remove button beside their name and email address.
+```
+
+To move a user from the invite list to the RSVP list:
+```
+1. Login with user who has admin access.
+2. Click on events tab at the top of the page.
+3. Search for the user using the input box
+4. Across from that user, click the "attending" button
+5. The user will now appear in the RSVP list on the left.
 ```
 
 **I want to be able to see a report of who is attending an event [Product Backlog Number: 24]**
