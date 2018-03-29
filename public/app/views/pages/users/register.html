@@ -99,7 +99,7 @@
       .ready(function () {
         (function ($) {
           $('.ui.form').form({
-
+            keyboardShortcuts: false,
             name: {
               identifier: 'name',
               rules: [{
@@ -155,23 +155,6 @@
                 type: 'length[8]',
                 prompt: 'Password needs to be at least 8 characters long'
               }
-                // {
-                //   type: 'regExp',
-                //   value: /^(?=.*[A-Z]).+$/,
-                //   prompt: 'Password must have at least 1 upper case letter'
-                // }, {
-                //   type: 'regExp',
-                //   value: /^(?=.*[\d]).+$/,
-                //   prompt: 'Password must have at least 1 number'
-                // }, {
-                //   type: 'regExp',
-                //   value: /^(?=.*[-+_!@#$%^&*.,?]).+$/,
-                //   prompt: 'Password must have at least 1 symbol'
-                // }, {
-                //   type: 'regExp',
-                //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[-+_!@#$%^&*.,?])).+$/,
-                //   prompt: 'Please fulfill password requirements. Should never see this'
-                // }
               ]
             },
             confirmPassword: {
@@ -194,19 +177,3 @@
         }(jQuery));
       });
   </script>
-
-  <!-- <span>
-  <strong>Is this form pristine? (new): </strong>{{ regForm.$pristine }}
-</span>
-<br>
-<span>
-  <strong>Does it have errors?: </strong>{{ regForm.$error }}
-</span>
-<br>
-<span>
-  <strong>Is it submited?: </strong>{{ regForm.$submitted }}
-</span>
-<br>
-<span>
-  <strong>Is it valid?: </strong>{{ regForm.$valid }}
-</span> -->

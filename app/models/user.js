@@ -67,8 +67,8 @@ var UserSchema = new Schema({
 	active:     {type: Boolean, required: true, default: false},
 	tmpToken:   {type: String, required: true},
 	permission: {type: String, required: true, default: 'user'}, // user -> host -> admin
-	totalDonated: {type: Number},
-	numberOfDonations: {type: Number}
+	totalDonated: {type: Number, default: 0},
+	numberOfDonations: {type: Number, default: 0}
 });
 
 

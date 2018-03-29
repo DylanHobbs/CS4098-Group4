@@ -25,14 +25,17 @@ angular.module('userControllers', ['userServices'])
 	};
 })
 
-.controller('donateCtrl', function(User) {  
+.controller('donateCtrl', function(User, $routeParams) {  
 	var app = this;
 	var donateData = {}
 	app.successMsg = false;
 	
     app.addDonation = function(donation){
     	console.log("help pls")
-    	donateData.donation = donation;
+		donateData.donation = donation;
+		if($routeParams.id){
+			donateData.event = $routeParams.id;
+		}
     	console.log(donation)
         User.donate(donateData).then(function(data){
             if(data.data.success){

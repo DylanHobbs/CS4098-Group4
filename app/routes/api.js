@@ -540,7 +540,7 @@ module.exports = function(router){
 	// Grabing up to date info from DB. Above method will work if their token is 
 	// Changed on update. TODO:!!
 	router.post('/me', function(req, res) {
-		User.findOne({ email: req.decoded.email }).select('email name username totalDonated numberOfDonations').exec(function(err, user) {
+		User.findOne({ email: req.decoded.email }).select('email name username total numberOfDonations').exec(function(err, user) {
 			if (err) {
 				res.json({ success: false, message: err }); // Error if cannot connect
 			} else {
@@ -769,9 +769,14 @@ module.exports = function(router){
 	});
 
 	router.post('/donate', function(req, res){
-		console.log(req.body)
-		console.log("We're in the Backend")
+		var success = false;
+
+		console.log(req.body);
 		var amount = req.body.donation;
+		if(req.body.event){
+			var eventid = req.body.event;
+		}
+		// Update user amount
 		User.findOne({ email: req.decoded.email }, function(err, user){
 			if(err) throw err;
 			if(!user){
@@ -782,7 +787,7 @@ module.exports = function(router){
 					user.numberOfDonations+=1;
 					user.save(function(err, user){
 						if(err) throw err;
-						res.json({ success: true, message: 'Donation was successful' });
+						success = true;
 					});
 				} else {
 					res.json({ success: false, message: 'No donation was found' });
@@ -790,6 +795,31 @@ module.exports = function(router){
 				
 			}
 		});
+
+		//Update event amount
+		if(eventid){
+			Event.findOne({eventId: eventid}, function(err, event){
+				if(err) throw err;
+				console.log(event);
+				if(!event){
+					res.json({ success: false, message: 'No event was found' });
+				} else {
+					if(amount){
+						event.raised = event.raised + amount;
+						event.numDonate = event.numDonate + 1;
+						event.save(function(err, event){
+							if(err) throw err;
+							res.json({ success: true, message: 'Donation was successful for user and event'});
+						});
+					} else {
+						res.json({ success: false, message: 'No donation was found' });
+					}
+				}
+			});
+		}
+		if(success){
+			res.json({ success: true, message: 'Donation was successful'});
+		}
 	});
 
 
@@ -961,18 +991,11 @@ module.exports = function(router){
 	router.delete('/viewEvent/:id/:email', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
-
 		Event.findOne({ eventId: eventID }, function(err, event){
-
 			var invite = event.invited; 
 			var invitedUsers = [];
 			var rsvpd = event.rsvp;
 			var rsvpUsers= []
-			// console.log(event.invited)
-			
-			
-
-
 
 			if(err) throw err;
 
@@ -981,7 +1004,6 @@ module.exports = function(router){
 				res.json({ success: false, message: 'Event was not found' });
 			} else {
 				if(email){
-
 					invite.forEach(function(element){
 						if(element===email){
 							var index = invite.indexOf(email)
@@ -992,7 +1014,7 @@ module.exports = function(router){
 								res.json({ success: true, message: 'user removed' });
 							});
 						}
-					} )
+					});
 
 					rsvpd.forEach(function(element){
 						if(element===email){
@@ -1004,7 +1026,7 @@ module.exports = function(router){
 								res.json({ success: true, message: 'user removed' });
 							});
 						}
-					} )	
+					});
 
 				} else {
 					res.json({ success: false, message: 'no email' });

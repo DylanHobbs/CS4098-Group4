@@ -193,14 +193,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	})
 
-	.when('/donate',{
+	.when('/donate/:id?',{
 		templateUrl: 'app/views/pages/users/donate.html',
 		controller: 'donateCtrl',
 		controllerAs: 'donateToEvent',
 		authenticated: true
 	})
 
-	.when('/eventLiveTracker/:Id',{
+	.when('/eventLiveTracker/:id',{
 		templateUrl: 'app/views/pages/events/eventLiveTracker.html',
 		controller: 'eventLiveTrackerCtrl',
 		constroller : 'eventLiveTracker',
