@@ -28,25 +28,25 @@
         <br>
         <div class="buttons">
             <a ng-show="!viewEventUser.attending" ng-click="viewEventUser.RSVP();">
-                <button  class="ui positive basic button">RSVP to this event </button>
+                <button  ng-disabled="viewEventUser.disabled" class="ui positive basic button">RSVP to this event </button>
             </a>
     
             <a ng-show="viewEventUser.attending" ng-click="viewEventUser.unRSVP();">
-                <button  class="ui negative basic button">Un-RSVP to this event </button>
+                <button  ng-disabled="viewEventUser.disabled" class="ui negative basic button">Un-RSVP to this event </button>
             </a>
     
             <a href="/purchaseTicket/{{viewEventUser.eventId}}">
-                <button  class="ui primary basic button">Purchase Ticket  </button>
+                <button  ng-disabled="viewEventUser.disabled" class="ui primary basic button">Purchase Ticket  </button>
             </a>
         </div>
         <br>
         <div class="buttons">
             <a href="/eventLiveTracker/{{viewEventUser.eventId}}">
-                <button class="ui primary basic button" >View Live Tracker</button>
+                <button ng-disabled="viewEventUser.disabled" class="ui primary basic button" >View Live Tracker</button>
             </a>
     
             <a href="/donate/{{viewEventUser.eventId}}">
-                <button  class="ui primary basic button">Donate to Event</button>
+                <button  ng-disabled="viewEventUser.disabled" class="ui primary basic button">Donate to Event</button>
             </a>
         </div>
         <br>

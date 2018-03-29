@@ -323,15 +323,17 @@ angular.module('eventController', ['eventServices', 'userServices'])
 
 .controller('viewEventUserCtrl', function(User, Event, $scope, $routeParams, $timeout){
     var app = this;
-
+    app.disabled = true;
     $scope.checkInvited = 1;
     $scope.checkAttending = 0;
-    console.log("viewEventUserCtrl here!!!")
-    console.log("used this id to search" + $routeParams.id);
-    Event.getEvent($routeParams.id)
-    .then(function(data){
-        console.log(data.data.event)
+    // console.log("viewEventUserCtrl here!!!")
+    // console.log("used this id to search" + $routeParams.id);
+
+    Event.viewEventUser($routeParams.id).then(function(data){
         if(data.data.success){
+            console.log(data.data);
+            app.attending = data.data.attending;
+
             var thisEvent = data.data.event;
             
             app.name = thisEvent.name;
@@ -347,27 +349,10 @@ angular.module('eventController', ['eventServices', 'userServices'])
             app.dietary = thisEvent.dietary;
             app.invitedUsers = data.data.invitedUsers;
             app.rsvpUsers = data.data.rsvpUsers;
-            
             app.eventId = $routeParams.id;
-            
-
-        } else {
-            console.log("no event???");
-            app.failMsg = data.data.message;
-            app.loading = false;
         }
-            
+        app.disabled = false;
     });
-
-    Event.viewEventUser($routeParams.id).then(function(data){
-        if(data.data.success){
-            console.log(data.data);
-            app.attending = data.data.attending;
-        }
-    });
-
-
-    
 
     app.RSVP = function(email){
         Event.RSVP($routeParams.id).then(function(data){
@@ -400,9 +385,8 @@ angular.module('eventController', ['eventServices', 'userServices'])
             }
         });
     }
-
-
 })
+
 .controller('purchaseTicketCtrl', function($location, Event, $scope, $routeParams){
     var app = this;
 
