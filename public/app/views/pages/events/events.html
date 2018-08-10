@@ -14,7 +14,7 @@
                 <i class="search icon"></i>
             </div>        
         </div>
-        <a href="/createEvent" class="ui primary large button">Create Event</a>
+        <a ng-show="main.admin" href="/createEvent" class="ui primary large button">Create Event</a>
     </div>
 
 
@@ -25,12 +25,14 @@
     </div>
 
 
-    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="120%">
         <thead>
             <tr>
                 <th>Name</th>
+                <th>ID</th>
                 <th>Venue</th>
                 <th>Date</th>
+                <th>Donations</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,18 +40,25 @@
 
             <tr ng-repeat="event in manage.events | filter: searchKeyword | limitTo: manage.limit">
                 <td>{{ event.name }}</td>
+                <td>{{ event.eventId }}</td>
                 <td>{{ event.venue }}</td>
                 <td>{{ event.date }}</td>
+                <td>${{ event.raised}}</td>
                 <td>
-                    <a href="/editEvent/{{event._id}}">
+                    <a ng-show="main.admin" href="/editEvent/{{event._id}}">
                         <button class="ui yellow basic button">Edit</button>
                     </a>
-                    <a href="/viewEvent/{{event.eventId}}">
+                    <a ng-show="main.admin" href="/viewEvent/{{event.eventId}}">
                         <button class="ui blue basic button">
                             View
                         </button>
                     </a>
-                    <button class="ui negative basic button right floated">
+                    <a ng-show="!main.admin" href="/viewEventUser/{{event.eventId}}">
+                        <button class="ui blue basic button">
+                            View
+                        </button>
+                    </a>
+                    <button ng-show="main.admin" button class="ui negative basic button right floated" ng-click="manage.deleteEvent(event.eventId)">
                         Delete
                     </button>
                 </td>

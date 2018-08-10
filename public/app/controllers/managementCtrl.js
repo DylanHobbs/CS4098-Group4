@@ -1,4 +1,4 @@
-angular.module('managementController', [])
+angular.module('managementController', ['userServices'])
 .controller('managementCtrl', function(User, $scope){
     var app = this;
 
@@ -207,15 +207,76 @@ angular.module('managementController', [])
       
     }
     getAllEvents();
+    
+	
+
+
+	app.events = [];
+	Event.getEvents().then(function(data){
+		app.events = data.data.events;
+	});	
+
+
+	this.guestReg = function(regData){
+		app.disabled = true;
+		var selectedEvent = app.regData.eventId;
+		if(app.regData.email != ""){
+            app.regData.to = app.regData.email;
+            app.regData.subject = "Moldova Events"
+            app.regData.body = "Congratulations, you're registered!"
+            Event.emailAttendees(app.regData).then(function(data){
+                if(data.data.success){
+                    console.log(data.data);
+                }
+                else{
+                    app.failMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+        }
+        User.createGuest(app.regData).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+            Event.addInfo(app.regData).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+            Event.addGuest(app.regData.eventId,app.regData.number).then(function(data){
+                if(data.data.success){
+                    app.loading = false;
+                    app.successMsg = data.data.message + "... Redirecting you to events...";
+                    $timeout(function(){
+                        $location.path('/events');
+                    }, 2000);
+                } else {
+                    app.loading = false;
+                    app.disabled = false;
+                    app.failMsg = data.data.message;
+                }
+            });
+    
+        
+	};
 
     
 
-	this.guestReg = function(regData){
+	/*this.guestReg = function(regData){
 		app.disabled = true;
 		app.loading = true;
         app.failMsg = false;
         
-        
+        /*
         User.createAuthd(app.regData)
         .then(function(data){
 			if(data.data.success){
@@ -226,10 +287,12 @@ angular.module('managementController', [])
 				app.disabled = false;
 				app.failMsg = data.data.message;
 			}
-        });
+        });*/
         
-        console.log(app.regData);
-        Event.addInfo(app.regData).then(
+        // add to temp guests
+        
+        //console.log(app.regData);
+        /*Event.addInfo(app.regData).then(
 
         Event.addUser(app.regData.eventId, app.regData.email, '1').then(function(data){
             if(data.data.success){
@@ -247,10 +310,119 @@ angular.module('managementController', [])
 			}
         })
 
-    );
+    );*/
 
         
         
-    };
+//};
+
     
+    
+})
+
+.controller('donationStatCtrl', function(User) {  
+	var app = this;
+    var donateData = {}
+    var users = [];
+    app.successMsg = false;
+    app.totalRaised = 0;
+    app.totalDonations = 0;
+    app.biggestDonors = [];
+    app.frequentDonors = [];
+
+    function compareNum(a,b) {
+        if (a.numberOfDonations < b.numberOfDonations)
+          return 1;
+        if (a.numberOfDonations > b.numberOfDonations)
+          return -1;
+        return 0;
+      }
+
+      function compareTotal(a,b) {
+        if (a.totalDonated < b.totalDonated)
+          return 1;
+        if (a.totalDonated > b.totalDonated)
+          return -1;
+        return 0;
+      }
+    
+    User.donationStats().then(function(data){
+        if(data.data.success){
+            app.loading = false;
+            users = data.data.users;
+
+
+            
+            users.forEach(function(element){
+                if(element.totalDonated){
+                    
+                    app.totalRaised += element.totalDonated;
+                    app.totalDonations += element.numberOfDonations;
+                    
+                    smallest = -1;
+                    if(app.biggestDonors.length < 5){
+                        app.biggestDonors.push(element);
+                    }else {
+                        smallest = element;
+                        app.biggestDonors.forEach(function(donor){
+                            if(smallest.totalDonated > donor.totalDonated){
+                                smallest = donor;
+                            }
+                        });
+        
+                        if(smallest != element){
+                            index = app.biggestDonors.indexOf(smallest);
+                            app.biggestDonors.splice(index,1);
+                            app.biggestDonors.push(element);
+                        }
+                    }
+                    
+                        
+                
+                    smallest = -1;
+                    if(app.frequentDonors.length < 5){
+                        app.frequentDonors.push(element);
+                    }else{
+                        smallest = element;
+                        app.frequentDonors.forEach(function(donor){
+                            if(smallest.numberOfDonations > donor.numberOfDonations){
+                                smallest = donor;
+                            }
+                        });
+        
+                        if(smallest != element){
+                            index = app.frequentDonors.indexOf(smallest);
+                            app.frequentDonors.splice(index,1);
+                            app.frequentDonors.push(element);
+                        }
+                    }
+
+                    
+                }
+                
+            })
+
+
+            app.frequentDonors.sort(compareNum);
+            app.biggestDonors.sort(compareTotal);
+
+            
+
+            
+              
+              
+
+            console.log(app.totalRaised);
+            
+        } else {
+            app.loading = false;
+            app.disabled = false;
+            app.failMsg = data.data.message;
+        }
+
+    })
+
+    
+	
+	
 });

@@ -56,26 +56,60 @@ angular.module('emailController', ['userServices', 'eventServices'])
 	};
 })
 
-.controller('createEmailCtrl', function(User, Event){
+//TODO;
+//Redirect user to event page they came from (maybe??)
+
+.controller('createEmailCtrl', function(User, Event, MailList, $routeParams, $timeout, $location){
 	app = this;
 	console.log("Hello beautiful");
 	var currentSelect = 'invited';
 	var invitedLists = [];
 	var rsvpLists = [];
 	var mailingLists = [];
+	var selectedEvent = $routeParams.eventID; 
+
 
 	app.events = [];
+	app.mailLists = [];
+
 	Event.getEvents().then(function(data){
 		invitedLists = data.data.events;
 		rsvpLists = data.data.events;
 		app.events = data.data.events;
 	});	
 
+	MailList.getMailLists().then(function(data){
+		mailingLists = data.data.mailLists;
+		app.mailLists = data.data.mailLists;
+	});
 
 	this.sendEmail = function(emailData){
 		app.disabled = true;
 		console.log('ye i\'ll totally send that to: ' + currentSelect);
+		
+		if (currentSelect === "invited"){
+			app.emailData.to = app.emailData.to.invited;
+		}
+		else if (currentSelect === "rsvp"){
+			app.emailData.to = app.emailData.to.rsvp;
+		}
+		else{
+			app.emailData.to = app.emailData.to.members;
+		}
 		console.log(app.emailData);
+		Event.emailAttendees(app.emailData).then(function(data){
+			if(data.data.success){
+				console.log(data.data);
+				app.successMsg = data.data.message + "... Redirecting you to events...";
+				$timeout(function(){
+					$location.path('/events');
+				}, 2000);
+			}
+			else{
+				app.failMsg = data.data.message;
+				app.disabled = false;
+			}
+		});
 	};
 
 	app.setSelect = function(toggle){
@@ -93,4 +127,5 @@ angular.module('emailController', ['userServices', 'eventServices'])
 			console.log('invited');
 		}
 	};
+
 });

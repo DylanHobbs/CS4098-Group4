@@ -1,0 +1,46 @@
+
+<div class="ui inverted segment"></div>
+
+    <h2 class="ui inverted header">Total Amount Raised</h2>
+    
+    <p style="font-size:20px">{{ viewDonations.totalRaised }}</p>
+
+    <h2 class="ui inverted header">Total Number of Donations</h2>
+    
+    <p style="font-size:20px">{{ viewDonations.totalDonations }}</p>
+
+    <h2 class="ui inverted header">Most Generous Donors</h2>
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Amount Donated</th>
+            <th>Name</th>
+            <th>Number Of Donations</th> 
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="person in viewDonations.biggestDonors | filter: searchKeyword | limitTo: manage.limit">
+                <td>{{ person.totalDonated }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.numberOfDonations }}</td>
+            </tr>
+        </tbody>   
+    </table>
+    <h2 class="ui inverted header">Most Frequent Donors</h2>
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Number Of Donations</th> 
+            <th>Name</th>
+            <th>Amount Donated</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="person in viewDonations.frequentDonors | filter: searchKeyword | limitTo: manage.limit">
+                <td>{{ person.numberOfDonations }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.totalDonated }}</td>
+            </tr>
+        </tbody>   
+    </table>
+</div>

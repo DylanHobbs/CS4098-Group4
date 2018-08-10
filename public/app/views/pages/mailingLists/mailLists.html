@@ -1,0 +1,70 @@
+<div class="ui inverted segment">
+    <h1>Mail Lists</h1>
+    <<div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <button ng-click="mailList.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                <button ng-click="mailList.showAll();" class="ui primary  small button">Show All</button>
+            </div>
+            <br>
+            <br>
+            <div class="ui icon input">
+                <input ng-model="searchKeyword" class="prompt" type="text" placeholder="Search...">
+                <i class="search icon"></i>
+            </div>        
+        </div>
+        <a ng-show="main.admin" href="/createList" class="ui primary large button">Create Mail List</a>
+    </div>
+
+
+    <div class="ui tiny error message" ng-show="mailList.failMsg">
+        <div class="header">Uh Oh</div>
+        <p>{{ mailList.failMsg }}</p>
+        </p>
+    </div>
+
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr ng-repeat="list in mailList.mailLists | filter: searchKeyword | limitTo: manage.limit">
+                <td>{{ list.name }}</td>
+                <td>
+                    <a ng-show="main.admin" href="/createEmail">
+                        <button class="ui primary button">Send Mail</button>
+                    </a> 
+                    <button ng-show="main.admin" button class="ui negative basic button right floated">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="ui form">
+        <div class="required nine wide field">
+            <div class="ui action input">
+                <input ng-model="number" type="text" placeholder="Enteries to display...">
+                <button ng-click="mailList.showMore(number);" class="ui primary  small button">Apply Filter</button>
+                <button ng-click="mailList.showAll();" class="ui primary  small button">Show All</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="ui active dimmer" ng-show="mailList.loading">
+        <div class="ui text loader">Looking for Seán FitzPatrick...</div>
+    </div> -->
+
+    <div class="ui success message" ng-show="mailList.successMsg">
+        <div class="header">All Set</div>
+        <p>{{ mailList.successMsg }}</p>
+    </div>
+</div>

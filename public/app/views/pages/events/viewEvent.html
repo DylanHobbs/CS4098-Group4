@@ -26,26 +26,31 @@
             </tbody>
         </table>
         <br>
-    
+    <a class="ui primary button" href='/seating/{{viewEvent.id}}'>Seating Plan</a>
+
+        
     <h2 class="ui header">Guest/Invite List</h2>
     <div class="ui two column middle stackable grid">
         <div class="eight wide column">
 
+
+            <h2 ng-model="checkAttending" >Attending </h2>
             <div class="ui icon input">
                 <input ng-model="search1" class="prompt" type="text" placeholder="Search...">
                 <i class="search icon"></i>
             </div>
-            <h2 ng-model="checkAttending" >Attending </h2>
+            <br>
+            <br>
 
             <div class="ui action input">
                 <input ng-model="email" type="text" placeholder="Email of user to add...">
-                    <button ng-click="viewEvent.addUser(email,checkAttending);" class="ui blue button">Add</button>
+                    <button ng-click="viewEvent.addUser(email, checkAttending);" class="ui blue button">Add</button>
             </div> 
             <table id="attending" class="ui celled inverted green table">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Email/Number</th>
                     <th>Manage</th>
                 </tr>
                 </thead>
@@ -57,17 +62,29 @@
                             <button ng-click="viewEvent.removeUser(person.email);" class="ui red button">Remove</button>
                         </td>
                     </tr>
+                    <tr ng-repeat="guest in viewEvent.guestrsvp | filter: searchWord | filter: search1 | limitTo: manage.limit">
+                        <td>{{ guest.name }}</td>
+                        <td>{{ guest.number }}</td>
+                        <td>
+                            <button ng-click="viewEvent.removeGuest(guest.number);" class="ui red button">Remove</button>
+                        </td>
+                    </tr>
                 </tbody>   
-            </table>   
+            </table> 
         </div>
 
         <div class="eight wide column">
+
+            <h2 ng-model="checkInvited" >Invited</h2> 
 
             <div class="ui icon input">
                 <input ng-model="search2" class="prompt" type="text" placeholder="Search..."> 
                 <i class="search icon"></i> 
             </div>
-            <h2 ng-model="checkInvited" >Invited</h2> 
+            
+            <br>
+            <br>
+
 
             <div class="ui action input">
                 <input ng-model="emailInvited" type="text" placeholder="Email of user to add...">
@@ -80,7 +97,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Manage</th>
-                    <th></th>
+                    <th><a class="ui primary button" href='/createEmail/{{viewEvent.id}}'>Send Mail</a></th>
                 </tr>
                 </thead>
                 <tbody>

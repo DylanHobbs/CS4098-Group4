@@ -3,11 +3,14 @@
 // ****************************************************************************
 var User    = require('../models/user');
 var Event   = require('../models/event');
+var Guest   = require('../models/guest');
+var MailList = require('../models/mailList');
 var jwt     = require('jsonwebtoken');
 var secret  = process.env.SECRET || 'sabaton';
 var mail_key = process.env.API_KEY
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
+var qrImage = require('../../public/assets/js/qr.js')
 
 module.exports = function(router){
 
@@ -19,7 +22,25 @@ module.exports = function(router){
 	  }
 	}
 
-	var client = nodemailer.createTransport(sgTransport(options));
+	 var client = nodemailer.createTransport(sgTransport(options));
+	 var crypto = require('crypto'),
+	 		algorithm = 'aes-256-ctr',
+	 		password = 'd6F3Efeq';
+
+	function encrypt(text){
+		var cipher = crypto.createCipher(algorithm,password)
+		var crypted = cipher.update(text,'utf8', 'hex')
+		crypted += cipher.final('hex');
+		return crypted
+	}
+
+	function decrypt(text){
+		var decipher = crypto.createDecipher(algorithm, password)
+		var dec = decipher.update(text,'hex', 'utf8')
+		dec += decipher.final('utf8');
+		return dec;
+	}
+
 
 	/*
  #     #  #####  ####### ######     ######  ####### #     # ####### #######  #####
@@ -98,6 +119,35 @@ module.exports = function(router){
 
 					// Send response
 					res.json({success: true, message: 'Account Registered! Please check email for activation link'});
+				}
+			});
+		}
+	});
+
+	router.post('/guests', function(req, res){
+		var guest = new Guest();
+		guest.number = req.body.number;
+		guest.email    = req.body.email;
+		guest.name     = req.body.name;
+
+		if(req.body.number == null || req.body.name == null || req.body.name == ''){
+			res.json({success: false, message: 'Ensure name and number are provided'});
+		} else {
+			console.log("HELLO");
+			guest.save(function(err){
+				if(err){
+					console.log(err);
+					if(err.errors != null){ 
+						if(err.errors.name){
+							res.json({success: false, message: err.errors.name.message});
+						} else if(err.errors.email){
+							res.json({success: false, message: err.errors.email.message});
+						}else {
+							res.json({success: false, message: err});
+						}
+					} 
+				} else {
+					res.json({success: true, message: 'User Registered'});
 				}
 			});
 		}
@@ -491,7 +541,7 @@ module.exports = function(router){
 	// Grabing up to date info from DB. Above method will work if their token is 
 	// Changed on update. TODO:!!
 	router.post('/me', function(req, res) {
-		User.findOne({ email: req.decoded.email }).select('email name username').exec(function(err, user) {
+		User.findOne({ email: req.decoded.email }).select('email name username total numberOfDonations').exec(function(err, user) {
 			if (err) {
 				res.json({ success: false, message: err }); // Error if cannot connect
 			} else {
@@ -566,6 +616,8 @@ module.exports = function(router){
 		});
 	});
 
+
+
 	router.get('/edit/:id', function(req, res){
 		var editUser = req.params.id;
 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
@@ -573,7 +625,8 @@ module.exports = function(router){
 			if(!mainUser){
 				res.json({ success: false, message: 'User was not found' });
 			} else {
-				if(mainUser.permission === 'admin'){
+				//TODO :ask dylan if this is hacking ;)
+				//if(mainUser.permission === 'admin'){
 					User.findOne({_id: editUser}, function(err, user){
 						if(err) throw err;
 						if(!user){
@@ -582,9 +635,9 @@ module.exports = function(router){
 							res.json({ success: true, user: user});
 						}
 					});
-				} else {
-					res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-				}
+				//} else {
+				//	res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//}
 			}
 		});
 	});
@@ -692,6 +745,84 @@ module.exports = function(router){
 		});
 	});
 
+	router.get('/donationStats', function(req, res){
+		User.find({}, function(err, users){
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+					if(mainUser.permission === 'admin'){
+						// Exists and has permission
+						if(!users){
+							res.json({ success: false, message: 'User[s] not found' });
+						} else {
+							res.json({ success: true, users: users, permission: mainUser.permission });
+						}
+					} else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
+			});
+ 		});
+	});
+
+	router.post('/donate', function(req, res){
+		var success = false;
+
+		console.log(req.body);
+		var amount = req.body.donation;
+		if(req.body.event){
+			var eventid = req.body.event;
+		}
+		// Update user amount
+		User.findOne({ email: req.decoded.email }, function(err, user){
+			if(err) throw err;
+			if(!user){
+				res.json({ success: false, message: 'No user was found' });
+			} else {
+				if (amount){
+					user.totalDonated+=amount;
+					user.numberOfDonations+=1;
+					user.save(function(err, user){
+						if(err) throw err;
+						success = true;
+					});
+				} else {
+					res.json({ success: false, message: 'No donation was found' });
+				}
+				
+			}
+		});
+
+		//Update event amount
+		if(eventid){
+			Event.findOne({eventId: eventid}, function(err, event){
+				if(err) throw err;
+				console.log(event);
+				if(!event){
+					res.json({ success: false, message: 'No event was found' });
+				} else {
+					if(amount){
+						event.raised = event.raised + amount;
+						event.numDonate = event.numDonate + 1;
+						event.save(function(err, event){
+							if(err) throw err;
+							res.json({ success: true, message: 'Donation was successful for user and event'});
+						});
+					} else {
+						res.json({ success: false, message: 'No donation was found' });
+					}
+				}
+			});
+		} else {
+			res.json({ success: true, message: 'Donation was successful' });
+		}
+	});
+
+
 	/*
  ####### #     # ####### #     # #######    ######  ####### #     # ####### #######  #####
  #       #     # #       ##    #    #       #     # #     # #     #    #    #       #     #
@@ -713,6 +844,7 @@ module.exports = function(router){
 		event.tables = req.body.tables;
 		event.seatsPer = req.body.seats;
 		event.description = req.body.description;
+		event.goal = req.body.goal;
 		if(req.body.menu){
 			event.menu = req.body.menu;
 		}
@@ -738,19 +870,43 @@ module.exports = function(router){
 				if(!mainUser){
 					res.json({ success: false, message: 'User was not found' });
 				} else {
-					if(mainUser.permission === 'admin'){
+				//	if(mainUser.permission === 'admin'){
 						// Exitst and has permission
 						if(!events){
 							res.json({ success: false, message: 'Events[s] not found' });
 						} else {
 							res.json({ success: true, events: events, permission: mainUser.permission });
 						}
-					} else {
-						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
-					}
-				}
+					} 
+					//else {
+				//		res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+				//	}
+				//}
 			});
  		});
+	});
+
+	router.get('/viewEventUser/:id', function(req, res){
+		attending = false;
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			Event.findOne({ eventId: eventID }, function(err, event){
+				if(err) throw err;
+				if(!event){
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+						var rsvp = event.rsvp;
+						index = rsvp.indexOf(mainUser.email);
+						if(index > -1){
+							attending = true;
+						}
+						// need to make a callback function for this
+						setTimeout(function() {
+							res.json({ success: true, event: event, attending: attending,  message: 'heres a message'});
+						}, 10);
+				}
+			});
+		});
 	});
 
 	router.get('/viewEvent/:id', function(req, res){
@@ -758,7 +914,6 @@ module.exports = function(router){
 		var eventID = req.params.id;
 		
 		Event.findOne({ eventId: eventID }, function(err, event){
-			
 			if(err) throw err;
 
 			if(!event){
@@ -768,8 +923,9 @@ module.exports = function(router){
 					var invited = event.invited; 
 					var invitedUsers = [];
 					var rsvp = event.rsvp;
-					var rsvpUsers= []
-		
+					var rsvpUsers= [];
+					var rsvpGuests= [];
+					var guestrsvp= event.guestrsvp;
 					// if invited is already a list why iterate through it ????
 					invited.forEach(function(element){
 
@@ -781,36 +937,116 @@ module.exports = function(router){
 					rsvp.forEach(function(element){
 
 						User.findOne({email: element}, function(err, user){
-
 							if(err) throw err;
 							rsvpUsers.push(user);
 						});
+
 					} )
+
+
+					guestrsvp.forEach(function(element){
+						
+						Guest.findOne({number: element}, function(err, guest){
+							if(err) throw err;
+							console.log(guest);
+							rsvpGuests.push(guest);
+						});
+
+					} )
+					
+					console.log(rsvpGuests);
+				
+
 					// need to make a callback function for this
 					setTimeout(function() {
-						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, message: 'heres a message'});
+						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, rsvpGuests: rsvpGuests, message: 'heres a message'});
 
-						}, 100);
+						}, 300);
 					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
 
 			}
 		});
 	});
 
-	// trying to remove user from rsvp/guest list
+	router.get('/viewEventWithDb/:id', function(req, res){
+		
+		var eventID = req.params.id;
+		
+		Event.findOne({ _id: eventID }, function(err, event){
+			if(err) throw err;
 
+			if(!event){
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				
+					var invited = event.invited; 
+					var invitedUsers = [];
+					var rsvp = event.rsvp;
+					var rsvpUsers= [];
+					var rsvpGuests= [];
+					var guestrsvp= event.guestrsvp;
+					// if invited is already a list why iterate through it ????
+					invited.forEach(function(element){
+
+						User.findOne({email: element}, function(err, user){
+							if(err) throw err;
+							invitedUsers.push(user);
+						});
+					} )
+					rsvp.forEach(function(element){
+
+						User.findOne({email: element}, function(err, user){
+							if(err) throw err;
+							rsvpUsers.push(user);
+						});
+
+					} )
+
+
+					guestrsvp.forEach(function(element){
+						
+						Guest.findOne({number: element}, function(err, guest){
+							if(err) throw err;
+							console.log(guest);
+							rsvpGuests.push(guest);
+						});
+
+					} )
+					
+					console.log(rsvpGuests);
+				
+
+					// need to make a callback function for this
+					setTimeout(function() {
+						res.json({ success: true, event: event, invitedUsers: invitedUsers,rsvpUsers: rsvpUsers, rsvpGuests: rsvpGuests, message: 'heres a message'});
+
+						}, 300);
+					// res.json({ success: true, invitedUsers: invitedUsers, message: 'heres a message'});
+
+			}
+		});
+	});
+
+	//delete event
+	router.delete('/deleteEvent/:id', function(req, res){
+		var eventId = req.params.id;
+
+		Event.findOneAndRemove({eventId: eventId}, function(err, event){
+			if(err) throw err;
+			res.json({ success: true, message: 'Event was deleted' });
+		});
+	});
+
+	// trying to remove user from rsvp/guest list
 	router.delete('/viewEvent/:id/:email', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
-
 		Event.findOne({ eventId: eventID }, function(err, event){
-
 			var invite = event.invited; 
 			var invitedUsers = [];
 			var rsvpd = event.rsvp;
 			var rsvpUsers= []
-			// console.log(event.invited)
-			
+
 			if(err) throw err;
 
 			if(!event){
@@ -818,28 +1054,29 @@ module.exports = function(router){
 				res.json({ success: false, message: 'Event was not found' });
 			} else {
 				if(email){
-
 					invite.forEach(function(element){
 						if(element===email){
 							var index = invite.indexOf(email)
 							invite.splice(index,1)
-							Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							event.invited = invite;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
-					} )
+					});
 
 					rsvpd.forEach(function(element){
 						if(element===email){
-							var index = rsvpd.indexOf(email)
-							rsvpd.splice(index,1)
-							Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
-									if(err) throw err;
-									res.json({ success: true, message: 'user removed' });
-								});
+							var index = rsvpd.indexOf(email);
+							rsvpd.splice(index,1);
+							event.rsvp = rsvpd;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'user removed' });
+							});
 						}
-					} )	
+					});
 
 				} else {
 					res.json({ success: false, message: 'no email' });
@@ -847,12 +1084,56 @@ module.exports = function(router){
 			}
 		});
 	});
+
+	router.delete('/viewEventGuest/:id/:phone', function(req, res){
+		var eventID = req.params.id;
+		var phone = req.params.phone;
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+
+			var rsvpd = event.guestrsvp;
+						
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				if(phone){
+
+					index = rsvpd.indexOf(phone);
+					
+					if(index > -1){
+						rsvpd.splice(index,1);
+						event.guestrsvp = rsvpd;
+							event.save(function(err, event){
+								if(err) throw err;
+								res.json({ success: true, message: 'User removed' });
+							});
+					}
+					
+
+				} else {
+					res.json({ success: false, message: 'no phone number' });
+				}
+			}
+		});
+	});
+
 	
 	router.put('/viewEvent/:id/:email/:check', function(req, res){
 		var eventID = req.params.id;
 		var email = req.params.email;
 		var check = req.params.check;
 		console.log(req.params)
+		console.log("we inviting somebody")
+		console.log("email :" + email)
+		var myEmail = email
+		
+		
+
+		
 
 		Event.findOne({ eventId: eventID }, function(err, event){
 			console.log(event)
@@ -876,9 +1157,41 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });	
 							}else{
 								invite.push(email)
-								Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added', event: event});
+								// });
+								event.invited = invite;
+								var hashString = user._id + "+" + eventID;
+								var encoded = encrypt(hashString)
+								var decoded = decrypt(encoded)
+								console.log("encoded : " + encoded);
+								console.log("decoded : " + decoded);
+								console.log("email : " + myEmail);
+								var rsvpLinkAddress = "http://localhost:8080/registerForEvent/"+ encoded;
+								var bodyText = "You have been invited to rsvp for our event, please go to the link to rsvp\n" + 
+								rsvpLinkAddress + "\n Event Details : " + event.description;
+								var emails = {
+							        from: 'Staff, staff@localhost.com',
+							        to: myEmail,
+							        subject: "RSVP - " + event.name,
+							        // this should be body
+							        text: bodyText,
+						        }
+						        client.sendMail(emails, function(err, info){
+						            if (err){
+						                console.log(err);
+						            }
+						            else {
+						                console.log('Message sent: ' + info.response);
+						            }
+						        });
+
+
+
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to invite list'});
 								});
 							}
 						}else {
@@ -887,9 +1200,14 @@ module.exports = function(router){
 								res.json({ success: false, message: 'user already added' });
 							} else {
 								rsvpd.push(email)
-								Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// Event.findOneAndUpdate(event.rsvp, {rsvp: rsvpd}, function(err, event){
+								// 	if(err) throw err;
+								// 	res.json({ success: true, message: 'user added' });
+								// });
+								event.rsvp = rsvpd;
+								event.save(function(err, event){
 									if(err) throw err;
-									res.json({ success: true, message: 'user added' });
+									res.json({ success: true, message: 'User added to rsvp list'});
 								});
 							}
 						}
@@ -957,6 +1275,131 @@ module.exports = function(router){
 		});
 	});
 
+	router.put('/RSVP/:id', function(req, res){
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			
+			//var check = req.params.check;
+
+			Event.findOne({ eventId: eventID }, function(err, event){
+				console.log(event)
+				var rsvpd = event.rsvp;
+				var invite = event.invited; 
+				if(err) throw err;
+
+				if(!event){
+					console.log("no event")
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					
+								console.log("RSVPing");
+
+									var index = invite.indexOf(mainUser.email);
+									if(index > -1){
+										invite.splice(index, 1);
+									}
+									
+									// Add to rsvp
+									event.invited = invite;
+									rsvpd.push(mainUser.email);
+									event.rsvp = rsvpd;
+									event.save(function(err){
+										if(err) {
+											throw err
+										} else {
+											res.json({ success: true, message: 'You have RSVP\'d!' });
+										}
+									});
+									// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									// 	if(err) throw err;
+									// 	res.json({ success: true, message: 'user added' });
+									// });
+					}
+					});	
+	
+		});
+	});
+
+	router.delete('/unRSVP/:id', function(req, res){
+		var eventID = req.params.id;
+		User.findOne({ username: req.decoded.username }, function(err, mainUser){
+			if(err) throw err;
+			
+			//var check = req.params.check;
+
+			Event.findOne({ eventId: eventID }, function(err, event){
+				console.log(event)
+				var rsvpd = event.rsvp;
+				var invite = event.invited; 
+				if(err) throw err;
+
+				if(!event){
+					console.log("no event")
+					res.json({ success: false, message: 'Event was not found' });
+				} else {
+					
+								console.log("unRSVPing");
+							
+									invite.push(mainUser.email);
+									event.invited = invite;
+									// Remove from rsvp
+									index = rsvpd.indexOf(mainUser.email);
+
+									if(index > -1){
+										rsvpd.splice(index,1);
+										
+											
+									}
+									event.rsvp = rsvpd;
+									event.save(function(err, event){
+										if(err) throw err;
+										res.json({ success: true, message: 'User removed' });
+									});		
+								
+									// Event.findOneAndUpdate(event.invited, {invited: invite}, function(err, event){
+									// 	if(err) throw err;
+									// 	res.json({ success: true, message: 'user added' });
+									// });
+					}
+					});	
+	
+		});
+	});
+
+
+
+	router.put('/addGuest/:id/:number/', function(req, res){
+		var eventID = req.params.id;
+		var number = req.params.number;
+		console.log(req.params);
+
+		Event.findOne({ eventId: eventID }, function(err, event){
+			console.log(event);
+			var invite = event.invited; 
+			var rsvpd = event.guestrsvp;
+			
+			if(err) throw err;
+
+			if(!event){
+				console.log("no event")
+				res.json({ success: false, message: 'Event was not found' });
+			} else {
+				rsvpd.push(number.toString());
+				event.guestrsvp = rsvpd;
+								event.save(function(err){
+									if(err) {
+										throw err
+									} else {
+										res.json({ success: true, message: 'User added' });
+									}
+								});
+			
+			}
+		});
+	});
+
+
 	router.get('/editEvent/:id', function(req, res){
 		let eventID = req.params.id;
 		Event.findOne({ _id: eventID }, function(err, event){
@@ -986,6 +1429,8 @@ module.exports = function(router){
 		if(req.body.date)		var newDate 		= req.body.date;
 		if(req.body.seatsPer)	var newSeats 	= req.body.seatsPer;
 		if(req.body.tables)		var newTables 		= req.body.tables;
+		if(req.body.menu)		var newMenu 		= req.body.menu;
+		if(req.body.description)		var newDescription 		= req.body.description;
 		// Check if current user has access to this
 		User.findOne({ username: req.decoded.username }, function(err, mainUser){
 			if(err) throw err;
@@ -1001,6 +1446,8 @@ module.exports = function(router){
 								event.date = newDate;
 								event.seatsPer = newSeats;
 								event.tables = newTables;
+								event.menu = newMenu;
+								event.description = newDescription;
 								event.save(function(err){
 									if(err){
 										console.log(err);
@@ -1064,6 +1511,265 @@ module.exports = function(router){
 					
 				
 			});	
+	router.post('/eventSend', function(req, res){
+ 
+        //console.log(req.body);
+        var subject = req.body.subject;
+        var body = req.body.body;
+        var recipients = req.body.to;
+        if (req.body.subject == null || req.body.subject == "" || req.body.body == null || req.body.body == "" || req.body.to == null || req.body.to == ""){
+        	res.json({success : false, message: "Please ensure all fields are filled in."});
+        }
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: 'staff@localhost.com',
+	        bcc: recipients,
+	        subject: subject,
+	        text: body,
+	        //(Do I need this???) html:
+	   }
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Mail sent!'});
+ 
+    });
+
+
+    router.post('/buyTicket', function(req, res){
+ 		// get the current user..
+
+
+    	console.log("You want to buy a ticket??")
+    	var fs = require("fs");
+
+    	var userName = req.decoded.username;
+    	var userEmail = req.decoded.email;
+    	console.log("eventId : "+ req.body.eventId)
+    	console.log("userEmail :" + userEmail);
+    	console.log("userName : "+ userName);
+    	// Add the now paid users email to the paid list of the correct event
+    	// Not sure this is working right now..
+    	Event.findOne({eventId : req.body.eventId}, function(err, event){
+    		if(err){
+    			throw err;
+    		}
+    		if(!event){
+    			console.log("No event??")
+				res.json({ success: false, message: 'No event by this name was found' });
+			} else {
+				var paid = event.paid;
+				if(paid.includes(userEmail)){
+					console.log("This person has already paid");
+				}
+				else{
+					console.log("pushing user email to paid");
+				
+					paid.push(userEmail);
+
+					event.save(function(err, event){
+					if(err) throw err;
+
+					console.log("user successfully added to paid")
+						// res.json({ success: true, message: 'User added to paid list'});
+					});
+				}
+			}
+    	});
+
+    	
+
+    	// // these may be null right now
+     //    // var userEmail = req.body.userEmail;
+     //    // var seat = req.body.seat;
+     //    // var table = req.body.table;
+     //    // var eventId = req.body.eventId;
+     //    // var text = req.body.text;
+     //    // hashstuff 
+     	// some path stuff
+     	const path = require('path');
+     	const ABSPATH = path.dirname(process.mainModule.filename);
+
+     	// hash these
+        var myText = userName
+        // var svg = qrImage.image(myText, {type: 'svg'});
+        // var namePath = "../temp/" + myText;
+        // var mypath = ABSPATH +"/temp/ohhmy.svg";
+        var uniqueIdentifier = userName+'.svg'
+        var qr_svg = qrImage.image('I hate QR', {type: 'svg'});
+        qr_svg.pipe(require('fs').createWriteStream(uniqueIdentifier));
+
+        // var svg_string = qrImage.imageSync('I hate QR!!', {type: 'svg'});
+
+
+        // fs.appendFile(namePath,jpg, function(){
+        // 	console.log("done");
+        // });
+
+
+
+        // console.log("mypath = "+ mypath);
+        // fs.appendFile(mypath ,svg, function(){
+        // 	console.log("done");
+        // });
+        // console.log("ABSPATH = " + ABSPATH);
+        // console.log("jpg : " + svg);
+        // var qr_svg = qr.image('I love QR!', {type: 'svg'});
+        //qr_svg.pipe(require('fs').createWriteStream('i_love_qr.svg'));
+        // if (req.body.userEmail == null || req.body.userEmail == "" || req.body.seat == null || req.body.seat == "" || req.body.table == null || req.body.table == "" || req.body.eventId == null || req.body.eventId =="" || req.body.text ==null || req.body.text==""){
+        // 	res.json({success : false, message: "Please ensure all fields are filled in."});
+        // }
+        // update the body to be the long html 
+	    var email = {
+	        from: 'Staff, staff@localhost.com',
+	        to: userEmail,
+	        subject: "Your Ticket",
+	        // this should be body
+	        text: myText,
+	        attachments:[
+	        	{	
+	        		 path: ABSPATH + '/'+ uniqueIdentifier
+	        	}
+	        ]
+	    }
+	        //(Do I need this???) html:
+	   
+	   // var mailOptions ={
+	   // 		// ...
+	   // 		html : 'Embedded image: <img src="cid:unique@kreata.ee"/>',
+	   // 		attachments: [{
+	   // 			filename : 'image.png',
+	   // 			path: '/path/to/file',
+	   // 			cid: 'unique@kreata.ee' //same value as img src
+	   // 		}]
+	   // }
+
+        client.sendMail(email, function(err, info){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log('Message sent: ' + info.response);
+            }
+        });
+ 
+        res.json({success: true, message: 'Ticket sent, check your email'});
+ 
+    });
+
+    router.get('/decryptHash/:id', function(req, res){
+
+    	
+		var hash = req.params.id;
+		console.log("Decrypting")
+		console.log("HASH == " + hash)
+		
+		var decrypted = decrypt(hash)
+	    console.log("decrypted : " +decrypted)
+
+	    var split = decrypted.split('+');
+	    var userId = split[0];
+	    var eventId = split[1];
+	    console.log("eventId = "+ eventId);
+	    console.log("userName = " + userId);
+	    console.log("registerForEventCtrl here!!!")
+	    Event.findOne({eventId : eventId}, function(err, event){
+	    	if (err){ 
+	    		throw err;
+	    	}
+	    	var invited = event.invited;
+	    	var paid = event.paid;
+	    	// for (let element of invited){
+				// console.log("element :: "+ element);
+				// console.log("userId :: "+ userId);
+				User.findOne({_id : userId}, function(err, user){
+					if(err){
+						throw err;
+					}
+					if(invited.includes(user.email)){
+						console.log("This person is indeed invited")
+						if(!paid.includes(user.email)){
+							console.log("YOU HAVE NOT PAID, you filthy animal!!");
+							res.json({success: true, userid: userId, eventid: eventId, message : 'You have not paid yet unfortunately'});
+							return;
+						}else{
+							res.json({success: true, userid: userId, eventid: eventId, message: 'decrypted correctly'});
+							return;
+						}	
+					}
+					else{
+						console.log("How did we get here")
+						res.json({success: false, message : "user is not invited actually.. cannot be rsvp"})
+						return
+					}
+				});
+			// }
+			
+	    })
+
+	    //res.json({success: false, message : "Event not found??"})
+		//	return
+		
+
+		
+
+		});
+
+     // MAIL LIST ROUTES
+
+	router.post('/createList', function(req, res){
+
+    	var list = new MailList();
+    	list.name = req.body.name;
+    	list.members = req.body.members;
+
+    	console.log(req.body);
+
+    	//console.log("am I here?");
+
+    	if(req.body.name == null || req.body.name == ''){
+			res.json({success: false, message: 'Ensure all input fields are filled in'});
+		} else {
+			list.save(function(err){
+				if(err) throw err;
+				res.json({success: true, message: 'Mail List Created'});
+			});
+		}
+
+    });
+
+    router.get('/mailLists', function(req, res){
+		MailList.find({}, function(err, mailLists){
+			
+			if(err) throw err;
+			//Check if they're allowed use this route
+			User.findOne({ username: req.decoded.username }, function(err, mainUser){
+				if(err) throw err;
+				if(!mainUser){
+					res.json({ success: false, message: 'User was not found' });
+				} else {
+				if(mainUser.permission === 'admin'){
+						// Exitst and has permission
+						if(!mailLists){
+							res.json({ success: false, message: 'MailLists[s] not found' });
+						} else {
+							res.json({ success: true, mailLists: mailLists, permission: mainUser.permission });
+						}
+					} 
+					else {
+						res.json({ success: false, message: 'You don\'t have the correct permissions to access this' });
+					}
+				}
+			});
+ 		});
+	}); 
+
 
 	//MAIL ROUTE
 

@@ -64,7 +64,20 @@ angular.module('userServices', [])
 	// Edit a user
     userFactory.editUser = function(id) {
         return $http.put('/api/edit', id);
-    };
+	};
+	
+	userFactory.createGuest = function(regData){
+		return $http.post('/api/guests', regData);
+	}
+
+	userFactory.donate = function(amount){
+		return $http.post('/api/donate', amount);
+	}
+
+	userFactory.donationStats = function(){
+		return $http.get('/api/donationStats');
+	}
+
 
 	return userFactory;
 });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "scripts/popDB.sh && mocha --timeout 10000"
+    "test": "scripts/popDB.sh && mocha --timeout 10000 && scripts/popDB.sh"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "mongoose-validator": "^2.0.1",
     "morgan": "^1.9.0",
     "nodemailer": "^4.4.2",
-    "nodemailer-sendgrid-transport": "^0.2.0"
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "tablesort": "^5.0.2"
   }
 }

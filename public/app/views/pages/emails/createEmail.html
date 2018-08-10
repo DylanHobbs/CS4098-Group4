@@ -32,8 +32,8 @@
                 <button ng-click="createEmail.setSelect('lists')" type="button" class="ui button">Mailing Lists</button>
             </div>
             <br>
-            <select ng-disabled="createEmail.disabled" class="ui fluid search dropdown" ng-model="createEmail.emailData.to" ng-options="event.name for event in createEmail.events">
-                <option value="">Mailing List</option>
+            <select ng-disabled="createEmail.disabled" class="ui fluid search dropdown" ng-model="createEmail.emailData.to" ng-options="event.name for event in createEmail.events; ">
+                <option value="">Event</option>
             </select>
         </div>
 
@@ -51,6 +51,15 @@
                     id="body"></textarea>
 
             </div>
+        </div>
+         <div class="ui success message" ng-show="createEmail.successMsg">
+          <div class="header">All Set</div>
+          <p>{{ createEmail.successMsg }}</p>
+        </div>
+
+        <div class="ui error message" ng-show="createEmail.failMsg">
+          <div class="header">Uh Oh</div>
+          <p>{{ createEmail.failMsg }}</p>
         </div>
         <button ng-disabled="createEmail.disabled" class="ui huge primary button" type="submit">Send Email</button>
     </form>

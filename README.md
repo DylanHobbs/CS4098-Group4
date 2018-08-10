@@ -5,6 +5,7 @@ To install the app download the scripts from the following command:
 ```bash
 wget -r -np -nH --cut-dirs=1 -R index.* https://dylanhobbs.me/assets/scripts/
 # Make the scripts excecutable
+cd dylanhobbs.me
 chmod -R 755 scripts/
 ```
 Please run the scripts from outside the script folder.
@@ -26,12 +27,22 @@ Navigate your browser to:
 http://localhost:8080
 
 **Running Tests**
+
 ```bash
+#Ctrl-C to stop running server
+cd CS4098-Group4-dev
 npm test
 # ctrl-C to exit
 ```
+**Restarting the server**
+```bash
+# While inside CS4098-Group4-dev folder
+nodemon server.js
+```
 
-**I want to be able to login (change password/details/create account) [ Backlong number: 1 ]**
+
+**I want to be able to login (change password/details/create account) [ Backlog number: 1 ]**
+**Create an account/register [ Backlog number: 62]**
 
 ***1.0 - Registering a User***
 ```
@@ -107,7 +118,7 @@ To create an event
 1. Click on the "Events" tab in the top left menu
 2. This screen will show all events, past and future
 3. Click on the "Create Event" button
-4. Fill in all the fields for the event you wish to create
+4. Fill in all the fields for the event you wish to create. All fields are required except for menu, which is optional.
 5. On screen instructions will inform you of requirements for each field
 6. Hover over the "Question Mark" icon for help in a particular field
 7. Click the create button when done
@@ -182,12 +193,17 @@ To view guest contact details for an event:
 or
 4b.(optional) Use search feature for the attending list to find guest in the attending list
 5.There contact email will be in the middle column of the table.
-
+- If you want to see 'a' user's details -
+6.1. Click on the "management" button in the upper left menu
+6.2. Input the users name into the search box.
+6.3. The users details should appear at the top if they are present in the system.
 ```
 **I want to see the invite list [Product Backlog Number: 10]**
 
 **I want to be able to see the rsvp list [Product Backlog Number: 22]**
 **I want confirmation that people are registered to attend (RSVP'd) in order to have the correct number of staff for the event [Product Backlog Number: 25]**
+
+***22.0 - See RSVP list***
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -238,6 +254,15 @@ To remove a user from a list:
 3.Click the blue view button beside the event that the guest you wish to remove is invited to/attending.
 4.Find the person you wish to remove by scrolling through the lists or using the search feature above the list you are searching.
 5.Once you have located the person that you wish to remove click the remove button beside their name and email address.
+
+
+To move a user from the invite list to the RSVP list:
+
+1. Login with user who has admin access.
+2. Click on events tab at the top of the page.
+3. Search for the user using the input box
+4. Across from that user, click the "attending" button
+5. The user will now appear in the RSVP list on the left.
 ```
 
 **I want to be able to see a report of who is attending an event [Product Backlog Number: 24]**
@@ -267,7 +292,7 @@ To view a report of an event
 
 **As staff, I need to register a guest for one event (including their details), so I can track what is needed for the event (dietary, ...) [Product Backlog Number: 13]**
 
-***23.0 - As a Staff member, registering guest for an event]***
+***13.0 - As a Staff member, registering guest for an event***
 ```
 PREREQUISITES
 - Activated account. See 1.0
@@ -277,14 +302,21 @@ PREREQUISITES
         username: dhobbs
         password: Password*1
 - At least 1 event created. See 4.0
-- Know guest's details, including ID of event they will be attending
+- Know guest's details, including ID of event they will be attending, eg. ID = 42 for Trinity Dinner event
+          The ID of the event can be found by doing the following:
+          Click the "events tab" at the top of the page. 
+          Search for the event the guest will be attending, then view the ID in the "ID" column.
+          
 
 To register a guest:
-1.Click on management tab at the top of the page.
-2.Click register guest button
-3.Enter the guest's details, and give them a username and password which you send to the guest.
-4.Click the Register button to register the guest
-5.The guest's (anonymised) dietary requirements will be display upon viewing the event, as will their name in the guest list
+1. Click on management tab at the top of the page.
+2. Click 'register guest for an event'
+3. Enter the guest's details. Email address is optional but phone number is required.
+4. Click the Register button to register the guest
+5. The guest's (anonymised) dietary requirements will be displayed upon viewing the event, as will their name in the guest list. To view the event:
+        Click the events tab at the top of the page
+        Click the 'view' button beside the event the guest was registered for
+6. The guest's name and phone number will be shown in the 'Attending' list, and their anonymised dietary requirements are shown in the dietary column at the top of the page
 ```
 
 **I want to be able to update event information and submit event updates [Product Backlog Number: 5]**
@@ -292,13 +324,319 @@ To register a guest:
 ***5.0 - Update Event information and submit Event updates***
 ```
 PREREQUISITES
-- Logged in 
-- Activated account
-- Admin privileges
-- At least 1 event created
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- At least 1 event created. See 4.0
 1.Click on events tab at the top of the page.
 2.Click on the edit button beside the event you wish to update.
 3.Enter the details of the event that you wish to update. 
 4.Click the update event button to confirm the update
-5.Be redirected to events page to view updated details
+5.You will be redirected to events page where you can view updated details.
+6.Click 'view' button on event you updated to view more in depth details of event.
+```
+
+
+**Accounts associated as guests can change their rsvp status as an attendee [Product Backlog Number: 118]**
+
+***118.0 - Guests can change RSVP status***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in as guest attending/invited to event: 
+        To login as guest attending/invited to event, logout (if logged in already) and login with the credentials:
+        username: johnbrien
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. Click on the view button beside the event you wish to change status (Trinity Dinner).
+3.1 To RSVP to event (if not already RSVP'd), click 'RSVP to this event' button 
+3.2 To Un-RSVP to event (if already RSVP'd), click 'Un-RSVP to this event' button
+4. The page will refresh, and will show the 'Un-RSVP button' and 'You're attending' text if you're RSVP'd, otherwise just the 'RSVP button' if you're not RSVP'd
+5. The guest's RSVP status can also be viewed by logging into an admin account and viewing the guest list of the event, ie:
+        To login as admin, logout (if logged in already) and login with the credentials:
+        username: dhobbs
+        password: Password*1
+6. Click 'events' tab at top of page, then click 'view' button beside event guest is registered for (Trinity Dinner)
+7. The guest will be show in the "Attending" list if RSVP'd, and the "Invited" list if not RSVP'd (for above account, name = John Brien and email = john@test.org)
+```
+
+**I want to track current amount raised [Product Backlog Number: 54]**
+
+***54.0 - Track current amount raised***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the 'Donation Stats' button towards the top of the page
+3. The page shows the current total amount raised, total number of donations, as well as the most generous donors and the most frequent donors.
+4. Click the donate button at the top of the page.
+5. Enter an amount to donate (eg. 100000) and click the donate button. 
+6. Follow steps 1-3, to view the updated donation stats after donating.
+```
+
+***54.1 - To track the current amount raised for a given event***
+```
+- Activated account. See 1.0
+- Logged in. See 1.1
+- At least 1 event created. See 4.0
+1. Click the events tab in the top left menu
+2. Type the name of the event into the search bar or look at the list to find the event you want
+3. The current amount raised for that event is displayed there.
+4. Alternitivly you can go to the live tracker for that event. See 53.0
+```
+
+**Keep track of possible/previous guests [Product Backlog Number: 6]**
+
+***6.0 - Track users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. A list of users will be viewable on this page
+
+```
+
+**I want to send invitations to a mailing list, so that people know to come and that they are invited [Product Backlog Number: 8]**
+
+***8.0 - Create Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. ON the mailing lists screen, click "Create Mail List".
+4. Enter a name for your mail list in the "name" field.
+5. Add users to the mail list by clicking the "Add" button for each user.
+6. When all users have been added and the list has been named, click "Create List".
+
+```
+
+***8.1 - Send Mail using a Mailing List***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Prior Mail List created. See 8.0
+1. Click on management tab at the top of the page.
+2. Click on the "Mailing Lists" button.
+3. For the mailing list you wish to use, click the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Mailing Lists" and select your desired mail list from the dropdown menu.
+6. Click Send Email.
+
+```
+
+***8.2 - Send Mail to people invited to an event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "Invited Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+
+```
+
+**I would like to email legitimately subscribed users [Product Backlog Number: 20]**
+
+***20.0 - Email Users***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Navigate to the "send mail" screen, through either the management or events tab.
+2. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+3. Click on a mailing list or a list of attendees/invitees you wish to use in the dropdown menu.
+4. Click Send Email.
+
+```
+
+**Follow up with attendees (queries) [Product Backlog Number: 61]**
+***61.0 - Follow up with RSVP'd Users***
+```
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on events tab at the top of the page.
+2. For the event you wish to send mail for, click on the "View Event" button.
+3. Click on the "Send Mail" button.
+4. Enter a subject for your email in the "subject" field, and the body of your email in the "body" field.
+5. Click on "RSVP Lists" and select your desired event from the dropdown menu.
+6. Click Send Email.
+```
+
+**Have a tracker/ live count that updates with donations throughout the event [Product Backlog Number: 53]**
+***53.0 - View an events live tracker**
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- User privileges.
+        To login as a user, logout (if logged in already) and login with the credentials:
+        username: johnbrien
+        password: Password*1
+- At least 1 event created. See 4.0
+1. Click on the events tab in the top left menu
+2. Click on the view button for a given event
+3. Click the button labled "View Live Donation Tracker"
+4. The thermometer style donation tracker updates every 15 seconds without refreshing
+5. To see this change do 53.1 and repeat 53.0
+```
+***53.1 - Donating to an event**
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- User privileges.
+        To login as a user, logout (if logged in already) and login with the credentials:
+        username: johnbrien
+        password: Password*1
+- At least 1 event created. See 4.0
+1. Click on the events tab in the top left menu
+2. Click on the view button for a given event
+3. Click the button labled "Donate to Event"
+4. Enter an amount to donate
+5. This will update information in 53.0 and 54.1
+```
+
+**Track which guests are big spenders and/or regular donors [Product Backlog Number: 7]**
+
+***7.0 - Track big spenders and/or regular donors***
+```
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the 'Donation Stats' button towards the top of the page
+3. The page shows the current total amount raised, total number of donations, as well as the most generous donors and the most frequent donors.
+4. Click the donate button at the top of the page.
+5. Enter an amount to donate (eg. 100000) and click the donate button. 
+6. Follow steps 1-3, to view the updated donation stats after donating.
+
+If you wish to look for a specific person to find their donation total and number of donations follow the following instructions:
+
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+1. Click on management tab at the top of the page.
+2. Click on the search bar and type the name of person you wish to view.
+3. The person shall be displayed with their donation total and number of donations. 
+
+The table on the management screen is also sortable so if you wish to sort is it by amount donated or number of donations click on the respective column heading. This is useful to see who has donated the most or least number of times or who has donated the most or least.
+
+(eg. if you want to sort by amount donated click on "amount donated" at the top of the table, the first click will sort lowest to highest, a second click will sort highest to lowest, every click after will change the sorting to the opposite)
+
+```
+
+**Online Ticketing - keeping in mind mostly repeat Customers/Attendees [Product Backlog Number: 18]**
+
+***18.0 - Online Ticketing - keeping in mind mostly repeat Customers/Attendees***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Make sure the email is real and can be used later
+
+1. Click on the "events" button on the upper left
+2. Click the "purchase Ticket" button on the bottom
+3. Select the given amount of seats/tables using the two dropdowns
+4. Click the "submit" button.
+5. This will send an email to the specified user, in the attachment of the email contains a @insertUserName.svg file
+6. This is the entry to the event, so it can be printed later and given to a staff member.
+
+```
+**I want to be able to send automated invitations, with link to register for event [Product Backlog Number: 14]**
+
+***14.0 - I want to be able to send automated invitations, with link to register/rsvp for event***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Register an account with your email. see 1.0
+
+Send automated invitations with link to rsvp
+1. Click the "Events" button in the top left hand menu as an admin
+2. Click the "view" button across from an event. If no events are currently created, please create one. see 4.0
+3. In the "invited" column, input the email of the account you just registered as a user e.g. Butterfeld@tcd.ie across from the "add" button
+4. Logout of your admin account, by clicking the "logout" button in the upper right corner in browser
+5. Login as the user of the account you are trying to rsvp, which you invited using their email. see 1.1
+6. login to your email account that you inputed. Click on the rsvp link provided.
+7. If you have not yet "paid" for the event, an alert will pop up. Click the "OK" button.
+8. Select how many seats and tables you would like, by clicking the dropdown and clicking a number for each
+9. When finished selecting, Click the "submit" button at the bottom
+10. You will be sent another email containing a qrcode, but just reopen the link that was sent in the original email to rsvp
+11. Click the "Confirm RSVP" button at the bottom.
+12. This will now move you to the rsvp list of the event.
+13. logout of that account, and login as your admin account, see above or 1.1
+14. follow previous steps 1-2, making sure to click on the same event.
+15. Now you should see that your user has been moved to the rsvp section after they had registered.
+```
+**I want to confirm that people have paid to attend [Product Backlog Number: 23]**
+
+***23.0 - I want to I want to confirm that people have paid to attend***
+```
+PREREQUISITES
+- Activated account. See 1.0
+- Logged in. See 1.1
+- Admin privileges.
+        To login as admin, logout (if logged in already), refresh page and login with the credentials:
+        username: dhobbs
+        password: Password*1
+- Register an account with your email. see 1.0
+
+The system is built so that you cannot rsvp unless you have paid, so any user contained in the rsvp list in the events pages has already paid to attend.
+
+See 14. - 6 - 9. The user is not allowed to rsvp until they have paid. This can be seen in 14. 6-9. 
+
+1. do steps in task 14. 1 up to 7.
+2. Leave the page by clicking the "home" button in the upper menu 
+3. Go back to the rsvp link that was sent by email, by clicking on it
+4. You will notice you are still getting an alert saying you have not paid and you will be redirected 
+
+ if you leave that page without submitting and try to rsvp without submiting payment. It will come up with the same alert and redirect you to the "purchastTicket" screen.
+
+Confirmation of payment, is in inself built in the rsvp section of the system.
 ```

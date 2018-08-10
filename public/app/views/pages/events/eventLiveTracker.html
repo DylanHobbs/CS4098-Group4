@@ -1,0 +1,32 @@
+<!-- add the style up here  -->
+
+<div class="ui inverted segment">
+    <h1>Live Donation Tracker</h1>
+    <h2>{{eventLiveTracker.name}}</h2>
+    <div id=countdown-wrap>
+        <div id="goal">${{eventLiveTracker.goal}}</div>
+        <div id="glass">
+            <div id="progress" ng-style="{'width': eventLiveTracker.percent + '%'}">
+            </div>
+        </div>
+        <div class="goal-stat">
+            <span class="goal-number">{{eventLiveTracker.percent}}%</span>
+            <span class="goal-label">Funded</span>
+        </div>
+        <div class="goal-stat">
+            <span class="goal-number">${{eventLiveTracker.raised}}</span>
+            <span class="goal-label">Raised</span>
+        </div>
+        <!-- <div class="goal-stat">
+            <span class="goal-number">
+                <div id="countdown"></div>
+            </span>
+            <span class="goal-label">Days to Go</span>
+        </div> -->
+        <div class="goal-stat">
+            <span class="goal-number">{{eventLiveTracker.donators}}</span>
+            <span class="goal-label">Sponsors</span>
+        </div>
+    </div>
+
+</div>

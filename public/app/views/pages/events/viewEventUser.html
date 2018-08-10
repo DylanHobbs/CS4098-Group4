@@ -1,0 +1,62 @@
+<div class="ui inverted segment">
+    <h2 class="ui header">General Information</h2>
+
+    <table id="example" class="ui celled inverted primary table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Venue</th>
+                <th>Date</th>
+                <th>Tables</th>
+                <th>Seats Per Table</th>
+                <th>Menu</th>
+                <th>Dietary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{viewEventUser.name}}</td>
+                <td>{{viewEventUser.venue}}</td>
+                <td>{{viewEventUser.date}}</td>
+                <td>{{viewEventUser.tables}}</td>
+                <td>{{viewEventUser.seats}}</td>
+                <td>
+                    <a target="_blank" href={{viewEventUser.menu}}>Menu</a>
+                </td>
+                <td>{{viewEventUser.dietary}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    
+    <h2 class="ui header">Event Description</h2>
+    <div class="ui raised segment">
+        {{viewEventUser.description}}
+    </div>
+    <br>
+    <div class="buttons">
+        <a ng-show="!viewEventUser.attending" ng-click="viewEventUser.RSVP();">
+            <button ng-disabled="viewEventUser.disabled" class="ui positive basic button">RSVP to this event </button>
+        </a>
+
+        <a ng-show="viewEventUser.attending" ng-click="viewEventUser.unRSVP();">
+            <button ng-disabled="viewEventUser.disabled" class="ui negative basic button">Un-RSVP to this event </button>
+        </a>
+
+        <a href="/purchaseTicket/{{viewEventUser.eventId}}">
+            <button ng-disabled="viewEventUser.disabled" class="ui primary basic button">Purchase Ticket </button>
+        </a>
+    </div>
+    <br>
+    <div class="buttons">
+        <a href="/eventLiveTracker/{{viewEventUser.eventId}}">
+            <button ng-disabled="viewEventUser.disabled" class="ui primary basic button">View Live Tracker</button>
+        </a>
+
+        <a href="/donate/{{viewEventUser.eventId}}">
+            <button ng-disabled="viewEventUser.disabled" class="ui primary basic button">Donate to Event</button>
+        </a>
+    </div>
+    <br>
+    <h2 ng-show="viewEventUser.attending" class="ui header">You're attending this event!</h2>
+</div>

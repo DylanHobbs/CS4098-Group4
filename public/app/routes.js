@@ -25,6 +25,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/login', {
 		templateUrl: 'app/views/pages/users/login.html',
+		controller: 'loginCtrl',
+		controllerAs: 'login',
 
 		// Prevent logged in users from getting here
 		authenticated: false
@@ -103,7 +105,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controller: 'eventCtrl',
 		controllerAs: 'manage',
 		authenticated: true,
-		permission: 'admin'
+		//permission: 'admin'
 	})
 
 	.when('/createEvent', {
@@ -138,12 +140,80 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		permission: 'admin'
 	})
 
+	.when('/donationStats', {
+		templateUrl: 'app/views/pages/management/donationStats.html',
+		controller: 'donationStatCtrl',
+		controllerAs: 'viewDonations',
+		authenticated: true,
+		permission: 'admin'
+	})
+
 	.when('/createEmail/:eventID?', {
 		templateUrl: 'app/views/pages/emails/createEmail.html',
 		controller: 'createEmailCtrl',
 		controllerAs: 'createEmail',
 		authenticated: true,
 		permission: 'admin'
+	})
+
+	.when('/createList', {
+		templateUrl: 'app/views/pages/mailingLists/createList.html',
+		controller: 'createMailListCtrl',
+		controllerAs: 'mailList',
+		authenticated: true,
+		permission: 'admin'
+	})
+
+	.when('/mailLists', {
+		templateUrl: 'app/views/pages/mailingLists/mailLists.html',
+		controller: 'mailListCtrl',
+		controllerAs: 'mailList',
+		authenticated: true,
+		permission: 'admin'
+	})
+
+	.when('/viewEventUser/:id', {
+		templateUrl: 'app/views/pages/events/viewEventUser.html',
+		controller: 'viewEventUserCtrl', 
+		controllerAs: 'viewEventUser',
+		authenticated: true
+		// permission: 'admin'
+	})
+
+	.when('/purchaseTicket/:id', {
+		templateUrl: 'app/views/pages/events/purchaseTicket.html',
+		controller: 'purchaseTicketCtrl',
+		controllerAs: 'purchaseTicket',
+		authenticated: true
+	})
+
+	.when('/registerForEvent/:Id',{
+		templateUrl: 'app/views/pages/events/registerForEvent.html',
+		controller: 'registerForEventCtrl',
+		controllerAs: 'registerForEvent',
+		authenticated: true
+
+	})
+
+	.when('/donate/:id?',{
+		templateUrl: 'app/views/pages/users/donate.html',
+		controller: 'donateCtrl',
+		controllerAs: 'donateToEvent',
+		authenticated: true
+	})
+
+	.when('/eventLiveTracker/:id',{
+		templateUrl: 'app/views/pages/events/eventLiveTracker.html',
+		controller: 'eventLiveTrackerCtrl',
+		controllerAs : 'eventLiveTracker',
+		authenticated: true
+	})
+
+	.when('/seating/:id',{
+		templateUrl: 'app/views/pages/events/seating.html',
+		controller: 'tablesCtrl',
+		controllerAs : 'tables',
+		authenticated: true
 	})
 
 	.otherwise({redirectTo: '/'});

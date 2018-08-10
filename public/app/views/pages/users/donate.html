@@ -1,0 +1,18 @@
+<div class="ui inverted segment">
+    <h1>Donations</h1>
+    <div class="ui form">
+        <p>
+            <input ng-model="donation" type="number" placeholder="Amount to donate...">
+            <button ng-click="donateToEvent.addDonation(donation);" class="ui huge primary button">Donate</button> 
+        </p>
+    </div>
+    <div class="ui success message" ng-show="donateToEvent.successMsg">
+        <div class="header">Thank You For Donating</div>
+        <p>Donation Successful</p>
+    </div>
+
+    <div class="ui error message" ng-show="donateToEvent.failMsg">
+        <div class="header">Sorry! There was problem with your donation </div>
+        <p>Please Try Again</p>
+    </div>
+</div>

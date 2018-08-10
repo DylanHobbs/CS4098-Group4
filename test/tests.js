@@ -252,7 +252,7 @@ describe('User', () => {
                 console.log(res.body)
                 res.should.have.status(200);
                 res.body.success.should.be.eql(true);
-                res.body.message.should.be.eql('user added');
+                res.body.message.should.be.eql('User added to invite list');
               done();
             });
       });

@@ -27,6 +27,18 @@
             <input ng-disabled="event.disabled"  type="text" name="date" ng-model="newDate" id="date">
           </div>
       </div>
+      
+      <div class="field">
+        <div class="sixteen wide field">
+            <label class="ui primary label">
+                Menu URL
+                  <div class="ui icon mini button" data-content="Enter the URL to the menu for the event" data-variation="basic">
+                    <i class="help icon"></i>
+                  </div>
+            </label>
+            <input ng-disabled="event.disabled" placeholder="https://menu.com/menu" type="text" name="menu" ng-model="newMenu" id="menu">
+        </div>
+    </div>
 
       <h4 class="ui dividing header">Seating Details</h4>
       <div class="two fields">
@@ -40,6 +52,21 @@
           <input ng-disabled="event.disabled" placeholder="Seats" type="number" name="seats" ng-model="newSeats" id="seats">
         </div>
       </div>
+
+      <h4 class="ui dividing header">Event Description</h4>
+    <div class="field">
+      <div class="sixteen wide field">
+        <label class="ui primary label">
+          Description
+          <div class="ui icon mini button" data-content="A short description of the event. Include any relevant details. This will be sent out as part of an invitation" data-variation="basic">
+              <i class="help icon"></i>
+          </div>
+        </label>
+        <textarea rows="4" ng-disabled="event.disabled" placeholder="Description" type="text" name="description" ng-model="newDescription"
+          id="description"></textarea>
+
+      </div>
+    </div>
     
       <div class="ui active dimmer" ng-show="event.loading">
         <div class="ui text loader">Looking for Seán FitzPatrick...</div>
@@ -55,7 +82,7 @@
         <p>{{ event.failMsg }}</p>
       </div>
       <br>
-      <button ng-disabled="event.disabled" class="ui huge primary button" ng-click="event.updateDetails(newName, newVenue, newDate, newTables, newSeats);">Update Details</button>
+      <button ng-disabled="event.disabled" class="ui huge primary button" ng-click="event.updateDetails(newName, newVenue, newDate, newTables, newSeats, newDescription, newMenu);">Update Details</button>
     </form>
     
     

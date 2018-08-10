@@ -30,8 +30,8 @@
       </div>
     </div>
 
-    <div class="field">
-        <div class="sixteen wide field">
+    <div class="two fields">
+        <div class="eleven wide field">
             <label class="ui primary label">
                 Menu URL
                   <div class="ui icon mini button" data-content="Enter the URL to the menu for the event. This can be added in later" data-variation="basic">
@@ -39,6 +39,16 @@
                   </div>
             </label>
             <input ng-disabled="event.disabled" placeholder="https://menu.com/menu" type="text" name="name" ng-model="event.eventData.menu" id="menu">
+        </div>
+
+        <div class="five wide field">
+            <label class="ui primary label">
+                Donation Goal
+              <div class="ui icon mini button" data-content="This value will be used in the live donation tracker." data-variation="basic">
+                  <i class="help icon"></i>
+              </div>
+            </label>
+            <input ng-disabled="event.disabled" placeholder="10000" type="number" name="donationGoal" ng-model="event.eventData.goal" id="donationGoal">
         </div>
     </div>
 
@@ -84,7 +94,7 @@
       <div class="sixteen wide field">
         <label class="ui primary label">
           Description
-          <div class="ui icon mini button" data-content="A short description of the event. Include any relevant details. This will be sent out as part of an invitation" data-variation="basic">
+          <div class="ui icon mini button" data-content="A short description of the event. Include details like dress code, agenda, time of arrival. This will be sent out as part of an invitation" data-variation="basic">
               <i class="help icon"></i>
           </div>
         </label>
